@@ -1,7 +1,6 @@
 import fetchFavoritesMovies from '../api/fetchFavoritesMovies';
 
-import fetchGenresMovies from '../api/fetchGenresMovies';
-import arryGenres from './arryGenres';
+import arrayGenres from './arrayGenres';
 
 import preloader from './preloader';
 
@@ -11,7 +10,7 @@ const refs = {
 
 function getGenres(arrayId) {
   const arr = [];
-  for (const value of arryGenres) {
+  for (const value of arrayGenres) {
     if (arrayId.includes(value.id)) {
       arr.push(value.name);
     }
