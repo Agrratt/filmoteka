@@ -1,4 +1,5 @@
 import fetchFavoritesMovies from '../api/fetchFavoritesMovies';
+import preloader from './preloader'
 
 const refs = {
   gallery: document.querySelector('.list_film'),
@@ -26,5 +27,6 @@ function renderGallery(movies) {
 }
 
 fetchFavoritesMovies().then(data => {
+  preloader();
   refs.gallery.insertAdjacentHTML('beforeend', renderGallery(data.results));
 });
