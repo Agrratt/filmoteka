@@ -17,6 +17,9 @@ import fetchGenresMovies from './js/api/fetchGenresMovies';
 //======= Styles =======
 import './sass/main.scss';
 
+//======= Main =======
+import renderMain from './js/main/renderMain';
+
 const refs = {
   container: document.querySelector('.container'),
 };
