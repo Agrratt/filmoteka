@@ -68,6 +68,12 @@ img {
   text-decoration: none;
 }
 
+@media screen and (max-width: 767px) {
+  .list_film {
+    padding-top: 20px;
+  }
+}
+
 @media screen and (min-width: 768px) {
   .list_film {
     display: -webkit-box;
@@ -76,6 +82,7 @@ img {
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;
     margin: -15px;
+    padding-top: 60px;
   }
 }
 
