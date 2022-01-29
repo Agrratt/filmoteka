@@ -1,4 +1,4 @@
-import fetchSearchMovies from '../api/fetchSearchMovies';
+import fetchFavoritesMovies from '../api/fetchFavoritesMovies';
 
 const refs = {
   gallery: document.querySelector('.list_film'),
@@ -25,6 +25,6 @@ function renderGallery(movies) {
     .join('');
 }
 
-fetchSearchMovies('marvel').then(data => {
+fetchFavoritesMovies().then(data => {
   refs.gallery.insertAdjacentHTML('beforeend', renderGallery(data.results));
 });
