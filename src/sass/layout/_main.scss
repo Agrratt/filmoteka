@@ -11,6 +11,10 @@
   }
 }
 
+.list_film_image {
+  cursor: pointer;
+}
+
 .list_film_item {
   @media screen and (max-width: 767px) {
     &:not(:last-child) {

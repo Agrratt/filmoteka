@@ -3,8 +3,7 @@ import fetchFavoritesMovies from '../api/fetchFavoritesMovies';
 import fetchGenresMovies from '../api/fetchGenresMovies';
 import arryGenres from './arryGenres';
 
-import preloader from './preloader'
-
+import preloader from './preloader';
 
 const refs = {
   gallery: document.querySelector('.list_film'),
@@ -30,7 +29,7 @@ function renderGallery(movies) {
       const releaseYear = release_date.split('-')[0];
       return `
       <li class='list_film_item' id=${id}>
-        <img style = "border-radius: 5px" src='https://image.tmdb.org/t/p/w500${poster_path}' alt='Обложка фильма' loading='lazy' />
+        <img class="list_film_image" style = "border-radius: 5px" src='https://image.tmdb.org/t/p/w500${poster_path}' alt='Обложка фильма' loading='lazy' />
         <div class='info'>
             <p class='info-title'>
               <b>${title}</b>
