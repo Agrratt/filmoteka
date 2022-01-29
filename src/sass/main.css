@@ -99,6 +99,24 @@ img {
   }
 }
 
+.info {
+  margin-top: 10px;
+}
+
+.info-title {
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.info-date {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--accent-color);
+}
+
 :root {
   --primary-text-color: #000000;
   --second-text-color: #ffffff;

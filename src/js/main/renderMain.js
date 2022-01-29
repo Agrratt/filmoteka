@@ -10,12 +10,12 @@ function renderGallery(movies) {
       const releaseYear = release_date.split('-')[0];
       return `
       <li class='list_film_item' id=${id}>
-        <img src='https://image.tmdb.org/t/p/w500${poster_path}' alt='{{tags}}' loading='lazy' />
+        <img style = "border-radius: 5px" src='https://image.tmdb.org/t/p/w500${poster_path}' alt='Обложка фильма' loading='lazy' />
         <div class='info'>
-            <p class='info-item'>
+            <p class='info-title'>
               <b>${title}</b>
             </p>
-            <p class='info-item'>
+            <p class='info-date'>
               <span>${releaseYear}</span>
             </p>
         </div>
