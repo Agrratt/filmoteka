@@ -19,3 +19,4 @@ import './sass/main.scss';
 
 //======= Main =======
 import renderMain from './js/main/renderMain';
+import renderMainLibrary from './js/main/renderMainLibrary';

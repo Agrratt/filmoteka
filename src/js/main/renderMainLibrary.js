@@ -1,9 +1,7 @@
-import fetchFavoritesMovies from '../api/fetchFavoritesMovies';
-
 import refs from '../ollRefs/refs';
-
 import arrayGenres from './arrayGenres';
-
+import fetchSearchMovies from '../api/fetchSearchMovies';
+import fetchFavoritesMovies from '../api/fetchFavoritesMovies';
 import preloader from './preloader';
 
 function getGenres(arrayId) {
@@ -20,9 +18,9 @@ function getGenres(arrayId) {
   return arr.join(', ');
 }
 
-function renderGallery(movies) {
+function renderGalleryLibrary(movies) {
   return movies
-    .map(({ id, poster_path, title, release_date, genre_ids }) => {
+    .map(({ id, poster_path, title, release_date, genre_ids, vote_average }) => {
       const releaseYear = release_date.split('-')[0];
       return `
       <li class='list_film_item' id=${id}>
@@ -33,6 +31,7 @@ function renderGallery(movies) {
             </p>
             <p class='info-date'>
               <span>${getGenres(genre_ids)} | ${releaseYear}</span>
+              <span class="info-average">${vote_average}</span>
             </p>
         </div>
       </li>
@@ -41,23 +40,18 @@ function renderGallery(movies) {
     .join('');
 }
 
-fetchFavoritesMovies().then(data => {
-  preloader();
-  refs.gallery.insertAdjacentHTML('beforeend', renderGallery(data.results));
-});
-
-function returnToHome(e) {
+function onFatchLibarty(e) {
   e.preventDefault();
 
-  refs.home.classList.add('active');
-  refs.library.classList.remove('active');
+  refs.home.classList.remove('active');
+  refs.library.classList.add('active');
 
-  fetchFavoritesMovies().then(data => {
+  fetchSearchMovies('cars').then(data => {
     preloader();
 
     refs.gallery.innerHTML = '';
-    refs.gallery.insertAdjacentHTML('beforeend', renderGallery(data.results));
+    refs.gallery.insertAdjacentHTML('beforeend', renderGalleryLibrary(data.results));
   });
 }
 
-refs.home.addEventListener('click', returnToHome);
+refs.library.addEventListener('click', onFatchLibarty);
