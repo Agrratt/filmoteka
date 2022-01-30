@@ -1,0 +1,196 @@
+.header {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+    url(../images/header/main-mobile.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 230px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid #000000;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+  @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+      url(../images/header/main-mobile2.jpg);
+  }
+
+  @media screen and (min width: 320px) {
+    min-width: 320px;
+  }
+
+  @media screen and (min-width: 768px) {
+    min-width: 768px;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+      url(../images/header/main-tablet.jpg);
+
+    @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+        url(../images/header/main-tablet2.jpg);
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    min-width: 1024px;
+    max-width: 1600px;
+
+    background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+      url(../images/header/main-max.jpg);
+
+    @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+        url(../images/header/main-max2.jpg);
+    }
+  }
+}
+
+.header__box {
+  margin-left: 20px;
+  margin-right: 20px;
+
+  @media screen and (min-width: 768px) {
+    margin-left: 71px;
+    margin-right: 71px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    margin-left: 71px;
+    margin-right: 71px;
+  }
+}
+
+.header__navigate {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header__link {
+  display: flex;
+  text-decoration: none;
+}
+
+.header__logo--icon {
+  margin-top: 46px;
+}
+
+.header__logo--text {
+  display: none;
+
+  @media screen and (min-width: 768px) {
+    display: initial;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 35px;
+    color: var(--second-text-color);
+
+    margin-left: 10px;
+    margin-top: 41px;
+  }
+}
+
+.navigate__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-top: 58px;
+
+  display: flex;
+}
+
+.navigate__item {
+  position: relative;
+
+  &:not(:first-child) {
+    margin-left: 39px;
+  }
+}
+
+.navigate__link {
+  text-decoration: none;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  padding-bottom: 3px;
+  color: var(--second-text-color);
+  text-transform: uppercase;
+
+  display: block;
+  transition: color var(--duration) var(--timing-function);
+
+  &:hover,
+  &:focus {
+    // color: var(--accent-color);
+    color: #818181;
+  }
+}
+
+.active {
+  &::after {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    content: '';
+    display: block;
+    width: 100%;
+    height: 3px;
+    color: var(--accent-color);
+    background-color: var(--accent-color);
+  }
+}
+
+.form__search {
+  width: 280px;
+  margin-top: 43px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+  position: relative;
+
+  @media screen and (min-width: 768px) {
+    width: 336px;
+    margin-top: 37px;
+  }
+}
+
+.search__input {
+  background: transparent;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+
+  font-size: 14px;
+  line-height: 16px;
+  color: var(--second-text-color);
+  width: 100%;
+  border-bottom: 0.5px solid #fff;
+  height: 25px;
+}
+
+.search__input::placeholder {
+  color: var(--second-text-color);
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.search__button {
+  background: transparent;
+  border: none;
+  outline: none;
+  height: 25px;
+  width: 20px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+
+  &::before {
+    content: '\f002';
+    font-family: FontAwesome;
+    font-size: 12px;
+    color: var(--second-text-color);
+  }
+}
