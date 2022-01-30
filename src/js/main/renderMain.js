@@ -49,6 +49,10 @@ fetchFavoritesMovies().then(data => {
 function returnToHome(e) {
   e.preventDefault();
 
+  if (refs.home.classList.contains('active')) {
+    return;
+  }
+
   refs.home.classList.add('active');
   refs.library.classList.remove('active');
 

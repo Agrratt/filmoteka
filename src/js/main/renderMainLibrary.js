@@ -43,6 +43,10 @@ function renderGalleryLibrary(movies) {
 function onFatchLibarty(e) {
   e.preventDefault();
 
+  if (refs.library.classList.contains('active')) {
+    return;
+  }
+
   refs.home.classList.remove('active');
   refs.library.classList.add('active');
 
