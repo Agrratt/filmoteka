@@ -50,7 +50,7 @@ function onFatchLibarty(e) {
   refs.home.classList.remove('active');
   refs.library.classList.add('active');
 
-  fetchSearchMovies('cars').then(data => {
+  fetchSearchMovies('The Fast and the Furious;').then(data => {
     preloader();
 
     refs.gallery.innerHTML = '';
