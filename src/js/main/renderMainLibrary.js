@@ -27,11 +27,13 @@ function renderGalleryLibrary(movies) {
       for (const value of genres) {
         arrayId.push(value.id);
       }
-      const poster = poster_path ? poster_path : '/kqjL17yufvn9OVLyXYpvtyrFfak.jpg';
+      const poster = poster_path
+        ? `https://image.tmdb.org/t/p/w500${poster_path}`
+        : 'https://upload.wikimedia.org/wikipedia/commons/c/c2/No_image_poster.png';
       const releaseYear = release_date ? release_date.split('-')[0] : 'Unknown';
       return `
       <li class='list_film_item' id=${id}>
-        <img class="list_film_image" style = "border-radius: 5px" src='https://image.tmdb.org/t/p/w500${poster}' alt='Обложка фильма' loading='lazy' />
+        <img class="list_film_image" style = "border-radius: 5px" src=${poster} alt='Обложка фильма' loading='lazy' />
         <div class='info'>
             <p class='info-title'>
               <b>${title}</b>
