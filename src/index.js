@@ -20,20 +20,11 @@ import './sass/main.scss';
 //======= Main =======
 import renderMain from './js/main/renderMain';
 
-
-
-
-
-
-
-
-
-
 //========= Header ============
 import renderMarkupLibrary from './js/header/renderMarkupLibrary';
-=======
+
 // More info
-import more_info from "./js/more_info/more_info"
+import more_info from './js/more_info/more_info';
 
 const refs = {
   container: document.querySelector('.container'),
@@ -65,5 +56,4 @@ function renderGallery(movies) {
 }
 
 import renderMainLibrary from './js/main/renderMainLibrary';
-import searchFilms from './js/main/searchFilms'
-
+import searchFilms from './js/main/searchFilms';
