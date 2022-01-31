@@ -21,7 +21,11 @@ function getGenres(arrayId) {
 
 function renderGalleryLibrary(movies) {
   return movies
-    .map(({ id, poster_path, title, release_date, genre_ids, vote_average }) => {
+    .map(({ id, poster_path, title, release_date, genres, vote_average }) => {
+      let arrayId = [];
+      for (const value of genres) {
+        arrayId.push(value.id);
+      }
       const releaseYear = release_date.split('-')[0];
       return `
       <li class='list_film_item' id=${id}>
@@ -31,7 +35,7 @@ function renderGalleryLibrary(movies) {
               <b>${title}</b>
             </p>
             <p class='info-date'>
-              <span>${getGenres(genre_ids)} | ${releaseYear}</span>
+              <span>${getGenres(arrayId)} | ${releaseYear}</span>
               <span class="info-average">${vote_average}</span>
             </p>
         </div>
@@ -41,7 +45,7 @@ function renderGalleryLibrary(movies) {
     .join('');
 }
 
-function onFatchLibarty(e) {
+function onFetchLibrary(e) {
   e.preventDefault();
 
   if (refs.library.classList.contains('active')) {
@@ -52,11 +56,12 @@ function onFatchLibarty(e) {
   refs.library.classList.add('active');
 
   getWatchesFilms().then(data => {
+    const movies = Object.values(data);
     preloader();
 
     refs.gallery.innerHTML = '';
-    refs.gallery.insertAdjacentHTML('beforeend', renderGalleryLibrary(data.results));
+    refs.gallery.insertAdjacentHTML('beforeend', renderGalleryLibrary(movies));
   });
 }
 
-refs.library.addEventListener('click', onFatchLibarty);
+refs.library.addEventListener('click', onFetchLibrary);
