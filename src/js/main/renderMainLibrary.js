@@ -4,6 +4,7 @@ import getWatchesFilms from '../db/getWatchesFilms';
 import fetchSearchMovies from '../api/fetchSearchMovies';
 import fetchFavoritesMovies from '../api/fetchFavoritesMovies';
 import preloader from './preloader';
+import Notiflix from 'notiflix';
 
 function getGenres(arrayId) {
   const arr = [];
@@ -59,10 +60,7 @@ function onFetchLibrary(e) {
   getWatchesFilms().then(data => {
     if (!data) {
       refs.gallery.innerHTML = '';
-      return refs.gallery.insertAdjacentHTML(
-        'beforebegin',
-        '<p style="text-align:center; margin-top:100px">Data missing</p>',
-      );
+      Notiflix.Notify.info('Data missing');
     }
     const movies = Object.values(data);
     preloader();
