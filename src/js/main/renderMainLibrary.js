@@ -1,5 +1,6 @@
 import refs from '../ollRefs/refs';
 import arrayGenres from './arrayGenres';
+import getWatchesFilms from '../db/getWatchesFilms';
 import fetchSearchMovies from '../api/fetchSearchMovies';
 import fetchFavoritesMovies from '../api/fetchFavoritesMovies';
 import preloader from './preloader';
@@ -50,7 +51,7 @@ function onFatchLibarty(e) {
   refs.home.classList.remove('active');
   refs.library.classList.add('active');
 
-  fetchSearchMovies('The Fast and the Furious;').then(data => {
+  getWatchesFilms().then(data => {
     preloader();
 
     refs.gallery.innerHTML = '';
