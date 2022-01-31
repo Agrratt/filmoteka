@@ -24,12 +24,16 @@ function renderGalleryLibrary(movies) {
   return movies
     .map(({ id, poster_path, title, release_date, genres, vote_average }) => {
       let arrayId = [];
-      for (const value of genres) {
-        arrayId.push(value.id);
+      let checkGenres = 'Unknown';
+      if (genres) {
+        for (const value of genres) {
+          arrayId.push(value.id);
+        }
+        checkGenres = getGenres(arrayId);
       }
       const poster = poster_path
         ? `https://image.tmdb.org/t/p/w500${poster_path}`
-        : 'https://upload.wikimedia.org/wikipedia/commons/c/c2/No_image_poster.png';
+        : 'https://db4films.com/assets/img/cover.jpg';
       const releaseYear = release_date ? release_date.split('-')[0] : 'Unknown';
       return `
       <li class='list_film_item' id=${id}>
@@ -39,7 +43,7 @@ function renderGalleryLibrary(movies) {
               <b>${title}</b>
             </p>
             <p class='info-date'>
-              <span>${getGenres(arrayId)} | ${releaseYear}</span>
+              <span>${checkGenres} | ${releaseYear}</span>
               <span class="info-average">${vote_average}</span>
             </p>
         </div>
