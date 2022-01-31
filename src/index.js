@@ -20,6 +20,9 @@ import './sass/main.scss';
 //======= Main =======
 import renderMain from './js/main/renderMain';
 
+// More info
+import more_info from "./js/more_info/more_info"
+
 const refs = {
   container: document.querySelector('.container'),
 };
