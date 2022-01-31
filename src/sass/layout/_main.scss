@@ -1,9 +1,18 @@
 .list_film {
+  @media screen and (max-width: 767px) {
+    padding-top: 20px;
+  }
+
   @media screen and (min-width: 768px) {
     display: flex;
     flex-wrap: wrap;
     margin: -15px;
+    padding-top: 60px;
   }
+}
+
+.list_film_image {
+  cursor: pointer;
 }
 
 .list_film_item {
@@ -21,4 +30,33 @@
     margin: 15px;
     width: calc((100% - 6 * 15px) / 3);
   }
+}
+
+.info {
+  margin-top: 10px;
+}
+
+.info-title {
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.info-date {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--accent-color);
+}
+
+.info-average {
+  margin-left: 10px;
+  width: 36px;
+  height: 16px;
+  background-color: #ff6b01;
+  color: #ffffff;
+  border-radius: 5px;
+  display: inline-block;
+  text-align: center;
 }

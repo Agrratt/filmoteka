@@ -1,11 +1,11 @@
 //======= DB Firebase =======
-import getFavoritesFilms from './js/db/getFavoritesFilms';
+import getWatchesFilms from './js/db/getWatchesFilms';
 import getQueuesFilms from './js/db/getQueuesFilms';
-import removeAllFavoritesFilms from './js/db/removeAllFavoritesFilms';
+import removeAllWatchesFilms from './js/db/removeAllWatchesFilms';
 import removeAllQueuesFilms from './js/db/removeAllQueuesFilms';
-import removeFavoriteFilm from './js/db/removeFavoriteFilm';
+import removeWatchedFilm from './js/db/removeWatchedFilm';
 import removeQueueFilm from './js/db/removeQueueFilm';
-import setFavoriteFilm from './js/db/setFavoriteFilm';
+import setWatchedFilm from './js/db/setWatchedFilm';
 import setQueueFilm from './js/db/setQueueFilm';
 
 //======= API Service =======
@@ -19,6 +19,7 @@ import './sass/main.scss';
 
 //======= Main =======
 import renderMain from './js/main/renderMain';
+
 
 // More info
 import more_info from "./js/more_info/more_info"
@@ -51,3 +52,7 @@ function renderGallery(movies) {
     })
     .join('');
 }
+
+import renderMainLibrary from './js/main/renderMainLibrary';
+import searchFilms from './js/main/searchFilms'
+

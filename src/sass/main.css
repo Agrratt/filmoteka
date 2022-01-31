@@ -68,6 +68,12 @@ img {
   text-decoration: none;
 }
 
+@media screen and (max-width: 767px) {
+  .list_film {
+    padding-top: 20px;
+  }
+}
+
 @media screen and (min-width: 768px) {
   .list_film {
     display: -webkit-box;
@@ -76,6 +82,7 @@ img {
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;
     margin: -15px;
+    padding-top: 60px;
   }
 }
 
@@ -97,6 +104,24 @@ img {
     margin: 15px;
     width: calc((100% - 6 * 15px) / 3);
   }
+}
+
+.info {
+  margin-top: 10px;
+}
+
+.info-title {
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.info-date {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--accent-color);
 }
 
 :root {
