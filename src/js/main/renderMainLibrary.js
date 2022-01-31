@@ -1,10 +1,10 @@
-import fetchFavoritesMovies from '../api/fetchFavoritesMovies';
-
 import refs from '../ollRefs/refs';
-
 import arrayGenres from './arrayGenres';
-
+import getWatchesFilms from '../db/getWatchesFilms';
+import fetchSearchMovies from '../api/fetchSearchMovies';
+import fetchFavoritesMovies from '../api/fetchFavoritesMovies';
 import preloader from './preloader';
+import Notiflix from 'notiflix';
 
 function getGenres(arrayId) {
   const arr = [];
@@ -20,9 +20,13 @@ function getGenres(arrayId) {
   return arr.join(', ');
 }
 
-export function renderGallery(movies) {
+function renderGalleryLibrary(movies) {
   return movies
-    .map(({ id, poster_path, title, release_date, genre_ids }) => {
+    .map(({ id, poster_path, title, release_date, genres, vote_average }) => {
+      let arrayId = [];
+      for (const value of genres) {
+        arrayId.push(value.id);
+      }
       const poster = poster_path
         ? `https://image.tmdb.org/t/p/w500${poster_path}`
         : 'https://upload.wikimedia.org/wikipedia/commons/c/c2/No_image_poster.png';
@@ -35,7 +39,8 @@ export function renderGallery(movies) {
               <b>${title}</b>
             </p>
             <p class='info-date'>
-              <span>${getGenres(genre_ids)} | ${releaseYear}</span>
+              <span>${getGenres(arrayId)} | ${releaseYear}</span>
+              <span class="info-average">${vote_average}</span>
             </p>
         </div>
       </li>
@@ -44,27 +49,27 @@ export function renderGallery(movies) {
     .join('');
 }
 
-fetchFavoritesMovies().then(data => {
-  preloader();
-  refs.gallery.insertAdjacentHTML('beforeend', renderGallery(data.results));
-});
-
-function returnToHome(e) {
+function onFetchLibrary(e) {
   e.preventDefault();
 
-  if (refs.home.classList.contains('active')) {
+  if (refs.library.classList.contains('active')) {
     return;
   }
 
-  refs.home.classList.add('active');
-  refs.library.classList.remove('active');
+  refs.home.classList.remove('active');
+  refs.library.classList.add('active');
 
-  fetchFavoritesMovies().then(data => {
+  getWatchesFilms().then(data => {
+    if (!data) {
+      refs.gallery.innerHTML = '';
+      Notiflix.Notify.info('Library of watched films is empty');
+    }
+    const movies = Object.values(data);
     preloader();
 
     refs.gallery.innerHTML = '';
-    refs.gallery.insertAdjacentHTML('beforeend', renderGallery(data.results));
+    refs.gallery.insertAdjacentHTML('beforeend', renderGalleryLibrary(movies));
   });
 }
 
-refs.home.addEventListener('click', returnToHome);
+refs.library.addEventListener('click', onFetchLibrary);
