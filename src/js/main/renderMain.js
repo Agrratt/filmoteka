@@ -20,7 +20,7 @@ function getGenres(arrayId) {
   return arr.join(', ');
 }
 
-function renderGallery(movies) {
+export function renderGallery(movies) {
   return movies
     .map(({ id, poster_path, title, release_date, genre_ids }) => {
       const releaseYear = release_date.split('-')[0];
