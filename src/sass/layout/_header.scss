@@ -43,18 +43,48 @@
   }
 }
 
-.header__box {
-  margin-left: 20px;
-  margin-right: 20px;
+.header__library {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+    url(../images/header/library-mobile.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 230px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid #000000;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+  @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+      url(../images/header/library-mobile2.jpg);
+  }
+
+  @media screen and (min width: 320px) {
+    min-width: 320px;
+  }
 
   @media screen and (min-width: 768px) {
-    margin-left: 71px;
-    margin-right: 71px;
+    min-width: 768px;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+      url(../images/header/library-tablet.jpg);
+
+    @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+        url(../images/header/library-tablet2.jpg);
+    }
   }
 
   @media screen and (min-width: 1024px) {
-    margin-left: 71px;
-    margin-right: 71px;
+    min-width: 1024px;
+    max-width: 1600px;
+
+    background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+      url(../images/header/library-max.jpg);
+
+    @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+        url(../images/header/library-max2.jpg);
+    }
   }
 }
 
@@ -193,4 +223,44 @@
     font-size: 12px;
     color: var(--second-text-color);
   }
+}
+
+.is-hidden {
+  display: none;
+}
+
+.library__button-box {
+  margin-top: 45px;
+  width: 100%;
+  text-align: center;
+}
+
+.library__button {
+  width: 130px;
+  height: 44px;
+  border: 1px solid #ffffff;
+  border-radius: 5px;
+  background: transparent;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--second-text-color);
+
+  @media screen and (min-width: 768px) {
+    width: 136px;
+  }
+
+  &:not(:first-child) {
+    margin-left: 20px;
+
+    @media screen and (min-width: 768px) {
+      margin-left: 15px;
+    }
+  }
+}
+
+.button__active {
+  background: var(--accent-color);
+  border: var(--accent-color);
 }
