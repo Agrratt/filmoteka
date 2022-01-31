@@ -60,7 +60,7 @@ function onFetchLibrary(e) {
   getWatchesFilms().then(data => {
     if (!data) {
       refs.gallery.innerHTML = '';
-      Notiflix.Notify.info('Data missing');
+      Notiflix.Notify.info('Library of watched films is empty');
     }
     const movies = Object.values(data);
     preloader();
