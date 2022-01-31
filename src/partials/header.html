@@ -1,5 +1,5 @@
 <header class="header">
-    <div class="header__box">
+    <div class="container">
         <div class="header__navigate">
             <a class="header__link" href="">
                 <div class="header__logo">
@@ -14,10 +14,10 @@
                 <nav class="navigate__menu">
                     <ul class="navigate__list">
                         <li class="navigate__item">
-                            <a class="navigate__link header__home active" href="">home</a>
+                            <a class="navigate__link header__home home active" href="">home</a>
                         </li>
                         <li class="navigate__item">
-                            <a class="navigate__link" href="">my library</a>
+                            <a class="navigate__link library" href="">my library</a>
                         </li>
                     </ul>
                 </nav>
@@ -29,8 +29,11 @@
             <input class="search__input" type="text" placeholder="Поиск фильмов">
             <button class="search__button" type="submit"></button>
         </form>
+
+        <div class="library__button-box is-hidden">
+            <button class="library__button button__active" type="button">watched</button>
+            <button class="library__button" type="button">queue</button>
+        </div>
+
     </div>
-
-        
-
 </header>
