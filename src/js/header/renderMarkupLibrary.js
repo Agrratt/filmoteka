@@ -18,6 +18,3 @@ refs.libraryLink.onclick = function markupLibrary(e) {
     refs.libraryButtonBox.classList.remove('is-hidden');
     refs.formSearch.classList.toggle('is-hidden');
 };
-
-
-
