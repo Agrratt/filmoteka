@@ -1,0 +1,38 @@
+.search-helper {
+  margin-left: auto;
+  margin-right: auto;
+  background-color: var(--footer-bg-color);
+  max-width: 400px;
+}
+
+.helper__item {
+  // max-height: 40px;
+  display: flex;
+  border-top: 0.5px solid rgb(236, 228, 228);
+  padding-left: 0px;
+  cursor: pointer;
+}
+
+.helper__image {
+  margin-right: 7px;
+}
+
+.helper__title {
+  font-size: 13px;
+  margin-right: 7px;
+}
+
+.helper__year {
+  margin-right: 7px;
+}
+
+.helper__vote {
+  color: var(--accent-color);
+}
+
+.helper__item:hover,
+.helper__item:focus {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px,
+    #d5d8d63d 0 3px 0 inset;
+  transform: translateY(-1px);
+}
