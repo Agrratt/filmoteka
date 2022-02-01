@@ -1,20 +1,25 @@
 const refs = {
-    libraryLink: document.querySelector('.library'),
-    libraryContainer: document.querySelector('.header'),
-    homeContainer: document.querySelector('.home'),
+    libraryLink: document.querySelector('.page__library'),
+    homeLink: document.querySelector('.page__home'),
+    headerContainer: document.querySelector('.header'),
     libraryButtonBox: document.querySelector('.library__button-box'),
     formSearch: document.querySelector('.form__search')
 };
 
 
+refs.libraryLink.addEventListener('click', renderMarkupLibrary);
 
-refs.libraryLink.onclick = function markupLibrary(e) {
+export default function renderMarkupLibrary(e) {
     e.preventDefault();
-    refs.libraryContainer.classList.remove('header')
-    refs.libraryContainer.classList.toggle('header__library');
-    refs.homeContainer.classList.remove('active');
-    refs.libraryLink.classList.toggle('active');
-    
-    refs.libraryButtonBox.classList.remove('is-hidden');
-    refs.formSearch.classList.toggle('is-hidden');
-};
+    if (!refs.libraryLink.classList.contains('active')) {
+        refs.headerContainer.classList.remove('header')
+        refs.headerContainer.classList.add('header__library');
+
+        refs.libraryLink.classList.add('active');
+        refs.homeLink.classList.remove('active');
+
+        refs.libraryButtonBox.classList.remove('is-hidden');
+        refs.formSearch.classList.add('is-hidden');
+    }
+}
+

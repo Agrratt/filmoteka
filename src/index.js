@@ -22,7 +22,7 @@ import renderMain from './js/main/renderMain';
 
 //========= Header ============
 import renderMarkupLibrary from './js/header/renderMarkupLibrary';
-
+import renderMarkupHome from './js/header/renderMarkupHome';
 // More info
 import more_info from './js/more_info/more_info';
 
