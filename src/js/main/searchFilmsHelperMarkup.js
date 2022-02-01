@@ -1,8 +1,7 @@
-
-export function htmlMarkupFilmsSerchHelper(id, poster_path, title, releaseYear, vote_average) {
+export function htmlMarkupFilmsSerchHelper(id, poster, title, releaseYear, vote_average) {
     return `
     <li class='helper__item' id=${id}>
-        <img class="helper__image" id=${id} src='https://image.tmdb.org/t/p/w500${poster_path || []}' alt='poster' width="18px" height="22px" />
+        <img class="helper__image" id=${id} src='${poster}' alt='poster' width="18px" height="22px" />
             <p class='helper__title' id=${id}>
             <b id=${id}>${title}</b>
             </p>

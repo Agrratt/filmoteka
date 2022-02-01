@@ -68,4 +68,4 @@ function returnToHome(e) {
   });
 }
 
-refs.home.addEventListener('click', returnToHome);
+// refs.home.addEventListener('click', returnToHome);
