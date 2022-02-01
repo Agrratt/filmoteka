@@ -1,15 +1,24 @@
 // ================== make imports ==================
+// import { onCardClick } from '../more_info/more_info';
+import arrayGenres from './arrayGenres';
 import debounce from 'lodash.debounce';
 import refs from '../ollRefs/refs';
 import preloader from '../main/preloader';
 import fetchSearchMovies from '../api/fetchSearchMovies';
 import fetchDetailsMovie from '../api/fetchDetailsMovie';
 import { htmlMarkupFilmsSerchHelper } from '../main/searchFilmsHelperMarkup';
-import arrayGenres from './arrayGenres';
 import { renderGallery } from '../main/renderMain';
-import {onCardClick} from '../more_info/more_info'
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
+
+// ================== db imports ==================
+import getWatchesFilms from '../db/getWatchesFilms';
+import getQueuesFilms from '../db/getQueuesFilms';
+import setWatchedFilm from '../db/setWatchedFilm';
+import setQueueFilm from '../db/setQueueFilm';
+import removeWatchedFilm from '../db/removeWatchedFilm';
+import removeQueueFilm from '../db/removeQueueFilm';
+// import Notiflix from 'notiflix';
 // ================== debouce ==================
 const DEBOUNCE_DELAY = 500;
 
@@ -117,23 +126,36 @@ function onSubmit(e) {
     })
 };
 
-// ================== make modal ==================
+// ================== make modal refs ==================
 const modalRefs = {
-    gallary: document.querySelector(".list_film"),
-    backdrop: document.querySelector(".backdrop"),
-    closeBtn: document.querySelector(".close__button"),
-    body: document.querySelector("body"),
-    movieTitle: document.querySelector(".detail__film__title"),
-    detailImg: document.querySelector(".detail__img"),
-    vote_average: document.querySelector(".detail__item__info__value__rating"),
-    vote_count: document.querySelector(".detail__item__info__value__votes"),
-    popularity: document.querySelector(".popularity"),
-    originalTitle: document.querySelector(".original__title"),
-    overview: document.querySelector(".detail__about__text"),
-    genres: document.querySelector(".genres")
+    gallary: document.querySelector('.list_film'),
+    backdrop: document.querySelector('.backdrop'),
+    closeBtn: document.querySelector('.close__button'),
+    body: document.querySelector('body'),
+    movieTitle: document.querySelector('.detail__film__title'),
+    detailImg: document.querySelector('.detail__img'),
+    vote_average: document.querySelector('.detail__item__info__value__rating'),
+    vote_count: document.querySelector('.detail__item__info__value__votes'),
+    popularity: document.querySelector('.popularity'),
+    originalTitle: document.querySelector('.original__title'),
+    overview: document.querySelector('.detail__about__text'),
+    genres: document.querySelector('.genres'),
+
+    btnWatched: document.querySelector('.watched'),
+    btnQueue: document.querySelector('.queue'),
+    spanWatched: document.querySelector('.span-watched'),
+    spanQueue: document.querySelector('.span-queue'),
+    spanWatchedAdd: document.querySelector('.span-watched_add'),
+    spanQueueAdd: document.querySelector('.span-queue_add'),
+    buttonBlock: document.querySelector('.detail__buttons_block'),
 };
 
 // ==================  open film with helper ==================
+
+// modalRefs.gallary.addEventListener('click', onCardClick);
+// modalRefs.btnWatched.addEventListener('click', onSetWatched);
+// modalRefs.btnQueue.addEventListener('click', onSetQueue);
+
 function onSearchLine(e) {
     const cardItemId = e.target.id
     
@@ -160,18 +182,184 @@ function onSearchLine(e) {
     fetchDetailsMovie(cardItemId).then((result) => {
         modalRefs.movieTitle.textContent = result.title;
         modalRefs.detailImg.src = result.poster_path
-        ? `https://image.tmdb.org/t/p/w500${result.poster_path}`
-        : 'https://upload.wikimedia.org/wikipedia/commons/c/c2/No_image_poster.png';
+            ? `https://image.tmdb.org/t/p/w500${result.poster_path}`
+            : 'https://upload.wikimedia.org/wikipedia/commons/c/c2/No_image_poster.png';
         modalRefs.vote_average.textContent = result.vote_average;
         modalRefs.vote_count.textContent = result.vote_count;
         modalRefs.popularity.textContent = result.popularity.toFixed(2);
         modalRefs.originalTitle.textContent = result.original_title;
         modalRefs.overview.textContent = result.overview;
+        modalRefs.buttonBlock.id = cardItemId;
+
         const genresNewMassive = result.genres ? result.genres : "Unknown";
         const genres = genresNewMassive.map(genre => genre.name);
         modalRefs.genres.textContent = genres.join(", ");
-    })
 
-    refs.searchHelper.innerHTML = ''
-};
+        refs.searchHelper.innerHTML = ''
+    });
+
+    getWatchesFilms().then(dataDb => {
+        if (dataDb) {
+            const keys = Object.keys(dataDb);
+            for (const key of keys) {
+        if (dataDb[key].id === Number(cardItemId)) {
+            modalRefs.spanWatched.textContent = 'REMOVE';
+            modalRefs.spanWatchedAdd.textContent = 'FROM';
+            modalRefs.btnWatched.classList.add('detail__button--active');
+            modalRefs.btnWatched.classList.remove('detail__button--disable');
+        return;
+        }
+    }
+        modalRefs.spanWatched.textContent = 'ADD';
+        modalRefs.spanWatchedAdd.textContent = 'TO';
+        modalRefs.btnWatched.classList.remove('detail__button--active');
+        modalRefs.btnWatched.classList.add('detail__button--disable');
+    } else {
+        modalRefs.spanWatched.textContent = 'ADD';
+        modalRefs.spanWatchedAdd.textContent = 'TO';
+        modalRefs.btnWatched.classList.remove('detail__button--active');
+        modalRefs.btnWatched.classList.add('detail__button--disable');
+    }
+});
+    getQueuesFilms().then(dataDb => {
+    if (dataDb) {
+    const keys = Object.keys(dataDb);
+        for (const key of keys) {
+        if (dataDb[key].id === Number(cardItemId)) {
+            modalRefs.spanQueue.textContent = 'REMOVE';
+            modalRefs.spanQueueAdd.textContent = 'FROM';
+            modalRefs.btnQueue.classList.add('detail__button--active');
+            modalRefs.btnQueue.classList.remove('detail__button--disable');
+        return;
+        }
+    }
+        modalRefs.spanQueue.textContent = 'ADD';
+        modalRefs.spanQueueAdd.textContent = 'TO';
+        modalRefs.btnQueue.classList.remove('detail__button--active');
+        modalRefs.btnQueue.classList.add('detail__button--disable');
+    } else {
+        modalRefs.spanQueue.textContent = 'ADD';
+        modalRefs.spanQueueAdd.textContent = 'TO';
+        modalRefs.btnQueue.classList.remove('detail__button--active');
+        modalRefs.btnQueue.classList.add('detail__button--disable');
+    }
+});
+}
+
+// function onSetWatched(e) {
+//     if (!e.currentTarget.classList.contains('watched')) {
+//     return;
+//     }
+
+//     const id = e.currentTarget.parentNode.id;
+//     console.log(e.currentTarget.parentNode);
+//     console.log(id);
+
+//     fetchDetailsMovie(id).then(data => {
+//     getWatchesFilms().then(dataDb => {
+//         if (dataDb) {
+//         const keys = Object.keys(dataDb);
+//         for (const key of keys) {
+//             if (dataDb[key].id === Number(id)) {
+//             removeWatchedFilm(key);
+//             modalRefs.spanWatched.textContent = 'ADD';
+//             modalRefs.spanWatchedAdd.textContent = 'TO';
+//             modalRefs.btnWatched.classList.remove('detail__button--active');
+//             modalRefs.btnWatched.classList.add('detail__button--disable');
+//             Notiflix.Notify.failure(`${dataDb[key].title} remove from watched films`);
+//             return;
+//             }
+//         }
+//         setWatchedFilm(data);
+//         modalRefs.spanWatched.textContent = 'REMOVE';
+//         modalRefs.spanWatchedAdd.textContent = 'FROM';
+//         modalRefs.btnWatched.classList.add('detail__button--active');
+//         modalRefs.btnWatched.classList.remove('detail__button--disable');
+//         Notiflix.Notify.success(`${data.title} add to watched films`);
+//         } else {
+//         setWatchedFilm(data);
+//         modalRefs.spanWatched.textContent = 'REMOVE';
+//         modalRefs.spanWatchedAdd.textContent = 'FROM';
+//         modalRefs.btnWatched.classList.add('detail__button--active');
+//         modalRefs.btnWatched.classList.remove('detail__button--disable');
+//         Notiflix.Notify.success(`${data.title} add to watched films`);
+//       }
+//     });
+//     getQueuesFilms().then(r => {
+//       if (!r) {
+//         return;
+//       } else {
+//         const keys = Object.keys(r);
+//         for (const key of keys) {
+//           if (r[key].id === Number(id)) {
+//             removeQueueFilm(key);
+//             modalRefs.spanQueue.textContent = 'ADD';
+//             modalRefs.spanQueueAdd.textContent = 'TO';
+//             modalRefs.btnQueue.classList.remove('detail__button--active');
+//             modalRefs.btnQueue.classList.add('detail__button--disable');
+//             Notiflix.Notify.failure(`${r[key].title} remove from queue films`);
+//           }
+//         }
+//       }
+//     });
+//   });
+// }
+
+// function onSetQueue(e) {
+//     if (!e.currentTarget.classList.contains('queue')) {
+//     return;
+//     }
+//     const id = e.currentTarget.parentNode.id;
+//     fetchDetailsMovie(id).then(data => {
+//     getQueuesFilms().then(dataDb => {
+//         if (dataDb) {
+//         const keys = Object.keys(dataDb);
+//         for (const key of keys) {
+//         if (dataDb[key].id === Number(id)) {
+//             removeQueueFilm(key);
+//             modalRefs.spanQueue.textContent = 'ADD';
+//             modalRefs.spanQueueAdd.textContent = 'TO';
+//             modalRefs.btnQueue.classList.remove('detail__button--active');
+//             modalRefs.btnQueue.classList.add('detail__button--disable');
+//             Notiflix.Notify.failure(`${dataDb[key].title} remove from queue films`);
+//             return;
+//         }
+//         }
+//         setQueueFilm(data);
+//         modalRefs.spanQueue.textContent = 'REMOVE';
+//         modalRefs.spanQueueAdd.textContent = 'FROM';
+//         modalRefs.btnQueue.classList.add('detail__button--active');
+//         modalRefs.btnQueue.classList.remove('detail__button--disable');
+//         Notiflix.Notify.success(`${data.title} add to queue films`);
+//     } else {
+//         setQueueFilm(data);
+//         modalRefs.spanQueue.textContent = 'REMOVE';
+//         modalRefs.spanQueueAdd.textContent = 'FROM';
+//         modalRefs.btnQueue.classList.add('detail__button--active');
+//         modalRefs.btnQueue.classList.remove('detail__button--disable');
+//         Notiflix.Notify.success(`${data.title} add to queue films`);
+//     }
+//     });
+
+//     getWatchesFilms().then(r => {
+//     if (!r) {
+//         return;
+//     } else {
+//         const keys = Object.keys(r);
+//         for (const key of keys) {
+//         if (r[key].id === Number(id)) {
+//             removeWatchedFilm(key);
+//             modalRefs.spanWatched.textContent = 'ADD';
+//             modalRefs.spanWatchedAdd.textContent = 'TO';
+//             modalRefs.btnWatched.classList.remove('detail__button--active');
+//             modalRefs.btnWatched.classList.add('detail__button--disable');
+//             Notiflix.Notify.failure(`${r[key].title} remove from watched films`);
+//         }
+//         }
+//     }
+//     });
+//         });
+
+//     refs.searchHelper.innerHTML = ''
+// };
 
