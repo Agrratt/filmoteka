@@ -1,6 +1,7 @@
 // ================== make imports ==================
 import debounce from 'lodash.debounce';
 import refs from '../ollRefs/refs';
+import preloader from '../main/preloader';
 import fetchSearchMovies from '../api/fetchSearchMovies';
 import fetchDetailsMovie from '../api/fetchDetailsMovie';
 import { htmlMarkupFilmsSerchHelper } from '../main/searchFilmsHelperMarkup';
@@ -21,7 +22,7 @@ distance: '145px',
 opacity: 0.95,
 borderRadius: '5px',
 rtl: false,
-timeout: 2000,
+timeout: 1000,
 messageMaxLength: 110,
 backOverlay: false,
 backOverlayColor: 'rgba(0,0,0,0.9)',
@@ -46,6 +47,10 @@ refs.searchHelper.addEventListener('click', onSearchLine);
 function onInput(e) {
     e.preventDefault();
     refs.searchHelper.innerHTML = ''
+    
+    refs.searchHelper.insertAdjacentHTML('beforeend', preloader());
+    const spinnerRef = document.querySelector('.refreshing-loader-wrapper');
+    spinnerRef.style.display = "flex"
     const searchValue = e.target.value.trim();
 
     document.addEventListener('click', onDocumement);
@@ -57,6 +62,7 @@ function onInput(e) {
 
     if (!searchValue) {
         Notify.info('Start typing the movie name');
+        spinnerRef.style.display = "none"
         return
     }
     
@@ -68,7 +74,12 @@ function onInput(e) {
         const sortByVoteResults = serchResults.sort(
             (firsrtFilm, secondFilm) => secondFilm.vote_average - firsrtFilm.vote_average 
         )
-        searchHelper = sortByVoteResults.slice(0,5)
+        searchHelper = sortByVoteResults.slice(0, 5);
+
+        if (serchResults.length === 0) {
+            spinnerRef.style.display = "none";
+            Notify.failure("oops, we didn't find anything...");
+        }
         // console.log(searchHelper)
         searchHelper.map(({ id, poster_path, title, release_date, vote_average }) =>{
             const releaseYear = release_date ? release_date.split('-')[0] : 'Unknown';
@@ -77,7 +88,8 @@ function onInput(e) {
             : 'https://upload.wikimedia.org/wikipedia/commons/c/c2/No_image_poster.png';
             
             refs.searchHelper.insertAdjacentHTML(
-            'beforeend', htmlMarkupFilmsSerchHelper(id, poster, title, releaseYear, vote_average)) 
+                'beforeend', htmlMarkupFilmsSerchHelper(id, poster, title, releaseYear, vote_average))
+            spinnerRef.style.display = "none"
         })
     })
     
