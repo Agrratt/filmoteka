@@ -57,8 +57,6 @@ function renderGalleryLibrary(movies) {
 function onFetchLibraryWatched(e) {
   e.preventDefault();
 
-  refs.home.classList.remove('active');
-  refs.library.classList.add('active');
   refs.btnWatched.classList.add('button__active');
   refs.btnQueue.classList.remove('button__active');
 

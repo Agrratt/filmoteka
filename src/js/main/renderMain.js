@@ -20,7 +20,7 @@ function getGenres(arrayId) {
   return arr.join(', ');
 }
 
-export function renderGallery(movies) {
+function renderGallery(movies) {
   return movies
     .map(({ id, poster_path, title, release_date, genre_ids }) => {
       const poster = poster_path
@@ -50,22 +50,4 @@ fetchFavoritesMovies().then(data => {
   refs.gallery.insertAdjacentHTML('beforeend', renderGallery(data.results));
 });
 
-function returnToHome(e) {
-  e.preventDefault();
-
-  if (refs.home.classList.contains('active')) {
-    return;
-  }
-
-  refs.home.classList.add('active');
-  refs.library.classList.remove('active');
-
-  fetchFavoritesMovies().then(data => {
-    preloader();
-
-    refs.gallery.innerHTML = '';
-    refs.gallery.insertAdjacentHTML('beforeend', renderGallery(data.results));
-  });
-}
-
-// refs.home.addEventListener('click', returnToHome);
+export { arrayGenres, renderGallery };
