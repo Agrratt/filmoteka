@@ -30,7 +30,7 @@
 
 .modal {
   width: 100%;
-  padding: 48px 20px 20px 20px;
+  padding: 10px 20px 40px 20px;
 
   position: absolute;
   top: 50%;
@@ -45,28 +45,38 @@
 }
 
 .close__button {
-  position: absolute;
+  position: sticky;
   cursor: pointer;
 
-  right: 8px;
-  top: 8px;
+  left: 396px;
+  top: 1px;
 
   display: flex;
   width: 30px;
   height: 30px;
   border: none;
-  background-color: white;
+  background-color: transparent;
 
   justify-content: center;
   align-items: center;
+  margin-bottom: 8px;
 }
 
 .close__icon {
-  fill: black;
+  fill: rgba(56, 56, 56, 0.884);
+}
+
+@media screen and (min-width: 768px) {
+  .close__button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    left: auto;
+    margin-bottom: 0;
+  }
 }
 
 .detail-img {
-  background-color: aqua;
   margin-left: auto;
   margin-right: auto;
   width: 100%;
@@ -79,9 +89,11 @@
   overflow: hidden;
 }
 
-.detail__film__title {
+.detail__info__block {
   margin-top: 30px;
+}
 
+.detail__film__title {
   font-family: Roboto;
   font-style: normal;
   font-weight: 500;
@@ -157,7 +169,6 @@
   display: flex;
   margin-top: 20px;
   justify-content: space-between;
-  margin-bottom: 20px;
 }
 
 .detail__button {
@@ -198,4 +209,76 @@ td {
 
 tr {
   height: 21px;
+}
+
+@media screen and (min-width: 768px) {
+  .modal {
+    width: 618px;
+    display: flex;
+    justify-content: space-between;
+    padding: 40px 30px;
+  }
+
+  .detail-img {
+    width: 264px;
+  }
+
+  .detail__image__block {
+    border-radius: 5px;
+    overflow: hidden;
+    width: 264px;
+  }
+
+  .detail__info__block {
+    width: 264px;
+  }
+
+  .detail__button {
+    width: 125px;
+  }
+
+  .detail__info__block {
+    margin-top: 0;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .detail__film__title {
+    font-size: 30px;
+    line-height: 1.17;
+  }
+
+  .modal {
+    width: 882px;
+    padding: 50px 30px 40px 30px;
+  }
+
+  .detail__image__block {
+    width: 396px;
+  }
+
+  .detail__info__block {
+    width: 396px;
+  }
+
+  .detail__buttons_block {
+    justify-content: left;
+  }
+
+  .detail__button:last-child {
+    margin-left: 15px;
+  }
+
+  td {
+    width: 30%;
+    overflow: hidden;
+  }
+
+  table {
+    width: auto;
+  }
+
+  tbody {
+    width: 396px;
+  }
 }
