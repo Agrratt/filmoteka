@@ -49,16 +49,17 @@ function onCardClick(e) {
     // modal events ----------------------------
 
     fetchDetailsMovie(cardItemId).then((result) => {
-        console.log(result);
         refs.movieTitle.textContent = result.title;
-        refs.detailImg.src = `https://image.tmdb.org/t/p/w500${result.poster_path}`;
+        refs.detailImg.src = result.poster_path
+        ? `https://image.tmdb.org/t/p/w500${result.poster_path}`
+        : 'https://upload.wikimedia.org/wikipedia/commons/c/c2/No_image_poster.png';
         refs.vote_average.textContent = result.vote_average;
         refs.vote_count.textContent = result.vote_count;
         refs.popularity.textContent = result.popularity.toFixed(2);
         refs.originalTitle.textContent = result.original_title;
         refs.overview.textContent = result.overview;
 
-        const genresNewMassive = result.genres;
+        const genresNewMassive = result.genres ? result.genres : "Unknown";
 
         const genres = genresNewMassive.map(genre => genre.name);
 
