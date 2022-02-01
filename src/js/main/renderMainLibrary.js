@@ -1,6 +1,7 @@
 import refs from '../ollRefs/refs';
 import arrayGenres from './arrayGenres';
 import getWatchesFilms from '../db/getWatchesFilms';
+import getQueuesFilms from '../db/getQueuesFilms';
 import fetchSearchMovies from '../api/fetchSearchMovies';
 import fetchFavoritesMovies from '../api/fetchFavoritesMovies';
 import preloader from './preloader';
@@ -53,20 +54,19 @@ function renderGalleryLibrary(movies) {
     .join('');
 }
 
-function onFetchLibrary(e) {
+function onFetchLibraryWatched(e) {
   e.preventDefault();
-
-  if (refs.library.classList.contains('active')) {
-    return;
-  }
 
   refs.home.classList.remove('active');
   refs.library.classList.add('active');
+  refs.btnWatched.classList.add('button__active');
+  refs.btnQueue.classList.remove('button__active');
 
   getWatchesFilms().then(data => {
     if (!data) {
       refs.gallery.innerHTML = '';
       Notiflix.Notify.info('Library of watched films is empty');
+      return;
     }
     const movies = Object.values(data);
     preloader();
@@ -76,4 +76,25 @@ function onFetchLibrary(e) {
   });
 }
 
-// refs.library.addEventListener('click', onFetchLibrary);
+function onFetchLibraryQueue(e) {
+  e.preventDefault();
+  refs.btnWatched.classList.remove('button__active');
+  refs.btnQueue.classList.add('button__active');
+  getQueuesFilms().then(data => {
+    if (!data) {
+      refs.gallery.innerHTML = '';
+      Notiflix.Notify.info('Library of queues films is empty');
+      return;
+    }
+    const movies = Object.values(data);
+    preloader();
+
+    refs.gallery.innerHTML = '';
+    refs.gallery.insertAdjacentHTML('beforeend', renderGalleryLibrary(movies));
+  });
+}
+
+refs.library.addEventListener('click', onFetchLibraryWatched);
+
+refs.btnWatched.addEventListener('click', onFetchLibraryWatched);
+refs.btnQueue.addEventListener('click', onFetchLibraryQueue);
