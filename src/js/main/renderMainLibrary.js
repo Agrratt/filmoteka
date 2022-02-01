@@ -76,4 +76,4 @@ function onFetchLibrary(e) {
   });
 }
 
-refs.library.addEventListener('click', onFetchLibrary);
+// refs.library.addEventListener('click', onFetchLibrary);
