@@ -1,5 +1,7 @@
 import fetchFavoritesMovies from '../api/fetchFavoritesMovies';
 import preloader from '../main/preloader';
+import { startSpinner } from '../main/preloader';
+import { stopSpinner } from '../main/preloader';
 import { arrayGenres, renderGallery } from '../main/renderMain';
 import { pagination } from '../main/renderMain';
 import { eventPagination } from '../main/renderMain';
@@ -19,10 +21,11 @@ refs.homeLink.addEventListener('click', renderMarkupHome);
 export default function renderMarkupHome(e) {
   refs.tuiContainer.classList.remove('visually-hidden');
   e.preventDefault();
+  startSpinner()
   pagination.off('afterMove', eventPagination);
   pagination.movePageTo(page);
   fetchFavoritesMovies(page).then(data => {
-    preloader();
+    
 
     refs.gallery.innerHTML = '';
     refs.gallery.insertAdjacentHTML('beforeend', renderGallery(data.results));

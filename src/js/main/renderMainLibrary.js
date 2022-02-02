@@ -5,6 +5,8 @@ import getQueuesFilms from '../db/getQueuesFilms';
 import fetchSearchMovies from '../api/fetchSearchMovies';
 import fetchFavoritesMovies from '../api/fetchFavoritesMovies';
 import preloader from './preloader';
+import { startSpinner } from '../main/preloader';
+import { stopSpinner } from '../main/preloader';
 import Notiflix from 'notiflix';
 import { pagination } from '../main/renderMain';
 import { eventPagination } from '../main/renderMain';
@@ -60,6 +62,16 @@ function renderGalleryLibrary(movies) {
 
 function onFetchLibraryWatched(e) {
   e.preventDefault();
+
+  startSpinner()
+  // pagination.off('afterMove', event => {
+  //   fetchSearchMovies(searchValue, event.page).then(r => {
+  //     refs.gallery.innerHTML = '';
+  //     refs.gallery.insertAdjacentHTML('beforeend', renderGallery(r.results));
+  //   });
+  // });
+  // pagination.movePageTo(page);
+
   refs.tuiContainer.classList.add('visually-hidden');
   pagination.off('afterMove', event => {
     fetchSearchMovies(searchValue, event.page).then(r => {
@@ -68,6 +80,7 @@ function onFetchLibraryWatched(e) {
     });
   });
   pagination.movePageTo(page);
+
   refs.btnWatched.classList.add('button__active');
   refs.btnQueue.classList.remove('button__active');
 
@@ -75,10 +88,11 @@ function onFetchLibraryWatched(e) {
     if (!data) {
       refs.gallery.innerHTML = '';
       Notiflix.Notify.info('Library of watched films is empty');
+      stopSpinner()
       return;
     }
     const movies = Object.values(data);
-    preloader();
+    stopSpinner()
 
     refs.gallery.innerHTML = '';
     refs.gallery.insertAdjacentHTML('beforeend', renderGalleryLibrary(movies));
@@ -87,16 +101,23 @@ function onFetchLibraryWatched(e) {
 
 function onFetchLibraryQueue(e) {
   e.preventDefault();
+
+  startSpinner()
+  // pagination.off('afterMove', eventWatchedPagination);
+  // pagination.movePageTo(page);
+
+
   refs.btnWatched.classList.remove('button__active');
   refs.btnQueue.classList.add('button__active');
   getQueuesFilms().then(data => {
     if (!data) {
       refs.gallery.innerHTML = '';
       Notiflix.Notify.info('Library of queues films is empty');
+      stopSpinner()
       return;
     }
     const movies = Object.values(data);
-    preloader();
+    stopSpinner()
 
     refs.gallery.innerHTML = '';
     refs.gallery.insertAdjacentHTML('beforeend', renderGalleryLibrary(movies));

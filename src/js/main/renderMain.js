@@ -5,9 +5,13 @@ import refs from '../ollRefs/refs';
 import arrayGenres from './arrayGenres';
 
 import preloader from './preloader';
+import { startSpinner } from '../main/preloader';
+import { stopSpinner } from '../main/preloader';
 
 import Pagination from 'tui-pagination';
 
+// ================== add spinner ============   
+  startSpinner() 
 // ========Pagination====== //
 
 let pagination = new Pagination(refs.tuiContainer, {
@@ -34,6 +38,7 @@ function getGenres(arrayId) {
 }
 
 function renderGallery(movies) {
+  stopSpinner()
   return movies
     .map(({ id, poster_path, title, release_date, genre_ids }) => {
       const poster = poster_path
@@ -59,10 +64,16 @@ function renderGallery(movies) {
 }
 
 fetchFavoritesMovies(page).then(data => {
+
+  
+
   refs.tuiContainer.classList.remove('visually-hidden');
   preloader();
+
   refs.gallery.insertAdjacentHTML('beforeend', renderGallery(data.results));
+  stopSpinner()
   pagination.reset(data.total_results);
+  
 });
 
 pagination.on('afterMove', eventPagination);
