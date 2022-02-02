@@ -6,6 +6,20 @@ import arrayGenres from './arrayGenres';
 
 import preloader from './preloader';
 
+import Pagination from 'tui-pagination';
+
+// ========Pagination====== //
+const tuiContainer = document.getElementById('tui-pagination-container');
+
+let pagination = new Pagination(tuiContainer, {
+  totalItems: 120,
+  itemsPerPage: 20,
+  page: 1,
+});
+
+const page = pagination.getCurrentPage();
+// =====================================================
+
 function getGenres(arrayId) {
   const arr = [];
   for (const value of arrayGenres) {
@@ -45,9 +59,23 @@ function renderGallery(movies) {
     .join('');
 }
 
-fetchFavoritesMovies().then(data => {
+fetchFavoritesMovies(page).then(data => {
   preloader();
   refs.gallery.insertAdjacentHTML('beforeend', renderGallery(data.results));
+  pagination.reset(data.total_results);
 });
 
-export { arrayGenres, renderGallery };
+pagination.on('afterMove', eventPagination);
+
+function eventPagination(event) {
+  fetchFavoritesMovies(event.page).then(data => {
+    resetRenderGallery();
+    refs.gallery.insertAdjacentHTML('beforeend', renderGallery(data.results));
+  });
+}
+
+function resetRenderGallery() {
+  refs.gallery.innerHTML = '';
+}
+
+export { arrayGenres, renderGallery, pagination, eventPagination, page, resetRenderGallery };
