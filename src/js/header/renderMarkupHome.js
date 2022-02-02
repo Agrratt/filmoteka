@@ -6,17 +6,9 @@ import { arrayGenres, renderGallery } from '../main/renderMain';
 import { pagination } from '../main/renderMain';
 import { eventPagination } from '../main/renderMain';
 import { page } from '../main/renderMain';
+import refs from '../ollRefs/refs';
 
-const refs = {
-  gallery: document.querySelector('.list_film'),
-  homeLink: document.querySelector('.page__home'),
-  libraryLink: document.querySelector('.page__library'),
-  headerContainer: document.querySelector('.header'),
-  libraryButtonBox: document.querySelector('.library__button-box'),
-  formSearch: document.querySelector('.form__search'),
-};
-
-refs.homeLink.addEventListener('click', renderMarkupHome);
+refs.home.addEventListener('click', renderMarkupHome);
 
 export default function renderMarkupHome(e) {
   refs.tuiContainer.classList.remove('visually-hidden');
@@ -33,14 +25,14 @@ export default function renderMarkupHome(e) {
     pagination.on('afterMove', eventPagination);
   });
 
-  if (!refs.homeLink.classList.contains('active')) {
+  if (!refs.home.classList.contains('active')) {
     refs.headerContainer.classList.add('header');
     refs.headerContainer.classList.remove('header__library');
 
-    refs.libraryLink.classList.remove('active');
-    refs.homeLink.classList.add('active');
+    refs.library.classList.remove('active');
+    refs.home.classList.add('active');
 
     refs.libraryButtonBox.classList.add('is-hidden');
-    refs.formSearch.classList.remove('is-hidden');
+    refs.searchForm.classList.remove('is-hidden');
   }
 }

@@ -152,8 +152,7 @@
   display: block;
   transition: color var(--duration) var(--timing-function);
 
-  &:hover,
-  &:focus {
+  &:hover {
     // color: var(--accent-color);
     color: #818181;
   }
