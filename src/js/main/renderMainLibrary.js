@@ -1,4 +1,4 @@
-import refs from '../ollRefs/refs';
+import refs from '../allRefs/refs';
 import arrayGenres from './arrayGenres';
 import getWatchesFilms from '../db/getWatchesFilms';
 import getQueuesFilms from '../db/getQueuesFilms';

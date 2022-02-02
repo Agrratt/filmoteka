@@ -1,4 +1,4 @@
-import refs from '../ollRefs/refs';
+import refs from '../allRefs/refs';
 
 refs.library.addEventListener('click', renderMarkupLibrary);
 

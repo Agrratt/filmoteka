@@ -1,4 +1,4 @@
-import refs from '../ollRefs/refs';
+import refs from '../allRefs/refs';
 
 export function preloader() {
     // return  window.onload = function () {

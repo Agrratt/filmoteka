@@ -1,6 +1,6 @@
 import fetchFavoritesMovies from '../api/fetchFavoritesMovies';
 
-import refs from '../ollRefs/refs';
+import refs from '../allRefs/refs';
 
 import arrayGenres from './arrayGenres';
 
