@@ -5,6 +5,8 @@ import getQueuesFilms from '../db/getQueuesFilms';
 import fetchSearchMovies from '../api/fetchSearchMovies';
 import fetchFavoritesMovies from '../api/fetchFavoritesMovies';
 import preloader from './preloader';
+import { startSpinner } from '../main/preloader';
+import { stopSpinner } from '../main/preloader';
 import Notiflix from 'notiflix';
 import { pagination } from '../main/renderMain';
 import { eventPagination } from '../main/renderMain';
@@ -60,6 +62,7 @@ function renderGalleryLibrary(movies) {
 
 function onFetchLibraryWatched(e) {
   e.preventDefault();
+  startSpinner()
   // pagination.off('afterMove', event => {
   //   fetchSearchMovies(searchValue, event.page).then(r => {
   //     refs.gallery.innerHTML = '';
@@ -74,10 +77,11 @@ function onFetchLibraryWatched(e) {
     if (!data) {
       refs.gallery.innerHTML = '';
       Notiflix.Notify.info('Library of watched films is empty');
+      stopSpinner()
       return;
     }
     const movies = Object.values(data);
-    preloader();
+    stopSpinner()
 
     refs.gallery.innerHTML = '';
     refs.gallery.insertAdjacentHTML('beforeend', renderGalleryLibrary(movies));
@@ -88,6 +92,7 @@ function onFetchLibraryWatched(e) {
 
 function onFetchLibraryQueue(e) {
   e.preventDefault();
+  startSpinner()
   // pagination.off('afterMove', eventWatchedPagination);
   // pagination.movePageTo(page);
   refs.btnWatched.classList.remove('button__active');
@@ -96,10 +101,11 @@ function onFetchLibraryQueue(e) {
     if (!data) {
       refs.gallery.innerHTML = '';
       Notiflix.Notify.info('Library of queues films is empty');
+      stopSpinner()
       return;
     }
     const movies = Object.values(data);
-    preloader();
+    stopSpinner()
 
     refs.gallery.innerHTML = '';
     refs.gallery.insertAdjacentHTML('beforeend', renderGalleryLibrary(movies));

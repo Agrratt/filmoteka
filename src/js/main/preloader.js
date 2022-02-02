@@ -1,4 +1,6 @@
-function preloader() {
+import refs from '../ollRefs/refs';
+
+export function preloader() {
     // return  window.onload = function () {
     // document.body.classList.add('loaded_hiding');
     // window.setTimeout(function () {
@@ -15,4 +17,15 @@ function preloader() {
     
 }
 
-export default preloader;
+
+export function startSpinner() {
+refs.preloader.insertAdjacentHTML('beforeend', preloader());
+const spinnerRef = document.querySelector('.refreshing-loader-wrapper');
+spinnerRef.style.display = "flex"
+}
+
+export function stopSpinner() {
+    // const spinnerRef = document.querySelector('.refreshing-loader-wrapper');  
+    // spinnerRef.style.display = "none";
+    refs.preloader.innerHTML = '';
+}

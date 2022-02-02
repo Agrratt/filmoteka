@@ -3,7 +3,8 @@
 import arrayGenres from './arrayGenres';
 import debounce from 'lodash.debounce';
 import refs from '../ollRefs/refs';
-import preloader from '../main/preloader';
+import { preloader } from '../main/preloader';
+import { startSpinner } from '../main/preloader';
 import fetchSearchMovies from '../api/fetchSearchMovies';
 import fetchDetailsMovie from '../api/fetchDetailsMovie';
 import { htmlMarkupFilmsSerchHelper } from '../main/searchFilmsHelperMarkup';
@@ -58,52 +59,59 @@ refs.searchHelper.addEventListener('click', onSearchLine);
 function onInput(e) {
   e.preventDefault();
   refs.searchHelper.innerHTML = '';
-
-  refs.searchHelper.insertAdjacentHTML('beforeend', preloader());
-  const spinnerRef = document.querySelector('.refreshing-loader-wrapper');
-  spinnerRef.style.display = 'flex';
   const searchValue = e.target.value.trim();
-
-  document.addEventListener('click', onDocumement);
-  function onDocumement() {
-    // console.log(e);
-    refs.searchHelper.innerHTML = '';
-    document.removeEventListener('click', onDocumement);
-  }
-
-  if (!searchValue) {
-    Notify.info('Start typing the movie name');
-    spinnerRef.style.display = 'none';
-    return;
-  }
-
-  let searchHelper = [];
-
-  fetchSearchMovies(searchValue).then(r => {
-    const serchResults = r.results;
-    // console.log(serchResults);
-    const sortByVoteResults = serchResults.sort(
-      (firsrtFilm, secondFilm) => secondFilm.vote_average - firsrtFilm.vote_average,
-    );
-    searchHelper = sortByVoteResults.slice(0, 5);
-
-    if (serchResults.length === 0) {
-      spinnerRef.style.display = 'none';
-      Notify.failure("oops, we didn't find anything...");
+  // ================== add spinner ============   
+    refs.searchHelper.insertAdjacentHTML('beforeend', preloader());
+    const spinnerRef = document.querySelector('.refreshing-loader-wrapper');
+    spinnerRef.style.display = "flex"
+// ================== close helper ============  
+    document.addEventListener('click', onDocumement);
+    function onDocumement() {
+        // console.log(e);
+        refs.searchHelper.innerHTML = ''
+        document.removeEventListener('click', onDocumement)
     }
-    // console.log(searchHelper)
-    searchHelper.map(({ id, poster_path, title, release_date, vote_average }) => {
-      const releaseYear = release_date ? release_date.split('-')[0] : 'Unknown';
-      const poster = poster_path
-        ? `https://image.tmdb.org/t/p/w500${poster_path}`
-        : 'https://upload.wikimedia.org/wikipedia/commons/c/c2/No_image_poster.png';
+// ================== check input ============  
+    if (!searchValue) {
+        Notify.info('Start typing the movie name');
+        spinnerRef.style.display = "none"
+        return
+    }
+// ================== data helper ============      
+    let searchHelper = [];
+    fetchSearchMovies(searchValue).then(r => {
+        const serchResults = r.results;
+        // console.log(serchResults);
+        const sortByVoteResults = serchResults.sort(
+            (firsrtFilm, secondFilm) => secondFilm.vote_average - firsrtFilm.vote_average 
+        )
+        searchHelper = sortByVoteResults.slice(0, 5);
+        searchHelper.map(movie => {
+            // console.log(movie.title.length);
+            let title = movie.title;
+            if (title.length > 48) {
+                title = title.slice(0, 45);
+                title = title.padEnd(48, '...');
+                movie.title = title;
+            }
+        })
 
-      refs.searchHelper.insertAdjacentHTML(
-        'beforeend',
-        htmlMarkupFilmsSerchHelper(id, poster, title, releaseYear, vote_average),
-      );
-      spinnerRef.style.display = 'none';
-    });
+        if (serchResults.length === 0) {
+            spinnerRef.style.display = "none";
+            Notify.failure("oops, we didn't find anything...");
+        }
+        // console.log(searchHelper)
+        searchHelper.map(({ id, poster_path, title, release_date, vote_average }) =>{
+            const releaseYear = release_date ? release_date.split('-')[0] : 'Unknown';
+            const poster = poster_path
+            ? `https://image.tmdb.org/t/p/w500${poster_path}`
+            : 'https://upload.wikimedia.org/wikipedia/commons/c/c2/No_image_poster.png';
+            
+            refs.searchHelper.insertAdjacentHTML(
+                'beforeend', htmlMarkupFilmsSerchHelper(id, poster, title, releaseYear, vote_average));
+// ================== close spinner ============  
+            spinnerRef.style.display = "none"
+        })
   });
 }
 
@@ -374,3 +382,7 @@ function onSearchLine(e) {
 
 //     refs.searchHelper.innerHTML = ''
 // };
+// let h = 'popppppppppp'
+//                 h = h.slice(0,5)
+//                 let g = h.padEnd(8,"...")
+//                 console.log(g);

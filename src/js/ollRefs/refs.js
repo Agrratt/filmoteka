@@ -7,5 +7,6 @@ const refs = {
   searchHelper: document.querySelector('.search-helper'),
   btnWatched: document.querySelector('.btn-watched'),
   btnQueue: document.querySelector('.btn-queue'),
+  preloader: document.querySelector('.preloader'),
 };
 export default refs;
