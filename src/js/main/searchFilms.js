@@ -118,6 +118,7 @@ function onInput(e) {
 // ==================  search submit ==================
 function onSubmit(e) {
   e.preventDefault();
+  refs.tuiContainer.classList.remove('visually-hidden');
   pagination.off('afterMove', eventPagination);
   const searchValue = e.currentTarget.elements[0].value.trim();
   pagination.movePageTo(page);

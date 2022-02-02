@@ -19,6 +19,7 @@ const refs = {
 refs.homeLink.addEventListener('click', renderMarkupHome);
 
 export default function renderMarkupHome(e) {
+  refs.tuiContainer.classList.remove('visually-hidden');
   e.preventDefault();
   startSpinner()
   pagination.off('afterMove', eventPagination);

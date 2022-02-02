@@ -62,6 +62,7 @@ function renderGalleryLibrary(movies) {
 
 function onFetchLibraryWatched(e) {
   e.preventDefault();
+
   startSpinner()
   // pagination.off('afterMove', event => {
   //   fetchSearchMovies(searchValue, event.page).then(r => {
@@ -70,6 +71,16 @@ function onFetchLibraryWatched(e) {
   //   });
   // });
   // pagination.movePageTo(page);
+
+  refs.tuiContainer.classList.add('visually-hidden');
+  pagination.off('afterMove', event => {
+    fetchSearchMovies(searchValue, event.page).then(r => {
+      refs.gallery.innerHTML = '';
+      refs.gallery.insertAdjacentHTML('beforeend', renderGallery(r.results));
+    });
+  });
+  pagination.movePageTo(page);
+
   refs.btnWatched.classList.add('button__active');
   refs.btnQueue.classList.remove('button__active');
 
@@ -85,16 +96,17 @@ function onFetchLibraryWatched(e) {
 
     refs.gallery.innerHTML = '';
     refs.gallery.insertAdjacentHTML('beforeend', renderGalleryLibrary(movies));
-    // pagination.reset(movies.length);
-    // pagination.on('afterMove', eventWatchedPagination);
   });
 }
 
 function onFetchLibraryQueue(e) {
   e.preventDefault();
+
   startSpinner()
   // pagination.off('afterMove', eventWatchedPagination);
   // pagination.movePageTo(page);
+
+
   refs.btnWatched.classList.remove('button__active');
   refs.btnQueue.classList.add('button__active');
   getQueuesFilms().then(data => {
@@ -109,26 +121,8 @@ function onFetchLibraryQueue(e) {
 
     refs.gallery.innerHTML = '';
     refs.gallery.insertAdjacentHTML('beforeend', renderGalleryLibrary(movies));
-    // pagination.reset(movies.length);
-    // pagination.on('afterMove', eventQueuePagination);
   });
 }
-
-// function eventWatchedPagination(event) {
-//   getWatchesFilms(event.page).then(data => {
-//     const movies = Object.values(data);
-//     resetRenderGallery();
-//     refs.gallery.insertAdjacentHTML('beforeend', renderGalleryLibrary(movies));
-//   });
-// }
-
-// function eventQueuePagination(event) {
-//   getQueueFilms(event.page).then(data => {
-//     const movies = Object.values(data);
-//     resetRenderGallery();
-//     refs.gallery.insertAdjacentHTML('beforeend', renderGalleryLibrary(movies));
-//   });
-// }
 
 refs.library.addEventListener('click', onFetchLibraryWatched);
 refs.btnWatched.addEventListener('click', onFetchLibraryWatched);

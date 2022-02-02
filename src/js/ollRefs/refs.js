@@ -8,5 +8,6 @@ const refs = {
   btnWatched: document.querySelector('.btn-watched'),
   btnQueue: document.querySelector('.btn-queue'),
   preloader: document.querySelector('.preloader'),
+  tuiContainer: document.getElementById('tui-pagination-container'),
 };
 export default refs;
