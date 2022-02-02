@@ -68,8 +68,6 @@ fetchFavoritesMovies(page).then(data => {
   
 
   refs.tuiContainer.classList.remove('visually-hidden');
-  preloader();
-
   refs.gallery.insertAdjacentHTML('beforeend', renderGallery(data.results));
   stopSpinner()
   pagination.reset(data.total_results);
