@@ -2,8 +2,6 @@ import fetchDetailsMovie from '../api/fetchDetailsMovie';
 import fetchGenresMovies from '../api/fetchGenresMovies';
 import refs from '../allRefs/refs';
 
-console.log(refs);
-
 import getWatchesFilms from '../db/getWatchesFilms';
 import getQueuesFilms from '../db/getQueuesFilms';
 import setWatchedFilm from '../db/setWatchedFilm';
@@ -12,10 +10,9 @@ import removeWatchedFilm from '../db/removeWatchedFilm';
 import removeQueueFilm from '../db/removeQueueFilm';
 import Notiflix from 'notiflix';
 
-
 refs.gallery.addEventListener('click', onCardClick);
-refs.btnWatched.addEventListener('click', onSetWatched);
-refs.btnQueue.addEventListener('click', onSetQueue);
+refs.btnWatchedModal.addEventListener('click', onSetWatched);
+refs.btnQueueModal.addEventListener('click', onSetQueue);
 
 export function onCardClick(e) {
   const cardItem = e.target.parentNode;
@@ -35,19 +32,18 @@ export function onCardClick(e) {
   refs.closeBtn.addEventListener('click', () => {
     refs.backdrop.classList.add('modal-is-hidden');
     refs.body.classList.remove('body__fixed');
-    clearModal()
+    clearModal();
   });
 
   refs.backdrop.addEventListener('click', event => {
     if (event.target.classList.contains('backdrop')) {
       refs.backdrop.classList.add('modal-is-hidden');
       refs.body.classList.remove('body__fixed');
-    clearModal()
+      clearModal();
     }
   });
   refs.body.classList.add('body__fixed');
   // modal events ----------------------------
-
 
   fetchDetailsMovie(cardItemId).then(result => {
     refs.movieTitle.textContent = result.title;
@@ -68,16 +64,15 @@ export function onCardClick(e) {
     refs.genres.textContent = genres.join(', ');
   });
 
-function clearModal() {
-  refs.detailImg.src = "";
-  refs.movieTitle.textContent = "";
-  refs.vote_average.textContent = "";
-  refs.vote_count.textContent = "";
-  refs.popularity.textContent = "";
-  refs.originalTitle.textContent = "";
-  refs.overview.textContent = "";
-}
-
+  function clearModal() {
+    refs.detailImg.src = '';
+    refs.movieTitle.textContent = '';
+    refs.vote_average.textContent = '';
+    refs.vote_count.textContent = '';
+    refs.popularity.textContent = '';
+    refs.originalTitle.textContent = '';
+    refs.overview.textContent = '';
+  }
 
   // Buttons ---------------------------------
   getWatchesFilms().then(dataDb => {
@@ -87,20 +82,20 @@ function clearModal() {
         if (dataDb[key].id === Number(cardItemId)) {
           refs.spanWatched.textContent = 'REMOVE';
           refs.spanWatchedAdd.textContent = 'FROM';
-          refs.btnWatched.classList.add('detail__button--active');
-          refs.btnWatched.classList.remove('detail__button--disable');
+          refs.btnWatchedModal.classList.add('detail__button--active');
+          refs.btnWatchedModal.classList.remove('detail__button--disable');
           return;
         }
       }
       refs.spanWatched.textContent = 'ADD';
       refs.spanWatchedAdd.textContent = 'TO';
-      refs.btnWatched.classList.remove('detail__button--active');
-      refs.btnWatched.classList.add('detail__button--disable');
+      refs.btnWatchedModal.classList.remove('detail__button--active');
+      refs.btnWatchedModal.classList.add('detail__button--disable');
     } else {
       refs.spanWatched.textContent = 'ADD';
       refs.spanWatchedAdd.textContent = 'TO';
-      refs.btnWatched.classList.remove('detail__button--active');
-      refs.btnWatched.classList.add('detail__button--disable');
+      refs.btnWatchedModal.classList.remove('detail__button--active');
+      refs.btnWatchedModal.classList.add('detail__button--disable');
     }
   });
   getQueuesFilms().then(dataDb => {
@@ -110,20 +105,20 @@ function clearModal() {
         if (dataDb[key].id === Number(cardItemId)) {
           refs.spanQueue.textContent = 'REMOVE';
           refs.spanQueueAdd.textContent = 'FROM';
-          refs.btnQueue.classList.add('detail__button--active');
-          refs.btnQueue.classList.remove('detail__button--disable');
+          refs.btnQueueModal.classList.add('detail__button--active');
+          refs.btnQueueModal.classList.remove('detail__button--disable');
           return;
         }
       }
       refs.spanQueue.textContent = 'ADD';
       refs.spanQueueAdd.textContent = 'TO';
-      refs.btnQueue.classList.remove('detail__button--active');
-      refs.btnQueue.classList.add('detail__button--disable');
+      refs.btnQueueModal.classList.remove('detail__button--active');
+      refs.btnQueueModal.classList.add('detail__button--disable');
     } else {
       refs.spanQueue.textContent = 'ADD';
       refs.spanQueueAdd.textContent = 'TO';
-      refs.btnQueue.classList.remove('detail__button--active');
-      refs.btnQueue.classList.add('detail__button--disable');
+      refs.btnQueueModal.classList.remove('detail__button--active');
+      refs.btnQueueModal.classList.add('detail__button--disable');
     }
   });
 }
@@ -142,8 +137,8 @@ function onSetWatched(e) {
             removeWatchedFilm(key);
             refs.spanWatched.textContent = 'ADD';
             refs.spanWatchedAdd.textContent = 'TO';
-            refs.btnWatched.classList.remove('detail__button--active');
-            refs.btnWatched.classList.add('detail__button--disable');
+            refs.btnWatchedModal.classList.remove('detail__button--active');
+            refs.btnWatchedModal.classList.add('detail__button--disable');
             Notiflix.Notify.failure(`${dataDb[key].title} remove from watched films`);
             return;
           }
@@ -151,15 +146,15 @@ function onSetWatched(e) {
         setWatchedFilm(data);
         refs.spanWatched.textContent = 'REMOVE';
         refs.spanWatchedAdd.textContent = 'FROM';
-        refs.btnWatched.classList.add('detail__button--active');
-        refs.btnWatched.classList.remove('detail__button--disable');
+        refs.btnWatchedModal.classList.add('detail__button--active');
+        refs.btnWatchedModal.classList.remove('detail__button--disable');
         Notiflix.Notify.success(`${data.title} add to watched films`);
       } else {
         setWatchedFilm(data);
         refs.spanWatched.textContent = 'REMOVE';
         refs.spanWatchedAdd.textContent = 'FROM';
-        refs.btnWatched.classList.add('detail__button--active');
-        refs.btnWatched.classList.remove('detail__button--disable');
+        refs.btnWatchedModal.classList.add('detail__button--active');
+        refs.btnWatchedModal.classList.remove('detail__button--disable');
         Notiflix.Notify.success(`${data.title} add to watched films`);
       }
     });
@@ -173,8 +168,8 @@ function onSetWatched(e) {
             removeQueueFilm(key);
             refs.spanQueue.textContent = 'ADD';
             refs.spanQueueAdd.textContent = 'TO';
-            refs.btnQueue.classList.remove('detail__button--active');
-            refs.btnQueue.classList.add('detail__button--disable');
+            refs.btnQueueModal.classList.remove('detail__button--active');
+            refs.btnQueueModal.classList.add('detail__button--disable');
             Notiflix.Notify.failure(`${r[key].title} remove from queue films`);
           }
         }
@@ -197,8 +192,8 @@ function onSetQueue(e) {
             removeQueueFilm(key);
             refs.spanQueue.textContent = 'ADD';
             refs.spanQueueAdd.textContent = 'TO';
-            refs.btnQueue.classList.remove('detail__button--active');
-            refs.btnQueue.classList.add('detail__button--disable');
+            refs.btnQueueModal.classList.remove('detail__button--active');
+            refs.btnQueueModal.classList.add('detail__button--disable');
             Notiflix.Notify.failure(`${dataDb[key].title} remove from queue films`);
             return;
           }
@@ -206,15 +201,15 @@ function onSetQueue(e) {
         setQueueFilm(data);
         refs.spanQueue.textContent = 'REMOVE';
         refs.spanQueueAdd.textContent = 'FROM';
-        refs.btnQueue.classList.add('detail__button--active');
-        refs.btnQueue.classList.remove('detail__button--disable');
+        refs.btnQueueModal.classList.add('detail__button--active');
+        refs.btnQueueModal.classList.remove('detail__button--disable');
         Notiflix.Notify.success(`${data.title} add to queue films`);
       } else {
         setQueueFilm(data);
         refs.spanQueue.textContent = 'REMOVE';
         refs.spanQueueAdd.textContent = 'FROM';
-        refs.btnQueue.classList.add('detail__button--active');
-        refs.btnQueue.classList.remove('detail__button--disable');
+        refs.btnQueueModal.classList.add('detail__button--active');
+        refs.btnQueueModal.classList.remove('detail__button--disable');
         Notiflix.Notify.success(`${data.title} add to queue films`);
       }
     });
@@ -229,8 +224,8 @@ function onSetQueue(e) {
             removeWatchedFilm(key);
             refs.spanWatched.textContent = 'ADD';
             refs.spanWatchedAdd.textContent = 'TO';
-            refs.btnWatched.classList.remove('detail__button--active');
-            refs.btnWatched.classList.add('detail__button--disable');
+            refs.btnWatchedModal.classList.remove('detail__button--active');
+            refs.btnWatchedModal.classList.add('detail__button--disable');
             Notiflix.Notify.failure(`${r[key].title} remove from watched films`);
           }
         }
