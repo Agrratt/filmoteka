@@ -125,6 +125,5 @@ function onFetchLibraryQueue(e) {
 // }
 
 refs.library.addEventListener('click', onFetchLibraryWatched);
-
 refs.btnWatched.addEventListener('click', onFetchLibraryWatched);
 refs.btnQueue.addEventListener('click', onFetchLibraryQueue);

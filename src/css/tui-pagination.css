@@ -44,13 +44,13 @@
 .tui-pagination .tui-is-selected,
 .tui-pagination strong {
   color: #fff;
-  background: #4b96e6;
-  border-color: #4b96e6;
+  background: #ff6b01;
+  border-color: #ff6b01;
   cursor: default;
 }
 
 .tui-pagination .tui-is-selected:hover {
-  background-color: #4b96e6;
+  background-color: #ff6b01;
 }
 
 .tui-pagination .tui-first-child.tui-is-selected,
@@ -69,11 +69,11 @@
 }
 
 .tui-pagination .tui-first-child.tui-is-selected {
-  border-left: 1px solid #4b96e6;
+  border-left: 1px solid #ff6b01;
 }
 
 .tui-pagination .tui-last-child.tui-is-selected {
-  border-right: 1px solid #4b96e6;
+  border-right: 1px solid #ff6b01;
 }
 
 .tui-pagination .tui-first,
@@ -202,7 +202,7 @@
 }
 
 .tui-page-inputs .tui-page-current {
-  color: #4b96e6;
+  color: #ff6b01;
 }
 
 .tui-page-separator {
