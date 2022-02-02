@@ -1,5 +1,6 @@
 import fetchFavoritesMovies from '../api/fetchFavoritesMovies';
 import preloader from '../main/preloader';
+import onFetchLibraryWatched from '../main/renderMainLibrary';
 import { startSpinner } from '../main/preloader';
 import { stopSpinner } from '../main/preloader';
 import { arrayGenres, renderGallery } from '../main/renderMain';
@@ -8,17 +9,16 @@ import { eventPagination } from '../main/renderMain';
 import { page } from '../main/renderMain';
 import refs from '../allRefs/refs';
 
-refs.home.addEventListener('click', renderMarkupHome);
-
 export default function renderMarkupHome(e) {
   refs.tuiContainer.classList.remove('visually-hidden');
   e.preventDefault();
-  startSpinner()
+  startSpinner();
   pagination.off('afterMove', eventPagination);
   pagination.movePageTo(page);
-  fetchFavoritesMovies(page).then(data => {
-    
 
+  refs.library.addEventListener('click', onFetchLibraryWatched, { once: true });
+
+  fetchFavoritesMovies(page).then(data => {
     refs.gallery.innerHTML = '';
     refs.gallery.insertAdjacentHTML('beforeend', renderGallery(data.results));
     pagination.reset(data.total_results);
