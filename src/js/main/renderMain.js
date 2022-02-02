@@ -12,7 +12,7 @@ import Pagination from 'tui-pagination';
 const tuiContainer = document.getElementById('tui-pagination-container');
 
 let pagination = new Pagination(tuiContainer, {
-  totalItems: 120,
+  totalItems: 0,
   itemsPerPage: 20,
   page: 1,
 });
