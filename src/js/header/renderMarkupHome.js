@@ -6,7 +6,7 @@ import { arrayGenres, renderGallery } from '../main/renderMain';
 import { pagination } from '../main/renderMain';
 import { eventPagination } from '../main/renderMain';
 import { page } from '../main/renderMain';
-import refs from '../ollRefs/refs';
+import refs from '../allRefs/refs';
 
 refs.home.addEventListener('click', renderMarkupHome);
 

@@ -2,7 +2,7 @@
 // import { onCardClick } from '../more_info/more_info';
 import arrayGenres from './arrayGenres';
 import debounce from 'lodash.debounce';
-import refs from '../ollRefs/refs';
+import refs from '../allRefs/refs';
 import { preloader } from '../main/preloader';
 import { startSpinner } from '../main/preloader';
 import fetchSearchMovies from '../api/fetchSearchMovies';
