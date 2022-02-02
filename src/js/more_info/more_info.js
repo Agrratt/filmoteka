@@ -36,7 +36,7 @@ refs.gallary.addEventListener('click', onCardClick);
 refs.btnWatched.addEventListener('click', onSetWatched);
 refs.btnQueue.addEventListener('click', onSetQueue);
 
-function onCardClick(e) {
+export function onCardClick(e) {
   const cardItem = e.target.parentNode;
   const cardItemId = cardItem.id;
 
