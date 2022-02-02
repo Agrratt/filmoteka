@@ -48,20 +48,25 @@ export function onCardClick(e) {
 
   // modal events ----------------------------
   // Backdrop unhide
-  refs.backdrop.classList.remove('is-hidden');
+  refs.backdrop.classList.remove('modal-is-hidden');
   // baackdrop hide
+
   refs.closeBtn.addEventListener('click', () => {
-    refs.backdrop.classList.add('is-hidden');
+    refs.backdrop.classList.add('modal-is-hidden');
     refs.body.classList.remove('body__fixed');
+    clearModal()
   });
+
   refs.backdrop.addEventListener('click', event => {
     if (event.target.classList.contains('backdrop')) {
-      refs.backdrop.classList.add('is-hidden');
+      refs.backdrop.classList.add('modal-is-hidden');
       refs.body.classList.remove('body__fixed');
+    clearModal()
     }
   });
   refs.body.classList.add('body__fixed');
   // modal events ----------------------------
+
 
   fetchDetailsMovie(cardItemId).then(result => {
     refs.movieTitle.textContent = result.title;
@@ -81,6 +86,19 @@ export function onCardClick(e) {
 
     refs.genres.textContent = genres.join(', ');
   });
+
+function clearModal() {
+  refs.detailImg.src = "";
+  refs.movieTitle.textContent = "";
+  refs.vote_average.textContent = "";
+  refs.vote_count.textContent = "";
+  refs.popularity.textContent = "";
+  refs.originalTitle.textContent = "";
+  refs.overview.textContent = "";
+}
+
+
+  // Buttons ---------------------------------
   getWatchesFilms().then(dataDb => {
     if (dataDb) {
       const keys = Object.keys(dataDb);
@@ -239,9 +257,3 @@ function onSetQueue(e) {
     });
   });
 }
-
-// 1. Отслеживать нажатие на контейнер
-// 2. Получать айди по нажатию на контейнер
-// 3. Фетчить полученый айди
-// 4. сделать розметку с параметрами нужными в модалке
-// 5. сверстать модалку
