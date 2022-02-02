@@ -7,5 +7,6 @@ const refs = {
   searchHelper: document.querySelector('.search-helper'),
   btnWatched: document.querySelector('.btn-watched'),
   btnQueue: document.querySelector('.btn-queue'),
+  tuiContainer: document.getElementById('tui-pagination-container'),
 };
 export default refs;

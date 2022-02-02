@@ -9,9 +9,8 @@ import preloader from './preloader';
 import Pagination from 'tui-pagination';
 
 // ========Pagination====== //
-const tuiContainer = document.getElementById('tui-pagination-container');
 
-let pagination = new Pagination(tuiContainer, {
+let pagination = new Pagination(refs.tuiContainer, {
   totalItems: 0,
   itemsPerPage: 20,
   page: 1,
@@ -60,6 +59,7 @@ function renderGallery(movies) {
 }
 
 fetchFavoritesMovies(page).then(data => {
+  refs.tuiContainer.classList.remove('visually-hidden');
   preloader();
   refs.gallery.insertAdjacentHTML('beforeend', renderGallery(data.results));
   pagination.reset(data.total_results);
