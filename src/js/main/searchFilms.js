@@ -178,20 +178,18 @@ const modalRefs = {
 // modalRefs.btnWatched.addEventListener('click', onSetWatched);
 // modalRefs.btnQueue.addEventListener('click', onSetQueue);
 
+function onSearchLine(e) {
+  const cardItemId = e.target.id;
 
-  function onSearchLine(e) {
-    const cardItemId = e.target.id;
-
-    if (e.target.nodeName === 'UL') {
-      return;
-    }
-    if (e.target.nodeName === 'DIV') {
-      return;
-    }
-
-    renderModal(cardItemId)
+  if (e.target.nodeName === 'UL') {
+    return;
+  }
+  if (e.target.nodeName === 'DIV') {
+    return;
   }
 
+  renderModal(cardItemId);
+}
 
 //   modalRefs.backdrop.classList.remove('is-hidden');
 
@@ -223,7 +221,6 @@ const modalRefs = {
 //     const genresNewMassive = result.genres ? result.genres : 'Unknown';
 //     const genres = genresNewMassive.map(genre => genre.name);
 //     modalRefs.genres.textContent = genres.join(', ');
-
 
 //     refs.searchHelper.innerHTML = '';
 //   });
@@ -276,54 +273,52 @@ const modalRefs = {
 //   });
 // }
 
-  getWatchesFilms().then(dataDb => {
-    if (dataDb) {
-      const keys = Object.keys(dataDb);
-      for (const key of keys) {
-        if (dataDb[key].id === Number(cardItemId)) {
-          modalRefs.spanWatched.textContent = 'REMOVE';
-          modalRefs.spanWatchedAdd.textContent = 'FROM';
-          modalRefs.btnWatchedModal.classList.add('detail__button--active');
-          modalRefs.btnWatchedModal.classList.remove('detail__button--disable');
-          return;
-        }
+getWatchesFilms().then(dataDb => {
+  if (dataDb) {
+    const keys = Object.keys(dataDb);
+    for (const key of keys) {
+      if (dataDb[key].id === Number(cardItemId)) {
+        modalRefs.spanWatched.textContent = 'REMOVE';
+        modalRefs.spanWatchedAdd.textContent = 'FROM';
+        modalRefs.btnWatchedModal.classList.add('detail__button--active');
+        modalRefs.btnWatchedModal.classList.remove('detail__button--disable');
+        return;
       }
-      modalRefs.spanWatched.textContent = 'ADD';
-      modalRefs.spanWatchedAdd.textContent = 'TO';
-      modalRefs.btnWatchedModal.classList.remove('detail__button--active');
-      modalRefs.btnWatchedModal.classList.add('detail__button--disable');
-    } else {
-      modalRefs.spanWatched.textContent = 'ADD';
-      modalRefs.spanWatchedAdd.textContent = 'TO';
-      modalRefs.btnWatchedModal.classList.remove('detail__button--active');
-      modalRefs.btnWatchedModal.classList.add('detail__button--disable');
     }
-  });
-  getQueuesFilms().then(dataDb => {
-    if (dataDb) {
-      const keys = Object.keys(dataDb);
-      for (const key of keys) {
-        if (dataDb[key].id === Number(cardItemId)) {
-          modalRefs.spanQueue.textContent = 'REMOVE';
-          modalRefs.spanQueueAdd.textContent = 'FROM';
-          modalRefs.btnQueueModal.classList.add('detail__button--active');
-          modalRefs.btnQueueModal.classList.remove('detail__button--disable');
-          return;
-        }
+    modalRefs.spanWatched.textContent = 'ADD';
+    modalRefs.spanWatchedAdd.textContent = 'TO';
+    modalRefs.btnWatchedModal.classList.remove('detail__button--active');
+    modalRefs.btnWatchedModal.classList.add('detail__button--disable');
+  } else {
+    modalRefs.spanWatched.textContent = 'ADD';
+    modalRefs.spanWatchedAdd.textContent = 'TO';
+    modalRefs.btnWatchedModal.classList.remove('detail__button--active');
+    modalRefs.btnWatchedModal.classList.add('detail__button--disable');
+  }
+});
+getQueuesFilms().then(dataDb => {
+  if (dataDb) {
+    const keys = Object.keys(dataDb);
+    for (const key of keys) {
+      if (dataDb[key].id === Number(cardItemId)) {
+        modalRefs.spanQueue.textContent = 'REMOVE';
+        modalRefs.spanQueueAdd.textContent = 'FROM';
+        modalRefs.btnQueueModal.classList.add('detail__button--active');
+        modalRefs.btnQueueModal.classList.remove('detail__button--disable');
+        return;
       }
-      modalRefs.spanQueue.textContent = 'ADD';
-      modalRefs.spanQueueAdd.textContent = 'TO';
-      modalRefs.btnQueueModal.classList.remove('detail__button--active');
-      modalRefs.btnQueueModal.classList.add('detail__button--disable');
-    } else {
-      modalRefs.spanQueue.textContent = 'ADD';
-      modalRefs.spanQueueAdd.textContent = 'TO';
-      modalRefs.btnQueueModal.classList.remove('detail__button--active');
-      modalRefs.btnQueueModal.classList.add('detail__button--disable');
     }
-  });
-}
-
+    modalRefs.spanQueue.textContent = 'ADD';
+    modalRefs.spanQueueAdd.textContent = 'TO';
+    modalRefs.btnQueueModal.classList.remove('detail__button--active');
+    modalRefs.btnQueueModal.classList.add('detail__button--disable');
+  } else {
+    modalRefs.spanQueue.textContent = 'ADD';
+    modalRefs.spanQueueAdd.textContent = 'TO';
+    modalRefs.btnQueueModal.classList.remove('detail__button--active');
+    modalRefs.btnQueueModal.classList.add('detail__button--disable');
+  }
+});
 
 // function onSetWatched(e) {
 //     if (!e.currentTarget.classList.contains('watched')) {
