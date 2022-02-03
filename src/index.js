@@ -19,6 +19,7 @@ import './sass/main.scss';
 
 //======= Main =======
 import renderMain from './js/main/renderMain';
+import teamModal from './js/main/teamModal';
 
 //========= Header ============
 import renderMarkupLibrary from './js/header/renderMarkupLibrary';
@@ -57,4 +58,4 @@ function renderGallery(movies) {
 
 import renderMainLibrary from './js/main/renderMainLibrary';
 import searchFilms from './js/main/searchFilms';
-import showMovieTrailer from './js/main/showMovieTrailer'
+import showMovieTrailer from './js/main/showMovieTrailer';
