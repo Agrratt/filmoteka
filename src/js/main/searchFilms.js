@@ -61,58 +61,60 @@ function onInput(e) {
   e.preventDefault();
   refs.searchHelper.innerHTML = '';
   const searchValue = e.target.value.trim();
-  // ================== add spinner ============   
-    refs.searchHelper.insertAdjacentHTML('beforeend', preloader());
-    const spinnerRef = document.querySelector('.refreshing-loader-wrapper');
-    spinnerRef.style.display = "flex"
-// ================== close helper ============  
-    document.addEventListener('click', onDocumement);
-    function onDocumement() {
-        // console.log(e);
-        refs.searchHelper.innerHTML = ''
-        document.removeEventListener('click', onDocumement)
-    }
-// ================== check input ============  
-    if (!searchValue) {
-        Notify.info('Start typing the movie name');
-        spinnerRef.style.display = "none"
-        return
-    }
-// ================== data helper ============      
-    let searchHelper = [];
-    fetchSearchMovies(searchValue).then(r => {
-        const serchResults = r.results;
-        // console.log(serchResults);
-        const sortByVoteResults = serchResults.sort(
-            (firsrtFilm, secondFilm) => secondFilm.vote_average - firsrtFilm.vote_average 
-        )
-        searchHelper = sortByVoteResults.slice(0, 5);
-        searchHelper.map(movie => {
-            // console.log(movie.title.length);
-            let title = movie.title;
-            if (title.length > 48) {
-                title = title.slice(0, 45);
-                title = title.padEnd(48, '...');
-                movie.title = title;
-            }
-        })
+  // ================== add spinner ============
+  refs.searchHelper.insertAdjacentHTML('beforeend', preloader());
+  const spinnerRef = document.querySelector('.refreshing-loader-wrapper');
+  spinnerRef.style.display = 'flex';
+  // ================== close helper ============
+  document.addEventListener('click', onDocumement);
+  function onDocumement() {
+    // console.log(e);
+    refs.searchHelper.innerHTML = '';
+    document.removeEventListener('click', onDocumement);
+  }
+  // ================== check input ============
+  if (!searchValue) {
+    Notify.info('Start typing the movie name');
+    spinnerRef.style.display = 'none';
+    return;
+  }
+  // ================== data helper ============
+  let searchHelper = [];
+  fetchSearchMovies(searchValue).then(r => {
+    const serchResults = r.results;
+    // console.log(serchResults);
+    const sortByVoteResults = serchResults.sort(
+      (firsrtFilm, secondFilm) => secondFilm.vote_average - firsrtFilm.vote_average,
+    );
+    searchHelper = sortByVoteResults.slice(0, 5);
+    searchHelper.map(movie => {
+      // console.log(movie.title.length);
+      let title = movie.title;
+      if (title.length > 48) {
+        title = title.slice(0, 45);
+        title = title.padEnd(48, '...');
+        movie.title = title;
+      }
+    });
 
-        if (serchResults.length === 0) {
-            spinnerRef.style.display = "none";
-            Notify.failure("oops, we didn't find anything...");
-        }
-        // console.log(searchHelper)
-        searchHelper.map(({ id, poster_path, title, release_date, vote_average }) =>{
-            const releaseYear = release_date ? release_date.split('-')[0] : 'Unknown';
-            const poster = poster_path
-            ? `https://image.tmdb.org/t/p/w500${poster_path}`
-            : 'https://upload.wikimedia.org/wikipedia/commons/c/c2/No_image_poster.png';
-            
-            refs.searchHelper.insertAdjacentHTML(
-                'beforeend', htmlMarkupFilmsSerchHelper(id, poster, title, releaseYear, vote_average));
-// ================== close spinner ============  
-            spinnerRef.style.display = "none"
-        })
+    if (serchResults.length === 0) {
+      spinnerRef.style.display = 'none';
+      Notify.failure("oops, we didn't find anything...");
+    }
+    // console.log(searchHelper)
+    searchHelper.map(({ id, poster_path, title, release_date, vote_average }) => {
+      const releaseYear = release_date ? release_date.split('-')[0] : 'Unknown';
+      const poster = poster_path
+        ? `https://image.tmdb.org/t/p/w500${poster_path}`
+        : 'https://upload.wikimedia.org/wikipedia/commons/c/c2/No_image_poster.png';
+
+      refs.searchHelper.insertAdjacentHTML(
+        'beforeend',
+        htmlMarkupFilmsSerchHelper(id, poster, title, releaseYear, vote_average),
+      );
+      // ================== close spinner ============
+      spinnerRef.style.display = 'none';
+    });
   });
 }
 
@@ -161,8 +163,8 @@ const modalRefs = {
   overview: document.querySelector('.detail__about__text'),
   genres: document.querySelector('.genres'),
 
-  btnWatched: document.querySelector('.watched'),
-  btnQueue: document.querySelector('.queue'),
+  btnWatchedModal: document.querySelector('.watched'),
+  btnQueueModal: document.querySelector('.queue'),
   spanWatched: document.querySelector('.span-watched'),
   spanQueue: document.querySelector('.span-queue'),
   spanWatchedAdd: document.querySelector('.span-watched_add'),
@@ -222,6 +224,7 @@ const modalRefs = {
 //     const genres = genresNewMassive.map(genre => genre.name);
 //     modalRefs.genres.textContent = genres.join(', ');
 
+
 //     refs.searchHelper.innerHTML = '';
 //   });
 
@@ -272,6 +275,55 @@ const modalRefs = {
 //     }
 //   });
 // }
+
+  getWatchesFilms().then(dataDb => {
+    if (dataDb) {
+      const keys = Object.keys(dataDb);
+      for (const key of keys) {
+        if (dataDb[key].id === Number(cardItemId)) {
+          modalRefs.spanWatched.textContent = 'REMOVE';
+          modalRefs.spanWatchedAdd.textContent = 'FROM';
+          modalRefs.btnWatchedModal.classList.add('detail__button--active');
+          modalRefs.btnWatchedModal.classList.remove('detail__button--disable');
+          return;
+        }
+      }
+      modalRefs.spanWatched.textContent = 'ADD';
+      modalRefs.spanWatchedAdd.textContent = 'TO';
+      modalRefs.btnWatchedModal.classList.remove('detail__button--active');
+      modalRefs.btnWatchedModal.classList.add('detail__button--disable');
+    } else {
+      modalRefs.spanWatched.textContent = 'ADD';
+      modalRefs.spanWatchedAdd.textContent = 'TO';
+      modalRefs.btnWatchedModal.classList.remove('detail__button--active');
+      modalRefs.btnWatchedModal.classList.add('detail__button--disable');
+    }
+  });
+  getQueuesFilms().then(dataDb => {
+    if (dataDb) {
+      const keys = Object.keys(dataDb);
+      for (const key of keys) {
+        if (dataDb[key].id === Number(cardItemId)) {
+          modalRefs.spanQueue.textContent = 'REMOVE';
+          modalRefs.spanQueueAdd.textContent = 'FROM';
+          modalRefs.btnQueueModal.classList.add('detail__button--active');
+          modalRefs.btnQueueModal.classList.remove('detail__button--disable');
+          return;
+        }
+      }
+      modalRefs.spanQueue.textContent = 'ADD';
+      modalRefs.spanQueueAdd.textContent = 'TO';
+      modalRefs.btnQueueModal.classList.remove('detail__button--active');
+      modalRefs.btnQueueModal.classList.add('detail__button--disable');
+    } else {
+      modalRefs.spanQueue.textContent = 'ADD';
+      modalRefs.spanQueueAdd.textContent = 'TO';
+      modalRefs.btnQueueModal.classList.remove('detail__button--active');
+      modalRefs.btnQueueModal.classList.add('detail__button--disable');
+    }
+  });
+}
+
 
 // function onSetWatched(e) {
 //     if (!e.currentTarget.classList.contains('watched')) {
