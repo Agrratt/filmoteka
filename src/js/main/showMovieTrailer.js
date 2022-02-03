@@ -7,13 +7,49 @@ import fetchMovieTrailer from "../api/fetchMovieTrailer";
 // let player;
 // player = YouTubePlayer(videoPlay);
 
+// // console.log(videoPlay);
 
-// console.log(videoPlay);
+// fetchMovieTrailer(597208).then(r => {
+//     const movies = r.results
+//     let movieTrailers = [];
 
-// fetchMovieTrailer(157336).then(r => {
-//     let movies = r.results
-//     // let trailer = undefined
-//     const trailer = movies.find(movie => 
+//     movies.map(movie => {
+//         if (movie.name === 'Official Trailer') {
+//             movieTrailers.push(movie)
+//         }
+//     })
+//     movies.map(movie => {
+//         if (movie.name === 'Teaser Trailer') {
+//             movieTrailers.push(movie)
+//         }
+//     })
+//     movies.map(movie => {
+//         if (movie.type === 'Trailer') {
+//             movieTrailers.push(movie)
+//         }
+//     })
+//     movies.map(movie => {
+//         if (movie.name === 'Official Teaser') {
+//             movieTrailers.push(movie)
+//         }
+//     })
+//     movies.map(movie => {
+//         if (movie.official === true ) {
+//             movieTrailers.push(movie)
+//         }
+//     })
+//     movies.map(movie => {
+//         if (movie.type === 'Teaser') {
+//             movieTrailers.push(movie)
+//         }
+//     })
+//     movies.map(movie => {
+//         if (movie.type === 'Clip' ) {
+//             movieTrailers.push(movie)
+//         }
+//     })
+
+//     const trailer = movieTrailers .find(movie => 
 //         movie.name === 'Official Trailer' ||
 //         movie.name === 'Teaser Trailer' ||
 //         movie.type === 'Trailer' ||
@@ -22,6 +58,9 @@ import fetchMovieTrailer from "../api/fetchMovieTrailer";
 //         movie.type === 'Clip' ||
 //         movie.type === 'Teaser'
 //     )
+    
+//     console.log(movieTrailers);
+
 //     console.log(trailer);
 //     // if (trailer === undefined) {
 //     // const trailerNotOfficial = movies.find(movie => 
@@ -29,10 +68,9 @@ import fetchMovieTrailer from "../api/fetchMovieTrailer";
 //     //     )
 //     //     trailer = trailerNotOfficial
 //     // }
-//     console.log(trailer);
-//     console.log(movies);
+//     // console.log(movies);
 //     const yotubeKey = trailer.key;
-//     console.log(yotubeKey);
+//     // console.log(yotubeKey);
 //     player.loadVideoById(yotubeKey);
 // })
 
