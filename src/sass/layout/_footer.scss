@@ -24,13 +24,49 @@
 }
 
 .footer__content {
+  display: flex;
   margin-bottom: 10px;
   padding-top: 29px;
 }
 
 .footer__develop {
+  display: flex;
   margin: 0;
   padding-bottom: 29px;
+}
+
+.btn {
+  display: flex;
+  width: 55px;
+  padding-left: 4px;
+}
+
+.btn::after {
+  content: '';
+  display: block;
+  position: absolute;
+  margin-top: 20px;
+  width: 120px;
+  height: 4px;
+  border-radius: 2px;
+  background-color: var(--accent-color);
+  transition: transform 250ms linear;
+  transform: scale(0);
+}
+
+.btn:hover::after,
+.btn:focus::after {
+  transform: scale(1);
+}
+
+.btn:hover {
+  font-weight: bold;
+  transition: transform 250ms linear;
+}
+
+.goit__stud {
+  padding-left: 4px;
+  color: var(--third-text-color);
 }
 
 .footer__icon {
@@ -73,6 +109,7 @@ button {
   }
 
   .footer__content {
+    display: flex;
     margin-bottom: 0;
     padding-bottom: 29px;
   }
