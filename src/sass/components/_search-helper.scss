@@ -1,9 +1,18 @@
 .search-helper {
-  margin-left: auto;
-  margin-right: auto;
+  position: absolute;
+  z-index: 4000;
+  top: 140px;
+  margin: 0px auto;
+  left: 0;
+  right: 0;
   background-color: var(--footer-bg-color);
   max-width: 500px;
-  max-height: 140px;
+  max-height: 250px;
+  background-image: linear-gradient(rgba(189, 170, 170, 0.56), rgba(161, 154, 154, 0.226)),
+    url(../images/header/film_640.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom;
   cursor: pointer;
   @media screen and (min-width: 320px) and (max-width: 767px) {
     max-width: 320px;
@@ -28,18 +37,20 @@
 .helper__image {
   margin-right: 5px;
   @media screen and (min-width: 320px) and (max-width: 767px) {
-    width: 12px;
-    height: 18px;
+    min-width: 12px;
+    min-height: 18px;
   }
 }
 
 .helper__title {
-  color: rgb(17, 66, 112);
+  color: rgb(5, 47, 87);
   font-size: 16px;
   margin-right: 7px;
-  margin-top: 3px;
+  margin-top: auto;
+  margin-bottom: auto;
   @media screen and (min-width: 320px) and (max-width: 767px) {
-    margin-top: 0px;
+    margin-top: auto;
+    margin-bottom: auto;
     font-size: 12px;
   }
 }
@@ -87,8 +98,21 @@
 .helper__item:focus {
   box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px,
     #d5d8d63d 0 3px 0 inset;
-  transform: translateY(-1px);
+  opacity: 0.99;
+  transform: translateY(2px);
+  transform: translateX(3px);
   background-color: rgb(184, 180, 180);
   outline: none;
   outline-offset: 0;
+  height: 60px;
+  .helper__image {
+    height: 58px;
+    width: 35px;
+  }
+  .search-helper {
+    max-height: 180px;
+  }
+  .helper__title {
+    opacity: 1;
+  }
 }
