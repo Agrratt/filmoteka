@@ -91,8 +91,8 @@ function onInput(e) {
       // console.log(movie.title.length);
       let title = movie.title;
       if (title.length > 48) {
-        title = title.slice(0, 45);
-        title = title.padEnd(48, '...');
+        title = title.slice(0, 40);
+        title = title.padEnd(43, '...');
         movie.title = title;
       }
     });
@@ -103,7 +103,7 @@ function onInput(e) {
     }
     // console.log(searchHelper)
     searchHelper.map(({ id, poster_path, title, release_date, vote_average }) => {
-      const releaseYear = release_date ? release_date.split('-')[0] : 'Unknown';
+      const releaseYear = release_date ? release_date.split('-')[0] : 'No';
       const poster = poster_path
         ? `https://image.tmdb.org/t/p/w500${poster_path}`
         : 'https://upload.wikimedia.org/wikipedia/commons/c/c2/No_image_poster.png';
