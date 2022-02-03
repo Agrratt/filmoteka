@@ -14,7 +14,7 @@ refs.gallery.addEventListener('click', onCardClick);
 refs.btnWatchedModal.addEventListener('click', onSetWatched);
 refs.btnQueueModal.addEventListener('click', onSetQueue);
 
-export function onCardClick(e) {
+function onCardClick(e) {
   const cardItem = e.target.parentNode;
   const cardItemId = cardItem.id;
 
@@ -24,6 +24,8 @@ export function onCardClick(e) {
   }
   // stoper ----------------------------
 
+
+  renderModal(cardItemId)
   // modal events ----------------------------
   // Backdrop unhide
   refs.backdrop.classList.remove('modal-is-hidden');
@@ -233,3 +235,108 @@ function onSetQueue(e) {
     });
   });
 }
+
+export function renderModal(cardItemId) {
+  
+  // modal events ----------------------------
+  // Backdrop unhide
+  refs.backdrop.classList.remove('modal-is-hidden');
+  // baackdrop hide
+
+  refs.closeBtn.addEventListener('click', () => {
+    refs.backdrop.classList.add('modal-is-hidden');
+    refs.body.classList.remove('body__fixed');
+    clearModal()
+  });
+
+  refs.backdrop.addEventListener('click', event => {
+    if (event.target.classList.contains('backdrop')) {
+      refs.backdrop.classList.add('modal-is-hidden');
+      refs.body.classList.remove('body__fixed');
+    clearModal()
+    }
+  });
+  refs.body.classList.add('body__fixed');
+  // modal events ----------------------------
+
+
+  fetchDetailsMovie(cardItemId).then(result => {
+   refs.movieTitle.textContent = result.title;
+    refs.detailImg.src = result.poster_path
+      ? `https://image.tmdb.org/t/p/w500${result.poster_path}`
+      : 'https://upload.wikimedia.org/wikipedia/commons/c/c2/No_image_poster.png';
+    refs.vote_average.textContent = result.vote_average;
+    refs.vote_count.textContent = result.vote_count;
+    refs.popularity.textContent = result.popularity.toFixed(2);
+    refs.originalTitle.textContent = result.original_title;
+    refs.overview.textContent = result.overview;
+    refs.buttonBlock.id = cardItemId;
+
+    const genresNewMassive = result.genres ? result.genres : 'Unknown';
+
+    const genres = genresNewMassive.map(genre => genre.name);
+
+    refs.genres.textContent = genres.join(', ');
+  });
+
+  function clearModal() {
+  refs.detailImg.src = "";
+  refs.movieTitle.textContent = "";
+  refs.vote_average.textContent = "";
+  refs.vote_count.textContent = "";
+  refs.popularity.textContent = "";
+  refs.originalTitle.textContent = "";
+  refs.overview.textContent = "";
+}
+
+
+  // Buttons ---------------------------------
+  getWatchesFilms().then(dataDb => {
+    if (dataDb) {
+      const keys = Object.keys(dataDb);
+      for (const key of keys) {
+        if (dataDb[key].id === Number(cardItemId)) {
+          refs.spanWatched.textContent = 'REMOVE';
+          refs.spanWatchedAdd.textContent = 'FROM';
+          refs.btnWatched.classList.add('detail__button--active');
+          refs.btnWatched.classList.remove('detail__button--disable');
+          return;
+        }
+      }
+      refs.spanWatched.textContent = 'ADD';
+      refs.spanWatchedAdd.textContent = 'TO';
+      refs.btnWatched.classList.remove('detail__button--active');
+      refs.btnWatched.classList.add('detail__button--disable');
+    } else {
+      refs.spanWatched.textContent = 'ADD';
+      refs.spanWatchedAdd.textContent = 'TO';
+      refs.btnWatched.classList.remove('detail__button--active');
+      refs.btnWatched.classList.add('detail__button--disable');
+    }
+  });
+  getQueuesFilms().then(dataDb => {
+    if (dataDb) {
+      const keys = Object.keys(dataDb);
+      for (const key of keys) {
+        if (dataDb[key].id === Number(cardItemId)) {
+          refs.spanQueue.textContent = 'REMOVE';
+          refs.spanQueueAdd.textContent = 'FROM';
+          refs.btnQueue.classList.add('detail__button--active');
+          refs.btnQueue.classList.remove('detail__button--disable');
+          return;
+        }
+      }
+      refs.spanQueue.textContent = 'ADD';
+      refs.spanQueueAdd.textContent = 'TO';
+      refs.btnQueue.classList.remove('detail__button--active');
+      refs.btnQueue.classList.add('detail__button--disable');
+    } else {
+      refs.spanQueue.textContent = 'ADD';
+      refs.spanQueueAdd.textContent = 'TO';
+      refs.btnQueue.classList.remove('detail__button--active');
+      refs.btnQueue.classList.add('detail__button--disable');
+    }
+  });
+}
+
+

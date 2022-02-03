@@ -13,6 +13,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { pagination } from '../main/renderMain';
 import { eventPagination } from '../main/renderMain';
 import { page } from '../main/renderMain';
+import { renderModal } from '../more_info/more_info';
 
 // ================== db imports ==================
 import getWatchesFilms from '../db/getWatchesFilms';
@@ -177,49 +178,103 @@ const modalRefs = {
 // modalRefs.btnWatched.addEventListener('click', onSetWatched);
 // modalRefs.btnQueue.addEventListener('click', onSetQueue);
 
-function onSearchLine(e) {
-  const cardItemId = e.target.id;
 
-  if (e.target.nodeName === 'UL') {
-    return;
-  }
-  if (e.target.nodeName === 'DIV') {
-    return;
-  }
+  function onSearchLine(e) {
+    const cardItemId = e.target.id;
 
-  modalRefs.backdrop.classList.remove('is-hidden');
-
-  modalRefs.closeBtn.addEventListener('click', () => {
-    modalRefs.backdrop.classList.add('is-hidden');
-    modalRefs.body.classList.remove('body__fixed');
-  });
-
-  modalRefs.backdrop.addEventListener('click', event => {
-    if (event.target.classList.contains('backdrop')) {
-      modalRefs.backdrop.classList.add('is-hidden');
-      modalRefs.body.classList.remove('body__fixed');
+    if (e.target.nodeName === 'UL') {
+      return;
     }
-  });
-  modalRefs.body.classList.add('body__fixed');
+    if (e.target.nodeName === 'DIV') {
+      return;
+    }
 
-  fetchDetailsMovie(cardItemId).then(result => {
-    modalRefs.movieTitle.textContent = result.title;
-    modalRefs.detailImg.src = result.poster_path
-      ? `https://image.tmdb.org/t/p/w500${result.poster_path}`
-      : 'https://upload.wikimedia.org/wikipedia/commons/c/c2/No_image_poster.png';
-    modalRefs.vote_average.textContent = result.vote_average;
-    modalRefs.vote_count.textContent = result.vote_count;
-    modalRefs.popularity.textContent = result.popularity.toFixed(2);
-    modalRefs.originalTitle.textContent = result.original_title;
-    modalRefs.overview.textContent = result.overview;
-    modalRefs.buttonBlock.id = cardItemId;
+    renderModal(cardItemId)
+  }
 
-    const genresNewMassive = result.genres ? result.genres : 'Unknown';
-    const genres = genresNewMassive.map(genre => genre.name);
-    modalRefs.genres.textContent = genres.join(', ');
 
-    refs.searchHelper.innerHTML = '';
-  });
+//   modalRefs.backdrop.classList.remove('is-hidden');
+
+//   modalRefs.closeBtn.addEventListener('click', () => {
+//     modalRefs.backdrop.classList.add('is-hidden');
+//     modalRefs.body.classList.remove('body__fixed');
+//   });
+
+//   modalRefs.backdrop.addEventListener('click', event => {
+//     if (event.target.classList.contains('backdrop')) {
+//       modalRefs.backdrop.classList.add('is-hidden');
+//       modalRefs.body.classList.remove('body__fixed');
+//     }
+//   });
+//   modalRefs.body.classList.add('body__fixed');
+
+//   fetchDetailsMovie(cardItemId).then(result => {
+//     modalRefs.movieTitle.textContent = result.title;
+//     modalRefs.detailImg.src = result.poster_path
+//       ? `https://image.tmdb.org/t/p/w500${result.poster_path}`
+//       : 'https://upload.wikimedia.org/wikipedia/commons/c/c2/No_image_poster.png';
+//     modalRefs.vote_average.textContent = result.vote_average;
+//     modalRefs.vote_count.textContent = result.vote_count;
+//     modalRefs.popularity.textContent = result.popularity.toFixed(2);
+//     modalRefs.originalTitle.textContent = result.original_title;
+//     modalRefs.overview.textContent = result.overview;
+//     modalRefs.buttonBlock.id = cardItemId;
+
+//     const genresNewMassive = result.genres ? result.genres : 'Unknown';
+//     const genres = genresNewMassive.map(genre => genre.name);
+//     modalRefs.genres.textContent = genres.join(', ');
+
+
+//     refs.searchHelper.innerHTML = '';
+//   });
+
+//   getWatchesFilms().then(dataDb => {
+//     if (dataDb) {
+//       const keys = Object.keys(dataDb);
+//       for (const key of keys) {
+//         if (dataDb[key].id === Number(cardItemId)) {
+//           modalRefs.spanWatched.textContent = 'REMOVE';
+//           modalRefs.spanWatchedAdd.textContent = 'FROM';
+//           modalRefs.btnWatched.classList.add('detail__button--active');
+//           modalRefs.btnWatched.classList.remove('detail__button--disable');
+//           return;
+//         }
+//       }
+//       modalRefs.spanWatched.textContent = 'ADD';
+//       modalRefs.spanWatchedAdd.textContent = 'TO';
+//       modalRefs.btnWatched.classList.remove('detail__button--active');
+//       modalRefs.btnWatched.classList.add('detail__button--disable');
+//     } else {
+//       modalRefs.spanWatched.textContent = 'ADD';
+//       modalRefs.spanWatchedAdd.textContent = 'TO';
+//       modalRefs.btnWatched.classList.remove('detail__button--active');
+//       modalRefs.btnWatched.classList.add('detail__button--disable');
+//     }
+//   });
+//   getQueuesFilms().then(dataDb => {
+//     if (dataDb) {
+//       const keys = Object.keys(dataDb);
+//       for (const key of keys) {
+//         if (dataDb[key].id === Number(cardItemId)) {
+//           modalRefs.spanQueue.textContent = 'REMOVE';
+//           modalRefs.spanQueueAdd.textContent = 'FROM';
+//           modalRefs.btnQueue.classList.add('detail__button--active');
+//           modalRefs.btnQueue.classList.remove('detail__button--disable');
+//           return;
+//         }
+//       }
+//       modalRefs.spanQueue.textContent = 'ADD';
+//       modalRefs.spanQueueAdd.textContent = 'TO';
+//       modalRefs.btnQueue.classList.remove('detail__button--active');
+//       modalRefs.btnQueue.classList.add('detail__button--disable');
+//     } else {
+//       modalRefs.spanQueue.textContent = 'ADD';
+//       modalRefs.spanQueueAdd.textContent = 'TO';
+//       modalRefs.btnQueue.classList.remove('detail__button--active');
+//       modalRefs.btnQueue.classList.add('detail__button--disable');
+//     }
+//   });
+// }
 
   getWatchesFilms().then(dataDb => {
     if (dataDb) {
@@ -268,6 +323,7 @@ function onSearchLine(e) {
     }
   });
 }
+
 
 // function onSetWatched(e) {
 //     if (!e.currentTarget.classList.contains('watched')) {
