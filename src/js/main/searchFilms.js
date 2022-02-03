@@ -174,10 +174,6 @@ const modalRefs = {
 
 // ==================  open film with helper ==================
 
-// modalRefs.gallary.addEventListener('click', onCardClick);
-// modalRefs.btnWatched.addEventListener('click', onSetWatched);
-// modalRefs.btnQueue.addEventListener('click', onSetQueue);
-
 function onSearchLine(e) {
   const cardItemId = e.target.id;
 
@@ -189,7 +185,61 @@ function onSearchLine(e) {
   }
 
   renderModal(cardItemId);
+
+getWatchesFilms().then(dataDb => {
+  if (dataDb) {
+    const keys = Object.keys(dataDb);
+    for (const key of keys) {
+      if (dataDb[key].id === Number(cardItemId)) {
+        modalRefs.spanWatched.textContent = 'REMOVE';
+        modalRefs.spanWatchedAdd.textContent = 'FROM';
+        modalRefs.btnWatchedModal.classList.add('detail__button--active');
+        modalRefs.btnWatchedModal.classList.remove('detail__button--disable');
+        return;
+      }
+    }
+    modalRefs.spanWatched.textContent = 'ADD';
+    modalRefs.spanWatchedAdd.textContent = 'TO';
+    modalRefs.btnWatchedModal.classList.remove('detail__button--active');
+    modalRefs.btnWatchedModal.classList.add('detail__button--disable');
+  } else {
+    modalRefs.spanWatched.textContent = 'ADD';
+    modalRefs.spanWatchedAdd.textContent = 'TO';
+    modalRefs.btnWatchedModal.classList.remove('detail__button--active');
+    modalRefs.btnWatchedModal.classList.add('detail__button--disable');
+  }
+});
+getQueuesFilms().then(dataDb => {
+  if (dataDb) {
+    const keys = Object.keys(dataDb);
+    for (const key of keys) {
+      if (dataDb[key].id === Number(cardItemId)) {
+        modalRefs.spanQueue.textContent = 'REMOVE';
+        modalRefs.spanQueueAdd.textContent = 'FROM';
+        modalRefs.btnQueueModal.classList.add('detail__button--active');
+        modalRefs.btnQueueModal.classList.remove('detail__button--disable');
+        return;
+      }
+    }
+    modalRefs.spanQueue.textContent = 'ADD';
+    modalRefs.spanQueueAdd.textContent = 'TO';
+    modalRefs.btnQueueModal.classList.remove('detail__button--active');
+    modalRefs.btnQueueModal.classList.add('detail__button--disable');
+  } else {
+    modalRefs.spanQueue.textContent = 'ADD';
+    modalRefs.spanQueueAdd.textContent = 'TO';
+    modalRefs.btnQueueModal.classList.remove('detail__button--active');
+    modalRefs.btnQueueModal.classList.add('detail__button--disable');
+  }
+});
 }
+
+
+
+// modalRefs.gallary.addEventListener('click', onCardClick);
+// modalRefs.btnWatched.addEventListener('click', onSetWatched);
+// modalRefs.btnQueue.addEventListener('click', onSetQueue);
+
 
 //   modalRefs.backdrop.classList.remove('is-hidden');
 
@@ -273,52 +323,6 @@ function onSearchLine(e) {
 //   });
 // }
 
-getWatchesFilms().then(dataDb => {
-  if (dataDb) {
-    const keys = Object.keys(dataDb);
-    for (const key of keys) {
-      if (dataDb[key].id === Number(cardItemId)) {
-        modalRefs.spanWatched.textContent = 'REMOVE';
-        modalRefs.spanWatchedAdd.textContent = 'FROM';
-        modalRefs.btnWatchedModal.classList.add('detail__button--active');
-        modalRefs.btnWatchedModal.classList.remove('detail__button--disable');
-        return;
-      }
-    }
-    modalRefs.spanWatched.textContent = 'ADD';
-    modalRefs.spanWatchedAdd.textContent = 'TO';
-    modalRefs.btnWatchedModal.classList.remove('detail__button--active');
-    modalRefs.btnWatchedModal.classList.add('detail__button--disable');
-  } else {
-    modalRefs.spanWatched.textContent = 'ADD';
-    modalRefs.spanWatchedAdd.textContent = 'TO';
-    modalRefs.btnWatchedModal.classList.remove('detail__button--active');
-    modalRefs.btnWatchedModal.classList.add('detail__button--disable');
-  }
-});
-getQueuesFilms().then(dataDb => {
-  if (dataDb) {
-    const keys = Object.keys(dataDb);
-    for (const key of keys) {
-      if (dataDb[key].id === Number(cardItemId)) {
-        modalRefs.spanQueue.textContent = 'REMOVE';
-        modalRefs.spanQueueAdd.textContent = 'FROM';
-        modalRefs.btnQueueModal.classList.add('detail__button--active');
-        modalRefs.btnQueueModal.classList.remove('detail__button--disable');
-        return;
-      }
-    }
-    modalRefs.spanQueue.textContent = 'ADD';
-    modalRefs.spanQueueAdd.textContent = 'TO';
-    modalRefs.btnQueueModal.classList.remove('detail__button--active');
-    modalRefs.btnQueueModal.classList.add('detail__button--disable');
-  } else {
-    modalRefs.spanQueue.textContent = 'ADD';
-    modalRefs.spanQueueAdd.textContent = 'TO';
-    modalRefs.btnQueueModal.classList.remove('detail__button--active');
-    modalRefs.btnQueueModal.classList.add('detail__button--disable');
-  }
-});
 
 // function onSetWatched(e) {
 //     if (!e.currentTarget.classList.contains('watched')) {
@@ -436,7 +440,3 @@ getQueuesFilms().then(dataDb => {
 
 //     refs.searchHelper.innerHTML = ''
 // };
-// let h = 'popppppppppp'
-//                 h = h.slice(0,5)
-//                 let g = h.padEnd(8,"...")
-//                 console.log(g);

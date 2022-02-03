@@ -57,3 +57,4 @@ function renderGallery(movies) {
 
 import renderMainLibrary from './js/main/renderMainLibrary';
 import searchFilms from './js/main/searchFilms';
+import showMovieTrailer from './js/main/showMovieTrailer'
