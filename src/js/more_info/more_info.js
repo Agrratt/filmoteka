@@ -1,7 +1,10 @@
 import fetchDetailsMovie from '../api/fetchDetailsMovie';
 import fetchGenresMovies from '../api/fetchGenresMovies';
 import refs from '../allRefs/refs';
+import { addTrailerPlayer } from '../main/showMovieTrailer';
+import {player} from '../main/showMovieTrailer';
 import fetchDetailsMovieImages from '../api/fetchDetailsImages'
+
 
 import getWatchesFilms from '../db/getWatchesFilms';
 import getQueuesFilms from '../db/getQueuesFilms';
@@ -37,6 +40,7 @@ function onCardClick(e) {
   // stoper ----------------------------
 
   renderModal(cardItemId)
+  addTrailerPlayer(cardItemId)
 
   refs.backdrop.classList.remove('modal-is-hidden');
 
@@ -45,7 +49,9 @@ function onCardClick(e) {
     refs.backdrop.classList.add('modal-is-hidden');
     refs.body.classList.remove('body__fixed');
     clearModal();
+    player.stopVideo()
     // refs.imageGallery.innerHTML = " "
+
   });
 
   refs.backdrop.addEventListener('click', event => {
@@ -53,6 +59,7 @@ function onCardClick(e) {
       refs.backdrop.classList.add('modal-is-hidden');
       refs.body.classList.remove('body__fixed');
       clearModal();
+      player.stopVideo()
     }
   });
   refs.body.classList.add('body__fixed');
@@ -196,7 +203,11 @@ function removeListerer() {
     refs.backdrop.classList.add('modal-is-hidden');
     refs.body.classList.remove('body__fixed');
     clearModal()
+
     removeListerer()
+
+    player.stopVideo()
+
   });
   
 
@@ -205,7 +216,11 @@ function removeListerer() {
       refs.backdrop.classList.add('modal-is-hidden');
       refs.body.classList.remove('body__fixed');
       clearModal()
+
       removeListerer()
+
+      player.stopVideo()
+
     }
     });
   
