@@ -299,7 +299,9 @@ tr {
   }
 
   .detail__image__block {
+    height: 100%;
     width: 396px;
+    margin-bottom: 330px;
   }
 
   .detail__info__block {
@@ -331,6 +333,20 @@ tr {
     width: 396px;
   }
 }
+
+
+.modal-traill-wrapper {
+  display: flex;
+  position: absolute;
+  bottom: -100px;
+  margin: 0px auto;
+  left: 0;
+  right: 0;
+  align-items: center;
+  justify-content: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  max-height: 100%;
 
 .detail__image {
   width: 200px;

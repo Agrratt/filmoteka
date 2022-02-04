@@ -22,7 +22,7 @@ const refs = {
   originalTitle: document.querySelector('.original__title'),
   overview: document.querySelector('.detail__about__text'),
   genres: document.querySelector('.genres'),
-
+  movieTrailer:document.querySelector('.modal-traill'),
   btnWatchedModal: document.querySelector('.watched'),
   btnQueueModal: document.querySelector('.queue'),
   spanWatched: document.querySelector('.span-watched'),
