@@ -25,7 +25,9 @@ spinnerRef.style.display = "flex"
 }
 
 export function stopSpinner() {
-    // const spinnerRef = document.querySelector('.refreshing-loader-wrapper');  
+    // const spinnerRef = document.querySelector('.refreshing-loader-wrapper');
     // spinnerRef.style.display = "none";
-    refs.preloader.innerHTML = '';
+    window.setTimeout(function () {
+        refs.preloader.innerHTML = '';
+        }, 900);
 }
