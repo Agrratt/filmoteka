@@ -14,6 +14,9 @@ import { pagination } from '../main/renderMain';
 import { eventPagination } from '../main/renderMain';
 import { page } from '../main/renderMain';
 import { renderModal } from '../more_info/more_info';
+import { addTrailerPlayer } from '../main/showMovieTrailer';
+import {player} from '../main/showMovieTrailer';
+
 
 // ================== db imports ==================
 import getWatchesFilms from '../db/getWatchesFilms';
@@ -185,6 +188,7 @@ function onSearchLine(e) {
   }
 
   renderModal(cardItemId);
+  addTrailerPlayer(cardItemId)
 
 getWatchesFilms().then(dataDb => {
   if (dataDb) {
