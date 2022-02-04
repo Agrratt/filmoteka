@@ -177,42 +177,64 @@ function onSetQueue(e) {
   });
 }
 
+
+
 export function renderModal(cardItemId) {
   // modal events ----------------------------
   // Backdrop unhide
   refs.backdrop.classList.remove('modal-is-hidden');
   // baackdrop hide
 
+  function onEscapeBtn(event) {
+  console.log("keydown", event);
+    if (event.key === "Escape") {
+      refs.backdrop.classList.add('modal-is-hidden');
+      refs.body.classList.remove('body__fixed');
+      clearModal();
+      removeListerer()
+    }
+}
+
+function removeListerer() {
+  document.removeEventListener("keydown", onEscapeBtn);
+}
+
   refs.closeBtn.addEventListener('click', () => {
     refs.backdrop.classList.add('modal-is-hidden');
     refs.body.classList.remove('body__fixed');
     clearModal()
+
+    removeListerer()
+
     player.stopVideo()
+
   });
+  
+
+    refs.backdrop.addEventListener('click', event => {
+    if (event.target.classList.contains('backdrop')) {
+      refs.backdrop.classList.add('modal-is-hidden');
+      refs.body.classList.remove('body__fixed');
+      clearModal()
+
+      removeListerer()
+
+      player.stopVideo()
+
+    }
+    });
+  
+  document.addEventListener("keydown", onEscapeBtn)
 
   // fetchDetailsMovieImages(cardItemId).then(result => {
   //   refs.imageGallery.insertAdjacentHTML('beforeend', `<img src = "https://image.tmdb.org/t/p/w500${result.backdrops[5].file_path}" class = "detail__image">`)
   // })
 
-  refs.backdrop.addEventListener('click', event => {
-    if (event.target.classList.contains('backdrop')) {
-      refs.backdrop.classList.add('modal-is-hidden');
-      refs.body.classList.remove('body__fixed');
-      clearModal()
-      player.stopVideo()
-    }
-  });
+
   refs.body.classList.add('body__fixed');
   // modal events ----------------------------
   
-  document.addEventListener("keydown", event => {
-    console.log("keydown", event);
-    if (event.key === "Escape") {
-      refs.backdrop.classList.add('modal-is-hidden');
-      refs.body.classList.remove('body__fixed');
-      clearModal();
-    }
-  })
+    
 
   fetchDetailsMovie(cardItemId).then(result => {
    refs.movieTitle.textContent = result.title;
