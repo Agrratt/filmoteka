@@ -20,6 +20,7 @@ import './sass/main.scss';
 //======= Main =======
 import renderMain from './js/main/renderMain';
 import teamModal from './js/main/teamModal';
+import backToTop from './js/main/backToTop';
 
 //========= Header ============
 import renderMarkupLibrary from './js/header/renderMarkupLibrary';
