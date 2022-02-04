@@ -3,6 +3,8 @@ import fetchGenresMovies from '../api/fetchGenresMovies';
 import refs from '../allRefs/refs';
 import { addTrailerPlayer } from '../main/showMovieTrailer';
 import {player} from '../main/showMovieTrailer';
+import fetchDetailsMovieImages from '../api/fetchDetailsImages'
+
 
 import getWatchesFilms from '../db/getWatchesFilms';
 import getQueuesFilms from '../db/getQueuesFilms';
@@ -11,6 +13,7 @@ import setQueueFilm from '../db/setQueueFilm';
 import removeWatchedFilm from '../db/removeWatchedFilm';
 import removeQueueFilm from '../db/removeQueueFilm';
 import Notiflix from 'notiflix';
+
 
 refs.gallery.addEventListener('click', onCardClick);
 refs.btnWatchedModal.addEventListener('click', onSetWatched);
@@ -47,6 +50,8 @@ function onCardClick(e) {
     refs.body.classList.remove('body__fixed');
     clearModal();
     player.stopVideo()
+    // refs.imageGallery.innerHTML = " "
+
   });
 
   refs.backdrop.addEventListener('click', event => {
@@ -59,6 +64,7 @@ function onCardClick(e) {
   });
   refs.body.classList.add('body__fixed');
 }
+  // imageGallery: document.querySelector('.detail__image__gallery'),
 
 function onSetWatched(e) {
   if (!e.currentTarget.classList.contains('watched')) {
@@ -172,7 +178,6 @@ function onSetQueue(e) {
 }
 
 export function renderModal(cardItemId) {
-  
   // modal events ----------------------------
   // Backdrop unhide
   refs.backdrop.classList.remove('modal-is-hidden');
@@ -185,6 +190,10 @@ export function renderModal(cardItemId) {
     player.stopVideo()
   });
 
+  // fetchDetailsMovieImages(cardItemId).then(result => {
+  //   refs.imageGallery.insertAdjacentHTML('beforeend', `<img src = "https://image.tmdb.org/t/p/w500${result.backdrops[5].file_path}" class = "detail__image">`)
+  // })
+
   refs.backdrop.addEventListener('click', event => {
     if (event.target.classList.contains('backdrop')) {
       refs.backdrop.classList.add('modal-is-hidden');
@@ -195,7 +204,15 @@ export function renderModal(cardItemId) {
   });
   refs.body.classList.add('body__fixed');
   // modal events ----------------------------
-
+  
+  document.addEventListener("keydown", event => {
+    console.log("keydown", event);
+    if (event.key === "Escape") {
+      refs.backdrop.classList.add('modal-is-hidden');
+      refs.body.classList.remove('body__fixed');
+      clearModal();
+    }
+  })
 
   fetchDetailsMovie(cardItemId).then(result => {
    refs.movieTitle.textContent = result.title;
