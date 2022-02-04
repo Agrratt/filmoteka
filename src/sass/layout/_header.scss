@@ -99,8 +99,24 @@
   text-decoration: none;
 }
 
-.header__logo--icon {
+.header__logo {
+  overflow: hidden;
+  height: 24px;
+  width: 24px;
   margin-top: 46px;
+}
+
+@keyframes filmReel {
+  0% {
+    transform: translateY(-12px);
+  }
+  100% {
+    transform: translateY(-40px);
+  }
+}
+
+.header__logo--icon {
+  animation: filmReel 1s linear infinite;
 }
 
 .header__logo--text {
