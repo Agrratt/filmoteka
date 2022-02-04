@@ -40,7 +40,34 @@
 .tui-pagination .tui-page-btn:hover {
   background-color: #f4f4f4;
 }
-
+@media screen and (min-width: 769px) {
+  .tui-page-btn:nth-child(0):hover,
+  .tui-page-btn:nth-child(1):hover,
+  .tui-page-btn:nth-child(2):hover,
+  .tui-page-btn:nth-child(14):hover,
+  .tui-page-btn:nth-child(15):hover,
+  .tui-page-btn:nth-child(16):hover {
+    width: 32px;
+    height: 30px;
+  }
+}
+@media screen and (min-width: 769px) {
+  .tui-page-btn:nth-child(3):hover,
+  .tui-page-btn:nth-child(4):hover,
+  .tui-page-btn:nth-child(5):hover,
+  .tui-page-btn:nth-child(6):hover,
+  .tui-page-btn:nth-child(7):hover,
+  .tui-page-btn:nth-child(8):hover,
+  .tui-page-btn:nth-child(9):hover,
+  .tui-page-btn:nth-child(10):hover,
+  .tui-page-btn:nth-child(11):hover,
+  .tui-page-btn:nth-child(12):hover,
+  .tui-page-btn:nth-child(13):hover {
+    width: 30px;
+    height: 28px;
+    font-size: 14px;
+  }
+}
 .tui-pagination .tui-is-selected,
 .tui-pagination strong {
   color: #fff;
@@ -131,6 +158,63 @@
   margin-left: 10px;
 }
 
+@media screen and (max-width: 768px) {
+  .tui-pagination .tui-prev {
+    margin-right: 0px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .tui-pagination .tui-next {
+    margin-left: 0px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .tui-page-btn:nth-child(3),
+  .tui-page-btn:nth-child(4),
+  .tui-page-btn:nth-child(5),
+  .tui-page-btn:nth-child(6),
+  .tui-page-btn:nth-child(7),
+  .tui-page-btn:nth-child(8),
+  .tui-page-btn:nth-child(9),
+  .tui-page-btn:nth-child(10),
+  .tui-page-btn:nth-child(11),
+  .tui-page-btn:nth-child(12),
+  .tui-page-btn:nth-child(13) {
+    width: 18px;
+    height: 16px;
+    padding: 4px 0 2px;
+    font-size: 8px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .tui-page-btn:nth-child(3):hover,
+  .tui-page-btn:nth-child(4):hover,
+  .tui-page-btn:nth-child(5):hover,
+  .tui-page-btn:nth-child(6):hover,
+  .tui-page-btn:nth-child(7):hover,
+  .tui-page-btn:nth-child(8):hover,
+  .tui-page-btn:nth-child(9):hover,
+  .tui-page-btn:nth-child(10):hover,
+  .tui-page-btn:nth-child(11):hover,
+  .tui-page-btn:nth-child(12):hover,
+  .tui-page-btn:nth-child(13):hover {
+    width: 19px;
+    height: 17px;
+    padding: 4px 0 2px;
+    font-size: 9px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .tui-page-btn:nth-child(0),
+  .tui-page-btn:nth-child(1),
+  .tui-page-btn:nth-child(2),
+  .tui-page-btn:nth-child(14),
+  .tui-page-btn:nth-child(15),
+  .tui-page-btn:nth-child(16) {
+    width: 24px;
+    height: 20px;
+  }
+}
 .tui-pagination .tui-ico-first {
   width: 11px;
   height: 10px;
