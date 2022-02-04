@@ -1,9 +1,38 @@
 import YouTubePlayer from 'youtube-player';
 import fetchMovieTrailer from "../api/fetchMovieTrailer";
 import refs from '../allRefs/refs';
+import { Loading } from 'notiflix/build/notiflix-loading-aio';
 
 // console.log(refs.movieTrailer);
 
+Loading.init({
+  width: '400px',
+  position: 'center-top',
+  closeButton: false,
+  distance: '145px',
+  opacity: 0.95,
+  borderRadius: '5px',
+  rtl: false,
+  timeout: 1000,
+  messageMaxLength: 110,
+  backOverlay: false,
+  backOverlayColor: 'rgba(0,0,0,0.9)',
+  plainText: true,
+  showOnlyTheLastOne: true,
+  clickToClose: true,
+  pauseOnHover: true,
+  zindex: 4001,
+  fontFamily: 'Quicksand',
+  fontSize: '40px',
+  cssAnimationStyle: 'zoom',
+  cssAnimationDuration: '500',
+  useIcon: 'false',
+  messageColor: '#ff6b01',
+  svgSize: '200px',
+  svgColor: '#ff6b01',
+  messageFontSize: '30px',
+  messageColor:'#5f93c4',
+});
 // const videoPlay = document.querySelector('.trailer');
 const videoPlay = refs.movieTrailer
 
@@ -74,6 +103,13 @@ export function addTrailerPlayer(id) {
     //     trailer = trailerNotOfficial
     // }
     // console.log(movies);
+        if (movieTrailers.length === 0) {
+            player.loadVideoById(1);
+            Loading.pulse('Sorry, we did not find a trailer for this movie.');
+            Loading.remove(1923);
+            // console.log('Sorry, we did not find a trailer.');
+            return
+        }
     const yotubeKey = trailer.key;
     // console.log(yotubeKey);
         player.loadVideoById(yotubeKey);
