@@ -27,7 +27,7 @@
 
 .modal {
   width: 100%;
-  padding: 10px 20px 40px 20px;
+  padding: 48px 20px 40px 20px;
 
   position: absolute;
   top: 50%;
@@ -42,6 +42,22 @@
 
   transition: opacity 500ms cubic-bezier(0.4, 0, 0.2, 1),
     visibility 500ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media screen and (max-width: 767px) {
+  .modal {
+    max-width: 430px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .body__fixed {
+    padding-right: 17px;
+  }
+
+  .modal {
+    left: calc(50% - 8.5px);
+  }
 }
 
 .close__button {
@@ -238,7 +254,7 @@ tr {
   .modal {
     width: 618px;
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
     padding: 40px 30px;
   }
 
@@ -254,6 +270,7 @@ tr {
 
   .detail__info__block {
     width: 264px;
+    margin-left: 30px;
   }
 
   .detail__button {
@@ -313,4 +330,8 @@ tr {
   tbody {
     width: 396px;
   }
+}
+
+.detail__image {
+  width: 200px;
 }
