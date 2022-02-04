@@ -14,6 +14,16 @@ refs.gallery.addEventListener('click', onCardClick);
 refs.btnWatchedModal.addEventListener('click', onSetWatched);
 refs.btnQueueModal.addEventListener('click', onSetQueue);
 
+ function clearModal() {
+  refs.detailImg.src = "";
+  refs.movieTitle.textContent = "";
+  refs.vote_average.textContent = "";
+  refs.vote_count.textContent = "";
+  refs.popularity.textContent = "";
+  refs.originalTitle.textContent = "";
+  refs.overview.textContent = "";
+}
+
 function onCardClick(e) {
   const cardItem = e.target.parentNode;
   const cardItemId = cardItem.id;
