@@ -45,11 +45,11 @@
 }
 
 .close__button {
-  position: sticky;
+  position: absolute;
   cursor: pointer;
 
-  left: 396px;
-  top: 1px;
+  top: 10px;
+  right: 10px;
 
   display: flex;
   width: 30px;
@@ -181,6 +181,8 @@
 .detail__button {
   border-radius: 5px;
   height: 44px;
+  padding-left: 20px;
+  padding-right: 20px;
 
   font-family: Roboto;
   font-style: normal;
@@ -255,10 +257,11 @@ tr {
   }
 
   .detail__button {
-    min-width: 124px;
+    max-width: 125px;
+    min-width: calc((100% - 15px) / 2);
     vertical-align: middle;
-    padding-left: 13px;
-    padding-right: 13px;
+    padding-left: 10px;
+    padding-right: 10px;
   }
 
   .detail__info__block {
@@ -288,6 +291,11 @@ tr {
 
   .detail__buttons_block {
     justify-content: left;
+  }
+
+  .detail__button {
+    width: 136px;
+    min-width: auto;
   }
 
   .detail__button:last-child {
