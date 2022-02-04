@@ -1,6 +1,6 @@
 .back-to-top {
   position: fixed;
-  right: 30px;
+  right: 20px;
   bottom: 45px;
   width: 50px;
   height: 50px;
@@ -8,6 +8,18 @@
   border-radius: 50%;
   background-color: var(--accent-color);
   display: none;
+
+  @media screen and (max-width: 767px) {
+    right: -5px;
+    bottom: 90px;
+    border: none;
+    background-color: transparent;
+  }
+
+  @media screen and (max-width: 911px) {
+    width: 40px;
+    height: 40px;
+  }
 }
 
 .back-to-top:hover,
@@ -31,6 +43,17 @@
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
   background-color: #f5f0f6;
+
+  @media screen and (max-width: 767px) {
+    width: 15px;
+    height: 15px;
+    transform: translate(-50%, -50%) rotate(45deg);
+    border-top: 5px solid var(--accent-color);
+    border-left: 5px solid var(--accent-color);
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    background-color: transparent;
+  }
 }
 
 .back-to-top::after {
@@ -39,4 +62,11 @@
   transform: translate(-50%, -50%) rotate(45deg);
   border-top: 5px solid #f5f0f6;
   border-left: 5px solid #f5f0f6;
+
+  @media screen and (max-width: 767px) {
+    margin-top: 8px;
+    background-color: transparent;
+    border-top: 5px solid var(--primary-text-color);
+    border-left: 5px solid var(--primary-text-color);
+  }
 }
