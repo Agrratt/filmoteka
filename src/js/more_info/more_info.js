@@ -52,7 +52,7 @@ function onCardClick(e) {
     refs.body.classList.remove('body__fixed');
     clearModal();
     player.stopVideo();
-    // refs.imageGallery.innerHTML = " "
+    refs.imageGallery.innerHTML = " "
   });
 
   refs.backdrop.addEventListener('click', event => {
@@ -61,11 +61,12 @@ function onCardClick(e) {
       refs.body.classList.remove('body__fixed');
       clearModal();
       player.stopVideo();
+      refs.imageGallery.innerHTML = " "
     }
   });
   refs.body.classList.add('body__fixed');
 }
-// imageGallery: document.querySelector('.detail__image__gallery'),
+
 
 function onSetWatched(e) {
   if (!e.currentTarget.classList.contains('watched')) {
@@ -239,9 +240,14 @@ export function renderModal(cardItemId) {
 
   document.addEventListener('keydown', onEscapeBtn);
 
-  // fetchDetailsMovieImages(cardItemId).then(result => {
-  //   refs.imageGallery.insertAdjacentHTML('beforeend', `<img src = "https://image.tmdb.org/t/p/w500${result.backdrops[5].file_path}" class = "detail__image">`)
-  // })
+  // Images ---------
+
+  fetchDetailsMovieImages(cardItemId).then(result => {
+    if (result.backdrops.length > 4) {
+      refs.imageGallery.insertAdjacentHTML('beforeend', `<div class = "imageGalleryCard"><img src = "https://image.tmdb.org/t/p/w500${result.backdrops[4].file_path}" class = "detail__image"></div><div class = "imageGalleryCard"><img src = "https://image.tmdb.org/t/p/w500${result.backdrops[3].file_path}" class = "detail__image"></div>`); 
+    }
+    
+  })
 
   refs.body.classList.add('body__fixed');
   // modal events ----------------------------
