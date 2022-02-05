@@ -45,12 +45,12 @@
 
   @media screen and (min-width: 768px) {
     width: 670px;
-    height: 615px;
+    height: 645px;
   }
 
   @media screen and (min-width: 1024px) {
     width: 1200px;
-    height: 370px;
+    height: 390px;
     padding-left: 45px;
     padding-right: 45px;
   }
@@ -93,25 +93,34 @@
 }
 
 .team__title {
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-weight: bold;
   font-size: 20px;
-  line-height: 20px;
-  letter-spacing: 10px;
   color: black;
   padding-top: 15px;
 }
 
 .title__our {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 40px;
   background-color: var(--primary-text-color);
   color: var(--main-bg-color);
-  padding: 5px;
 }
 
 .title__team {
+  display: flex;
+  width: 100px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  margin-left: 5px;
   background-color: var(--accent-color);
   color: var(--main-bg-color);
-  padding: 5px;
 }
 
 .our__team {
@@ -137,21 +146,23 @@
 }
 
 .team__info {
+  padding-top: 15px;
+
   @media screen and (max-width: 767px) {
     margin-right: -35px;
     margin-left: -35px;
   }
 
-  @media screen and (min-width: 768px) {
-    transform: scale(1);
-    transition: transform 0.2s ease;
-  }
+  // @media screen and (min-width: 768px) {
+  //   transform: scale(1);
+  //   transition: transform 0.2s ease;
+  // }
 }
 
 .team__info:hover {
   @media screen and (min-width: 768px) {
-    transform: scale(1.05);
-    transition: transform 0.2s ease;
+    // transform: scale(1.05);
+    // transition: transform 0.2s ease;
     box-shadow: 0 1px 4px rgb(176, 224, 230), -23px 0 20px -23px rgb(176, 224, 230),
       23px 0 20px -23px rgba(176, 224, 230), 0 0 40px rgb(176, 224, 230);
     border-radius: 2px;
@@ -159,27 +170,28 @@
   }
 }
 
-.team__image {
-  object-fit: cover;
-  margin: auto;
-  margin-bottom: 10px;
-  margin-top: 15px;
-  box-shadow: 0 1px 4px rgb(0, 0, 0), -23px 0 20px -23px rgba(0, 0, 0, 1),
-    23px 0 20px -23px rgba(0, 0, 0, 0.788), 0 0 40px rgba(0, 0, 0, 1) inset;
-  border-radius: 4px;
+// .team__image {
+//   object-fit: cover;
+//   margin: auto;
+//   margin-bottom: 10px;
+//   margin-top: 15px;
+//   box-shadow: 0 1px 4px rgb(0, 0, 0), -23px 0 20px -23px rgba(0, 0, 0, 1),
+//     23px 0 20px -23px rgba(0, 0, 0, 0.788), 0 0 40px rgba(0, 0, 0, 1) inset;
+//   border-radius: 4px;
 
-  @media screen and (max-width: 767px) {
-    width: 90px;
-    height: 110px;
-  }
+//   @media screen and (max-width: 767px) {
+//     width: 90px;
+//     height: 110px;
+//   }
 
-  @media screen and (min-width: 768px) {
-    width: 110px;
-    height: 130px;
-  }
-}
+//   @media screen and (min-width: 768px) {
+//     width: 110px;
+//     height: 130px;
+//   }
+// }
 
 .team__name {
+  margin-top: 15px;
   font-style: normal;
   font-weight: bold;
 
@@ -252,4 +264,126 @@
     width: 18px;
     height: 18px;
   }
+}
+
+// стилі під анімацію для супергероїв
+
+.scene {
+  margin-left: auto;
+  margin-right: auto;
+
+  @media screen and (max-width: 767px) {
+    width: 90px;
+    height: 110px;
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 110px;
+    height: 130px;
+  }
+}
+
+.cards {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: all 0.8s ease;
+}
+
+.scene:hover .cards {
+  transform: rotateY(-180deg);
+}
+
+.card {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-size: cover;
+}
+
+.front_1 {
+  z-index: 2;
+  transform: rotate(0deg);
+  backface-visibility: hidden;
+  background-image: url(../images/team/bogdan.jpg);
+}
+
+.back_1 {
+  transform: rotateY(-180deg);
+  background-image: url(../images/team/hero/bohdan.jpg);
+}
+
+.front_2 {
+  z-index: 2;
+  transform: rotate(0deg);
+  backface-visibility: hidden;
+  background-image: url(../images/team/ruslan.jpg);
+}
+
+.back_2 {
+  transform: rotateY(180deg);
+  background-image: url(../images/team/hero/ruslan.jpg);
+}
+
+.front_3 {
+  z-index: 2;
+  transform: rotate(0deg);
+  backface-visibility: hidden;
+  background-image: url(../images/team/сatherine.jpg);
+}
+
+.back_3 {
+  transform: rotateY(180deg);
+  background-image: url(../images/team/hero/katya2.jpg);
+}
+
+.front_4 {
+  z-index: 2;
+  transform: rotate(0deg);
+  backface-visibility: hidden;
+  background-image: url(../images/team/dima.jpg);
+}
+
+.back_4 {
+  transform: rotateY(180deg);
+  background-image: url(../images/team/hero/dima.jpg);
+}
+
+.front_5 {
+  z-index: 2;
+  transform: rotate(0deg);
+  backface-visibility: hidden;
+  background-image: url(../images/team/iryna.jpg);
+}
+
+.back_5 {
+  transform: rotateY(180deg);
+  background-image: url(../images/team/hero/ira.jpg);
+}
+
+.front_6 {
+  z-index: 2;
+  transform: rotate(0deg);
+  backface-visibility: hidden;
+  background-image: url(../images/team/alexred.jpeg);
+}
+
+.back_6 {
+  transform: rotateY(180deg);
+  background-image: url(../images/team/hero/alexred.jpg);
+}
+
+.front_7 {
+  z-index: 2;
+  transform: rotate(0deg);
+  backface-visibility: hidden;
+  background-image: url(../images/team/sasha.jpg);
+}
+
+.back_7 {
+  transform: rotateY(180deg);
+  background-image: url(../images/team/hero/sasha.jpg);
 }
