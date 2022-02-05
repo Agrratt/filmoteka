@@ -5,6 +5,7 @@ import { renderGalleryLibrary } from '../main/renderMainLibrary';
 import { startSpinner } from './preloader';
 import { stopSpinner } from './preloader';
 import refs from '../allRefs/refs';
+import Notiflix from 'notiflix';
 
 function updateWatchedAfterClosingMore_info() {
   startSpinner();
