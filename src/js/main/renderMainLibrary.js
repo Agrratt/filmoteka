@@ -13,6 +13,7 @@ import { pagination } from '../main/renderMain';
 import { eventPagination } from '../main/renderMain';
 import { page } from '../main/renderMain';
 import { resetRenderGallery } from '../main/renderMain';
+export { renderGalleryLibrary };
 
 function getGenres(arrayId) {
   const arr = [];

@@ -2,9 +2,8 @@ import fetchDetailsMovie from '../api/fetchDetailsMovie';
 import fetchGenresMovies from '../api/fetchGenresMovies';
 import refs from '../allRefs/refs';
 import { addTrailerPlayer } from '../main/showMovieTrailer';
-import {player} from '../main/showMovieTrailer';
-import fetchDetailsMovieImages from '../api/fetchDetailsImages'
-
+import { player } from '../main/showMovieTrailer';
+import fetchDetailsMovieImages from '../api/fetchDetailsImages';
 
 import getWatchesFilms from '../db/getWatchesFilms';
 import getQueuesFilms from '../db/getQueuesFilms';
@@ -14,19 +13,23 @@ import removeWatchedFilm from '../db/removeWatchedFilm';
 import removeQueueFilm from '../db/removeQueueFilm';
 import Notiflix from 'notiflix';
 
+import {
+  updateWatchedAfterClosingMore_info,
+  updateQueueAfterClosingMore_info,
+} from '../main/updateAfterClosingMore_info';
 
 refs.gallery.addEventListener('click', onCardClick);
 refs.btnWatchedModal.addEventListener('click', onSetWatched);
 refs.btnQueueModal.addEventListener('click', onSetQueue);
 
- function clearModal() {
-  refs.detailImg.src = "";
-  refs.movieTitle.textContent = "";
-  refs.vote_average.textContent = "";
-  refs.vote_count.textContent = "";
-  refs.popularity.textContent = "";
-  refs.originalTitle.textContent = "";
-  refs.overview.textContent = "";
+function clearModal() {
+  refs.detailImg.src = '';
+  refs.movieTitle.textContent = '';
+  refs.vote_average.textContent = '';
+  refs.vote_count.textContent = '';
+  refs.popularity.textContent = '';
+  refs.originalTitle.textContent = '';
+  refs.overview.textContent = '';
 }
 
 function onCardClick(e) {
@@ -39,19 +42,17 @@ function onCardClick(e) {
   }
   // stoper ----------------------------
 
-  renderModal(cardItemId)
-  addTrailerPlayer(cardItemId)
+  renderModal(cardItemId);
+  addTrailerPlayer(cardItemId);
 
   refs.backdrop.classList.remove('modal-is-hidden');
-
 
   refs.closeBtn.addEventListener('click', () => {
     refs.backdrop.classList.add('modal-is-hidden');
     refs.body.classList.remove('body__fixed');
     clearModal();
-    player.stopVideo()
+    player.stopVideo();
     // refs.imageGallery.innerHTML = " "
-
   });
 
   refs.backdrop.addEventListener('click', event => {
@@ -59,12 +60,12 @@ function onCardClick(e) {
       refs.backdrop.classList.add('modal-is-hidden');
       refs.body.classList.remove('body__fixed');
       clearModal();
-      player.stopVideo()
+      player.stopVideo();
     }
   });
   refs.body.classList.add('body__fixed');
 }
-  // imageGallery: document.querySelector('.detail__image__gallery'),
+// imageGallery: document.querySelector('.detail__image__gallery'),
 
 function onSetWatched(e) {
   if (!e.currentTarget.classList.contains('watched')) {
@@ -177,8 +178,6 @@ function onSetQueue(e) {
   });
 }
 
-
-
 export function renderModal(cardItemId) {
   // modal events ----------------------------
   // Backdrop unhide
@@ -186,58 +185,69 @@ export function renderModal(cardItemId) {
   // baackdrop hide
 
   function onEscapeBtn(event) {
-  console.log("keydown", event);
-    if (event.key === "Escape") {
+    if (event.key === 'Escape') {
       refs.backdrop.classList.add('modal-is-hidden');
       refs.body.classList.remove('body__fixed');
       clearModal();
-      removeListerer()
-    }
-}
+      removeListerer();
 
-function removeListerer() {
-  document.removeEventListener("keydown", onEscapeBtn);
-}
+      if (refs.btnWatched.classList.contains('button__active')) {
+        updateWatchedAfterClosingMore_info();
+      } else if (refs.btnQueue.classList.contains('button__active')) {
+        updateQueueAfterClosingMore_info();
+      }
+    }
+  }
+
+  function removeListerer() {
+    document.removeEventListener('keydown', onEscapeBtn);
+  }
 
   refs.closeBtn.addEventListener('click', () => {
     refs.backdrop.classList.add('modal-is-hidden');
     refs.body.classList.remove('body__fixed');
-    clearModal()
+    clearModal();
 
-    removeListerer()
+    removeListerer();
 
-    player.stopVideo()
+    player.stopVideo();
 
+    if (refs.btnWatched.classList.contains('button__active')) {
+      updateWatchedAfterClosingMore_info();
+    } else if (refs.btnQueue.classList.contains('button__active')) {
+      updateQueueAfterClosingMore_info();
+    }
   });
-  
 
-    refs.backdrop.addEventListener('click', event => {
+  refs.backdrop.addEventListener('click', event => {
     if (event.target.classList.contains('backdrop')) {
       refs.backdrop.classList.add('modal-is-hidden');
       refs.body.classList.remove('body__fixed');
-      clearModal()
+      clearModal();
 
-      removeListerer()
+      removeListerer();
 
-      player.stopVideo()
+      player.stopVideo();
 
+      if (refs.btnWatched.classList.contains('button__active')) {
+        updateWatchedAfterClosingMore_info();
+      } else if (refs.btnQueue.classList.contains('button__active')) {
+        updateQueueAfterClosingMore_info();
+      }
     }
-    });
-  
-  document.addEventListener("keydown", onEscapeBtn)
+  });
+
+  document.addEventListener('keydown', onEscapeBtn);
 
   // fetchDetailsMovieImages(cardItemId).then(result => {
   //   refs.imageGallery.insertAdjacentHTML('beforeend', `<img src = "https://image.tmdb.org/t/p/w500${result.backdrops[5].file_path}" class = "detail__image">`)
   // })
 
-
   refs.body.classList.add('body__fixed');
   // modal events ----------------------------
-  
-    
 
   fetchDetailsMovie(cardItemId).then(result => {
-   refs.movieTitle.textContent = result.title;
+    refs.movieTitle.textContent = result.title;
     refs.detailImg.src = result.poster_path
       ? `https://image.tmdb.org/t/p/w500${result.poster_path}`
       : 'https://upload.wikimedia.org/wikipedia/commons/c/c2/No_image_poster.png';
@@ -256,16 +266,16 @@ function removeListerer() {
   });
 
   function clearModal() {
-  refs.detailImg.src = "";
-  refs.movieTitle.textContent = "";
-  refs.vote_average.textContent = "";
-  refs.vote_count.textContent = "";
-  refs.popularity.textContent = "";
-  refs.originalTitle.textContent = "";
-  refs.overview.textContent = "";
-}
+    refs.detailImg.src = '';
+    refs.movieTitle.textContent = '';
+    refs.vote_average.textContent = '';
+    refs.vote_count.textContent = '';
+    refs.popularity.textContent = '';
+    refs.originalTitle.textContent = '';
+    refs.overview.textContent = '';
+  }
 
-    // Buttons ---------------------------------
+  // Buttons ---------------------------------
   getWatchesFilms().then(dataDb => {
     if (dataDb) {
       const keys = Object.keys(dataDb);
@@ -313,5 +323,3 @@ function removeListerer() {
     }
   });
 }
-
-
