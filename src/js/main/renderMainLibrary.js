@@ -77,13 +77,13 @@ export default function onFetchLibraryWatched(e) {
   // pagination.movePageTo(page);
 
   refs.tuiContainer.classList.add('visually-hidden');
-  pagination.off('afterMove', event => {
-    fetchSearchMovies(searchValue, event.page).then(r => {
-      refs.gallery.innerHTML = '';
-      refs.gallery.insertAdjacentHTML('beforeend', renderGallery(r.results));
-    });
-  });
-  pagination.movePageTo(page);
+  // pagination.off('afterMove', event => {
+  //   fetchSearchMovies(searchValue, event.page).then(r => {
+  //     refs.gallery.innerHTML = '';
+  //     refs.gallery.insertAdjacentHTML('beforeend', renderGallery(r.results));
+  //   });
+  // });
+  // pagination.movePageTo(page);
 
   refs.btnWatched.classList.add('button__active');
   refs.btnQueue.classList.remove('button__active');

@@ -19,7 +19,6 @@ function updateWatchedAfterClosingMore_info() {
     }
     const movies = Object.values(data);
     stopSpinner();
-
     refs.gallery.innerHTML = '';
     refs.gallery.insertAdjacentHTML('beforeend', renderGalleryLibrary(movies));
   });
