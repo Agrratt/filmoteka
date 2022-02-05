@@ -53,8 +53,7 @@
   transform: scale(0);
 }
 
-.btn:hover::after,
-.btn:focus::after {
+.btn:hover::after {
   transform: scale(1);
 }
 
