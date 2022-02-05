@@ -30,5 +30,6 @@ const refs = {
   spanWatchedAdd: document.querySelector('.span-watched_add'),
   spanQueueAdd: document.querySelector('.span-queue_add'),
   buttonBlock: document.querySelector('.detail__buttons_block'),
+  imageGallery: document.querySelector('.detail__image__gallery'),
 };
 export default refs;
