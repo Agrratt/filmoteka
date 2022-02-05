@@ -204,13 +204,14 @@ export function renderModal(cardItemId) {
 
   function removeListerer() {
     document.removeEventListener('keydown', onEscapeBtn);
+    refs.closeBtn.removeEventListener('click', onCloseBtn);
+    refs.backdrop.removeEventListener('click', onCloseBackdrop);
   }
 
-  refs.closeBtn.addEventListener('click', () => {
+  function onCloseBtn() {
     refs.backdrop.classList.add('modal-is-hidden');
     refs.body.classList.remove('body__fixed');
     clearModal();
-
     removeListerer();
 
     player.stopVideo();
@@ -223,9 +224,11 @@ export function renderModal(cardItemId) {
     } else if (refs.btnQueue.classList.contains('button__active')) {
       updateQueueAfterClosingMore_info();
     }
-  });
+  }
 
-  refs.backdrop.addEventListener('click', event => {
+  refs.closeBtn.addEventListener('click', onCloseBtn);
+
+  function onCloseBackdrop(event) {
     if (event.target.classList.contains('backdrop')) {
       refs.backdrop.classList.add('modal-is-hidden');
       refs.body.classList.remove('body__fixed');
@@ -239,12 +242,18 @@ export function renderModal(cardItemId) {
         refs.btnWatched.classList.contains('button__active') &&
         !refs.home.classList.contains('active')
       ) {
+        console.log(
+          refs.btnWatched.classList.contains('button__active') &&
+            !refs.home.classList.contains('active'),
+        );
         updateWatchedAfterClosingMore_info();
       } else if (refs.btnQueue.classList.contains('button__active')) {
         updateQueueAfterClosingMore_info();
       }
     }
-  });
+  }
+
+  refs.backdrop.addEventListener('click', onCloseBackdrop);
 
   document.addEventListener('keydown', onEscapeBtn);
 
