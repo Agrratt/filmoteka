@@ -242,10 +242,6 @@ export function renderModal(cardItemId) {
         refs.btnWatched.classList.contains('button__active') &&
         !refs.home.classList.contains('active')
       ) {
-        console.log(
-          refs.btnWatched.classList.contains('button__active') &&
-            !refs.home.classList.contains('active'),
-        );
         updateWatchedAfterClosingMore_info();
       } else if (refs.btnQueue.classList.contains('button__active')) {
         updateQueueAfterClosingMore_info();
