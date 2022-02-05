@@ -191,7 +191,10 @@ export function renderModal(cardItemId) {
       clearModal();
       removeListerer();
 
-      if (refs.btnWatched.classList.contains('button__active')) {
+      if (
+        refs.btnWatched.classList.contains('button__active') &&
+        !refs.home.classList.contains('active')
+      ) {
         updateWatchedAfterClosingMore_info();
       } else if (refs.btnQueue.classList.contains('button__active')) {
         updateQueueAfterClosingMore_info();
@@ -212,7 +215,10 @@ export function renderModal(cardItemId) {
 
     player.stopVideo();
 
-    if (refs.btnWatched.classList.contains('button__active')) {
+    if (
+      refs.btnWatched.classList.contains('button__active') &&
+      !refs.home.classList.contains('active')
+    ) {
       updateWatchedAfterClosingMore_info();
     } else if (refs.btnQueue.classList.contains('button__active')) {
       updateQueueAfterClosingMore_info();
@@ -229,7 +235,10 @@ export function renderModal(cardItemId) {
 
       player.stopVideo();
 
-      if (refs.btnWatched.classList.contains('button__active')) {
+      if (
+        refs.btnWatched.classList.contains('button__active') &&
+        !refs.home.classList.contains('active')
+      ) {
         updateWatchedAfterClosingMore_info();
       } else if (refs.btnQueue.classList.contains('button__active')) {
         updateQueueAfterClosingMore_info();
