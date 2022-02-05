@@ -40,7 +40,7 @@
 .tui-pagination .tui-page-btn:hover {
   background-color: #f4f4f4;
 }
-@media screen and (min-width: 769px) {
+/* @media screen and (min-width: 769px) {
   .tui-page-btn:nth-child(0):hover,
   .tui-page-btn:nth-child(1):hover,
   .tui-page-btn:nth-child(2):hover,
@@ -67,7 +67,7 @@
     height: 28px;
     font-size: 14px;
   }
-}
+} */
 .tui-pagination .tui-is-selected,
 .tui-pagination strong {
   color: #fff;
@@ -186,7 +186,7 @@
     font-size: 8px;
   }
 }
-@media screen and (max-width: 768px) {
+/* @media screen and (max-width: 768px) {
   .tui-page-btn:nth-child(3):hover,
   .tui-page-btn:nth-child(4):hover,
   .tui-page-btn:nth-child(5):hover,
@@ -203,7 +203,7 @@
     padding: 4px 0 2px;
     font-size: 9px;
   }
-}
+} */
 @media screen and (max-width: 768px) {
   .tui-page-btn:nth-child(0),
   .tui-page-btn:nth-child(1),
@@ -215,6 +215,7 @@
     height: 20px;
   }
 }
+
 .tui-pagination .tui-ico-first {
   width: 11px;
   height: 10px;
