@@ -91,6 +91,8 @@
   width: 14px;
   height: 13px;
   margin: 0 10px;
+  position: relative;
+  z-index: 0;
   animation: beat 0.5s infinite alternate;
 
   @keyframes beat {
