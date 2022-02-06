@@ -24,7 +24,7 @@ window.onload = externalLinks;
   }
   /// для backdrop
   refs.backdropClick.addEventListener('click', onBackdropClick);
-  document.querySelector('body').style.overflow = 'auto';
+  // document.querySelector('body').style.overflow = 'auto';
 
   function onBackdropClick(event) {
     if (event.currentTarget === event.target) {
