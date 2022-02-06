@@ -40,34 +40,7 @@
 .tui-pagination .tui-page-btn:hover {
   background-color: #f4f4f4;
 }
-/* @media screen and (min-width: 769px) {
-  .tui-page-btn:nth-child(0):hover,
-  .tui-page-btn:nth-child(1):hover,
-  .tui-page-btn:nth-child(2):hover,
-  .tui-page-btn:nth-child(14):hover,
-  .tui-page-btn:nth-child(15):hover,
-  .tui-page-btn:nth-child(16):hover {
-    width: 32px;
-    height: 30px;
-  }
-}
-@media screen and (min-width: 769px) {
-  .tui-page-btn:nth-child(3):hover,
-  .tui-page-btn:nth-child(4):hover,
-  .tui-page-btn:nth-child(5):hover,
-  .tui-page-btn:nth-child(6):hover,
-  .tui-page-btn:nth-child(7):hover,
-  .tui-page-btn:nth-child(8):hover,
-  .tui-page-btn:nth-child(9):hover,
-  .tui-page-btn:nth-child(10):hover,
-  .tui-page-btn:nth-child(11):hover,
-  .tui-page-btn:nth-child(12):hover,
-  .tui-page-btn:nth-child(13):hover {
-    width: 30px;
-    height: 28px;
-    font-size: 14px;
-  }
-} */
+
 .tui-pagination .tui-is-selected,
 .tui-pagination strong {
   color: #fff;
@@ -144,6 +117,16 @@
   font-size: 0px;
 }
 
+@media screen and (max-width: 768px) {
+  .tui-pagination .tui-ico-first,
+  .tui-pagination .tui-ico-prev,
+  .tui-pagination .tui-ico-next,
+  .tui-pagination .tui-ico-last,
+  .tui-pagination .tui-ico-ellip {
+    vertical-align: -5%;
+  }
+}
+
 .tui-pagination .tui-prev-is-ellip,
 .tui-pagination .tui-next-is-ellip {
   padding: 0;
@@ -186,24 +169,7 @@
     font-size: 8px;
   }
 }
-/* @media screen and (max-width: 768px) {
-  .tui-page-btn:nth-child(3):hover,
-  .tui-page-btn:nth-child(4):hover,
-  .tui-page-btn:nth-child(5):hover,
-  .tui-page-btn:nth-child(6):hover,
-  .tui-page-btn:nth-child(7):hover,
-  .tui-page-btn:nth-child(8):hover,
-  .tui-page-btn:nth-child(9):hover,
-  .tui-page-btn:nth-child(10):hover,
-  .tui-page-btn:nth-child(11):hover,
-  .tui-page-btn:nth-child(12):hover,
-  .tui-page-btn:nth-child(13):hover {
-    width: 19px;
-    height: 17px;
-    padding: 4px 0 2px;
-    font-size: 9px;
-  }
-} */
+
 @media screen and (max-width: 768px) {
   .tui-page-btn:nth-child(0),
   .tui-page-btn:nth-child(1),
@@ -246,6 +212,17 @@
   margin-top: 16px;
   vertical-align: top;
   background-position: 0px -24px;
+}
+
+@media screen and (max-width: 768px) {
+  .tui-pagination .tui-ico-ellip {
+    margin-top: 12px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .tui-pagination .tui-prev-is-ellip .tui-ico-ellip {
+    margin-top: 5px;
+  }
 }
 
 .tui-pagination .tui-is-disabled:hover {
