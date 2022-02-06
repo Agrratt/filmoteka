@@ -87,17 +87,31 @@
   color: var(--third-text-color);
 }
 
-.footer__icon {
+.animate__heart {
   width: 14px;
   height: 13px;
   margin: 0 10px;
-  position: relative;
-  z-index: 0;
-  animation: beat 0.5s infinite alternate;
+  animation: beat 1.5s infinite var(--timing-function);
 
   @keyframes beat {
-    to {
+    0% {
+      transform: scale(1);
+    }
+
+    14% {
       transform: scale(1.8);
+    }
+
+    28% {
+      transform: scale(1.5);
+    }
+
+    42% {
+      transform: scale(1.8);
+    }
+
+    70% {
+      transform: scale(1.5);
     }
   }
 }

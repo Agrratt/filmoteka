@@ -11,33 +11,38 @@ window.onload = externalLinks;
   const refs = {
     openModalBtn: document.querySelector('[data-modal-open]'),
     closeModalBtn: document.querySelector('[data-modal-close]'),
-    backdropClick: document.querySelector('.mod__team'),
     modal: document.querySelector('[data-modal]'),
+    backdropClick: document.querySelector('.mod__team'),
   };
 
-  refs.openModalBtn.addEventListener('click', toggleModal);
-  refs.closeModalBtn.addEventListener('click', toggleModal);
+  refs.openModalBtn.addEventListener('click', onOpenModal);
 
-  function toggleModal() {
-    refs.modal.classList.toggle('is-hidden');
+  function onOpenModal() {
     window.addEventListener('keydown', onEscClick);
+    refs.modal.classList.remove('is-hidden');
   }
-  /// для backdrop
+
+  refs.closeModalBtn.addEventListener('click', onCloseModal);
+
+  function onCloseModal() {
+    window.removeEventListener('keydown', onEscClick);
+    refs.modal.classList.add('is-hidden');
+  }
+
   refs.backdropClick.addEventListener('click', onBackdropClick);
-  // document.querySelector('body').style.overflow = 'auto';
 
   function onBackdropClick(event) {
     if (event.currentTarget === event.target) {
-      toggleModal();
+      onCloseModal();
     }
   }
-  /// для ESC
+
   function onEscClick(event) {
     const ESC_KEY_CODE = 'Escape';
     console.log(event.code);
 
     if (event.code === ESC_KEY_CODE) {
-      toggleModal();
+      onCloseModal();
     }
   }
 })();
