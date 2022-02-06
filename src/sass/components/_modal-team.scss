@@ -30,6 +30,7 @@
   border-radius: 4px;
   background: lavender;
   overflow-y: auto;
+  overflow-x: hidden;
   box-shadow: 0 1px 4px rgb(0, 0, 0), -23px 0 20px -23px rgba(0, 0, 0, 1),
     23px 0 20px -23px rgba(0, 0, 0, 0.788), 0 0 40px rgba(0, 0, 0, 1) inset;
 
@@ -39,18 +40,17 @@
 
   @media screen and (min-width: 480px) {
     width: 300px;
-    padding-left: 5px;
-    padding-right: 5px;
   }
 
   @media screen and (min-width: 768px) {
     width: 670px;
     height: 645px;
+    overflow-y: auto;
   }
 
   @media screen and (min-width: 1024px) {
     width: 1200px;
-    height: 390px;
+    height: 400px;
     padding-left: 45px;
     padding-right: 45px;
   }
@@ -63,10 +63,16 @@
   right: 15px;
   width: 20px;
   height: 20px;
+  fill: grey;
   box-sizing: border-box;
   border-radius: 4px;
   cursor: pointer;
   transition: fill var(--timing-function);
+
+  &:focus,
+  &:hover {
+    fill: var(--accent-color);
+  }
 
   @media screen and (min-width: 768px) {
     top: 20px;
@@ -80,15 +86,6 @@
     right: 20px;
     width: 25px;
     height: 25px;
-  }
-}
-
-.modal-btn-close {
-  fill: grey;
-
-  &:focus,
-  &:hover {
-    fill: var(--accent-color);
   }
 }
 
@@ -129,19 +126,17 @@
 
   @media screen and (min-width: 320px) {
     display: grid;
+    grid-template-rows: 1fr;
     grid-template-columns: 1fr 1fr;
+    grid-gap: 1vw;
   }
 
   @media screen and (min-width: 768px) {
-    display: grid;
-    grid-template-rows: 1fr;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-gap: 1vw;
   }
 
   @media screen and (min-width: 1024px) {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-gap: 1vw;
   }
 }
 
@@ -152,43 +147,16 @@
     margin-right: -35px;
     margin-left: -35px;
   }
-
-  // @media screen and (min-width: 768px) {
-  //   transform: scale(1);
-  //   transition: transform 0.2s ease;
-  // }
 }
 
 .team__info:hover {
   @media screen and (min-width: 768px) {
-    // transform: scale(1.05);
-    // transition: transform 0.2s ease;
     box-shadow: 0 1px 4px rgb(176, 224, 230), -23px 0 20px -23px rgb(176, 224, 230),
       23px 0 20px -23px rgba(176, 224, 230), 0 0 40px rgb(176, 224, 230);
     border-radius: 2px;
     background-color: rgb(224, 255, 255);
   }
 }
-
-// .team__image {
-//   object-fit: cover;
-//   margin: auto;
-//   margin-bottom: 10px;
-//   margin-top: 15px;
-//   box-shadow: 0 1px 4px rgb(0, 0, 0), -23px 0 20px -23px rgba(0, 0, 0, 1),
-//     23px 0 20px -23px rgba(0, 0, 0, 0.788), 0 0 40px rgba(0, 0, 0, 1) inset;
-//   border-radius: 4px;
-
-//   @media screen and (max-width: 767px) {
-//     width: 90px;
-//     height: 110px;
-//   }
-
-//   @media screen and (min-width: 768px) {
-//     width: 110px;
-//     height: 130px;
-//   }
-// }
 
 .team__name {
   margin-top: 15px;
@@ -292,7 +260,7 @@
 }
 
 .scene:hover .cards {
-  transform: rotateY(-180deg);
+  transform: rotateY(-180deg) rotateX(360deg);
 }
 
 .card {

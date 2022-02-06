@@ -22,7 +22,7 @@ window.onload = externalLinks;
     refs.modal.classList.toggle('is-hidden');
     window.addEventListener('keydown', onEscClick);
   }
-
+  /// для backdrop
   refs.backdropClick.addEventListener('click', onBackdropClick);
   document.querySelector('body').style.overflow = 'auto';
 
@@ -31,7 +31,7 @@ window.onload = externalLinks;
       toggleModal();
     }
   }
-
+  /// для ESC
   function onEscClick(event) {
     const ESC_KEY_CODE = 'Escape';
     console.log(event.code);

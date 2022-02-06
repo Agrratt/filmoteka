@@ -17,35 +17,71 @@
   align-items: center;
   font-style: normal;
   font-weight: 400;
+
   font-size: 14px;
   line-height: 1.2;
   letter-spacing: 0.02em;
   color: var(--third-text-color);
+
+  @media screen and (min-width: 768px) {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-size: 16px;
+  }
 }
 
 .footer__content {
   display: flex;
   margin-bottom: 10px;
   padding-top: 29px;
+
+  @media screen and (min-width: 768px) {
+    display: flex;
+    margin-bottom: 0;
+    padding-bottom: 29px;
+  }
 }
 
 .footer__develop {
   display: flex;
   padding-bottom: 29px;
+  margin-right: 65px;
+
+  @media screen and (min-width: 768px) {
+    padding-top: 29px;
+    margin-left: 4px;
+  }
 }
 
 .btn {
-  display: flex;
   width: 55px;
   padding-left: 4px;
+  position: relative;
+  display: inline-block;
+}
+
+.btn::before {
+  font: inherit;
+  content: 'Student';
+  position: absolute;
+  display: inline-block;
+  width: 300%;
+  left: 5px;
+  color: black;
+}
+
+.btn:hover::before,
+.btn:focus::before {
+  font-weight: bold;
 }
 
 .btn::after {
   content: '';
   display: block;
   position: absolute;
-  margin-top: 20px;
-  width: 120px;
+  margin-top: 5px;
+  width: 112px;
   height: 4px;
   border-radius: 2px;
   background-color: var(--accent-color);
@@ -58,35 +94,16 @@
   transform: scale(1);
 }
 
-// .btn:hover {
-//   font-weight: bold;
-//   transition: transform 250ms linear;
-// }
-
-.goit__stud {
-  padding-left: 4px;
-  color: var(--third-text-color);
-}
-
 .footer__icon {
   width: 14px;
   height: 13px;
-  margin-left: 10px;
-  margin-right: 10px;
-  animation: footer-icon 2s infinite;
-  border-radius: 50%;
-}
+  margin: 0 10px;
+  animation: beat 0.5s infinite alternate;
 
-@keyframes footer-icon {
-  0% {
-    box-shadow: 0 0 0 0 var(--puls-heart);
-    background-color: var(--puls-heart);
-  }
-  70% {
-    box-shadow: 0 0 0 10px rgba(228, 25, 49, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(228, 25, 49, 0);
+  @keyframes beat {
+    to {
+      transform: scale(1.8);
+    }
   }
 }
 
@@ -96,23 +113,4 @@ button {
   cursor: pointer;
   color: var(--accent-color);
   background-color: var(--footer-bg-color);
-}
-
-@media screen and (min-width: 768px) {
-  .footer__block {
-    flex-direction: row;
-    justify-content: center;
-    font-size: 16px;
-  }
-
-  .footer__content {
-    display: flex;
-    margin-bottom: 0;
-    padding-bottom: 29px;
-  }
-
-  .footer__develop {
-    padding-top: 29px;
-    margin-left: 4px;
-  }
 }
