@@ -193,6 +193,7 @@ export function renderModal(cardItemId) {
       refs.body.classList.remove('body__fixed');
       clearModal();
       removeListerer();
+      player.stopVideo();
 
       if (
         refs.btnWatched.classList.contains('button__active') &&
