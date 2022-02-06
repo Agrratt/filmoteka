@@ -1,9 +1,11 @@
 import fetchDetailsMovie from '../api/fetchDetailsMovie';
-import fetchGenresMovies from '../api/fetchGenresMovies';
 import refs from '../allRefs/refs';
 import { addTrailerPlayer } from '../main/showMovieTrailer';
 import { player } from '../main/showMovieTrailer';
 import fetchDetailsMovieImages from '../api/fetchDetailsImages';
+import SimpleLightbox from 'simplelightbox';
+// Дополнительный импорт стилей
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
 import getWatchesFilms from '../db/getWatchesFilms';
 import getQueuesFilms from '../db/getQueuesFilms';
@@ -257,10 +259,33 @@ export function renderModal(cardItemId) {
   // Images ---------
 
   fetchDetailsMovieImages(cardItemId).then(result => {
-    if (result.backdrops.length > 4) {
-      refs.imageGallery.insertAdjacentHTML('beforeend', `<div class = "imageGalleryCard"><img src = "https://image.tmdb.org/t/p/w500${result.backdrops[4].file_path}" class = "detail__image"></div><div class = "imageGalleryCard"><img src = "https://image.tmdb.org/t/p/w500${result.backdrops[3].file_path}" class = "detail__image"></div>`); 
+    if (result.backdrops.length > 1) {
+
+      const galleryItems = result.backdrops;
+
+      const createImageMarkupList = createImageMarkup(galleryItems);
+
+      refs.imageGallery.insertAdjacentHTML('beforeend', createImageMarkupList)
+
+      function createImageMarkup(galleryItems) {
+
+        return galleryItems.map(galleryItem => {
+          const imageUrl = galleryItem.file_path;
+
+          return `<li class = "imageGalleryCard">
+          <a class = "imageGalleryCardLink" href="https://image.tmdb.org/t/p/w500${imageUrl}">
+          <img src = "https://image.tmdb.org/t/p/w200${imageUrl}" class = "detail__image">
+          </a>
+          </li>`
+        }).join('');
+      }
+
+    let gallery = new SimpleLightbox(".detail__image__gallery a");
+    gallery.on('show.simplelightbox', () => {
+    captionDelay: 250; 
+    });
+
     }
-    
   })
 
   refs.body.classList.add('body__fixed');
@@ -342,4 +367,13 @@ export function renderModal(cardItemId) {
       refs.btnQueueModal.classList.add('detail__button--disable');
     }
   });
+
+closeArrow()
+
+  function closeArrow() {
+  const closeButton = document.querySelector(".back-to-top")
+  if (closeButton) {
+    closeButton.style = "display: none"
+  }
+}
 }
