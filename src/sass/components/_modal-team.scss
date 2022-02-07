@@ -26,7 +26,7 @@
   position: relative;
   display: inline-block;
   height: 100vh;
-  padding: 15px;
+  margin: 15px;
   border-radius: 4px;
   background: lavender;
   overflow-y: auto;
@@ -121,7 +121,7 @@
 
 .our__team {
   list-style: none;
-  padding-top: 30px;
+  margin-top: 30px;
 
   @media screen and (min-width: 320px) {
     display: grid;
@@ -140,7 +140,7 @@
 }
 
 .team__info {
-  padding-top: 15px;
+  margin-top: 15px;
 
   @media screen and (max-width: 767px) {
     margin-right: -35px;
