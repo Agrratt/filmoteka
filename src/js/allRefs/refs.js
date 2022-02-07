@@ -31,5 +31,6 @@ const refs = {
   spanQueueAdd: document.querySelector('.span-queue_add'),
   buttonBlock: document.querySelector('.detail__buttons_block'),
   imageGallery: document.querySelector('.detail__image__gallery'),
+  upcomingMovies: document.querySelector('.upcoming__list'),
 };
 export default refs;

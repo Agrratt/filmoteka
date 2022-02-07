@@ -23,7 +23,7 @@ let pagination = new Pagination(refs.tuiContainer, {
 const page = pagination.getCurrentPage();
 // =====================================================
 
-function getGenres(arrayId) {
+export function getGenres(arrayId) {
   const arr = [];
   for (const value of arrayGenres) {
     if (arrayId.includes(value.id)) {
@@ -68,6 +68,7 @@ fetchFavoritesMovies(page).then(data => {
   
 
   refs.tuiContainer.classList.remove('visually-hidden');
+  refs.upcomingMovies.classList.remove('visually-hidden');
   refs.gallery.insertAdjacentHTML('beforeend', renderGallery(data.results));
   stopSpinner()
   pagination.reset(data.total_results);
