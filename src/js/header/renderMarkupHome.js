@@ -11,6 +11,7 @@ import refs from '../allRefs/refs';
 
 export default function renderMarkupHome(e) {
   refs.tuiContainer.classList.remove('visually-hidden');
+  refs.upcomingMovies.classList.remove('visually-hidden');
   e.preventDefault();
   startSpinner();
   pagination.off('afterMove', eventPagination);
