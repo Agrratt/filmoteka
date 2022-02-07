@@ -78,6 +78,7 @@ export default function onFetchLibraryWatched(e) {
 
   refs.tuiContainer.classList.add('visually-hidden');
   refs.upcomingMovies.classList.add('visually-hidden');
+  refs.upcomingTitle.classList.add('visually-hidden');
   // pagination.off('afterMove', event => {
   //   fetchSearchMovies(searchValue, event.page).then(r => {
   //     refs.gallery.innerHTML = '';

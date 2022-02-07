@@ -32,5 +32,6 @@ const refs = {
   buttonBlock: document.querySelector('.detail__buttons_block'),
   imageGallery: document.querySelector('.detail__image__gallery'),
   upcomingMovies: document.querySelector('.upcoming__list'),
+  upcomingTitle:document.querySelector('.upcoming-title'),
 };
 export default refs;

@@ -6,8 +6,8 @@ return`
             <p id=${id} class='upcoming__info-title'>
             <b id=${id}>${title}</b>
             </p>
+            <p><span id=${id} class='upcoming__info-genre'>${movieGenre}</span></p>
             <p id=${id} class='upcoming__info-date'>
-            <span id=${id} class='upcoming__info-genre'>${movieGenre}</span>
             <span id=${id} class='upcoming__info-vote'>${vote_average}</span> | <span id=${id} class='upcoming__info-year'>${releaseYear}</span>
             </p>
         </div>
