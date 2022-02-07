@@ -35,15 +35,15 @@ function clearModal() {
 }
 
 function onCardClick(e) {
+  e.preventDefault();
   const cardItem = e.target.parentNode;
   const cardItemId = cardItem.id;
 
   // stoper ----------------------------
-  if (!cardItem.classList.contains('list_film_item')) {
+  if (!cardItem.classList.contains('list_film_link')) {
     return;
   }
   // stoper ----------------------------
-
   renderModal(cardItemId);
   addTrailerPlayer(cardItemId);
 
@@ -54,7 +54,7 @@ function onCardClick(e) {
     refs.body.classList.remove('body__fixed');
     clearModal();
     player.stopVideo();
-    refs.imageGallery.innerHTML = " "
+    refs.imageGallery.innerHTML = ' ';
   });
 
   refs.backdrop.addEventListener('click', event => {
@@ -63,12 +63,11 @@ function onCardClick(e) {
       refs.body.classList.remove('body__fixed');
       clearModal();
       player.stopVideo();
-      refs.imageGallery.innerHTML = " "
+      refs.imageGallery.innerHTML = ' ';
     }
   });
   refs.body.classList.add('body__fixed');
 }
-
 
 function onSetWatched(e) {
   if (!e.currentTarget.classList.contains('watched')) {
@@ -261,33 +260,32 @@ export function renderModal(cardItemId) {
 
   fetchDetailsMovieImages(cardItemId).then(result => {
     if (result.backdrops.length > 1) {
-
       const galleryItems = result.backdrops;
 
       const createImageMarkupList = createImageMarkup(galleryItems);
 
-      refs.imageGallery.insertAdjacentHTML('beforeend', createImageMarkupList)
+      refs.imageGallery.insertAdjacentHTML('beforeend', createImageMarkupList);
 
       function createImageMarkup(galleryItems) {
+        return galleryItems
+          .map(galleryItem => {
+            const imageUrl = galleryItem.file_path;
 
-        return galleryItems.map(galleryItem => {
-          const imageUrl = galleryItem.file_path;
-
-          return `<li class = "imageGalleryCard">
+            return `<li class = "imageGalleryCard">
           <a class = "imageGalleryCardLink" href="https://image.tmdb.org/t/p/w500${imageUrl}">
           <img src = "https://image.tmdb.org/t/p/w200${imageUrl}" class = "detail__image">
           </a>
-          </li>`
-        }).join('');
+          </li>`;
+          })
+          .join('');
       }
 
-    let gallery = new SimpleLightbox(".detail__image__gallery a");
-    gallery.on('show.simplelightbox', () => {
-    captionDelay: 250; 
-    });
-
+      let gallery = new SimpleLightbox('.detail__image__gallery a');
+      gallery.on('show.simplelightbox', () => {
+        captionDelay: 250;
+      });
     }
-  })
+  });
 
   refs.body.classList.add('body__fixed');
   // modal events ----------------------------
@@ -369,12 +367,12 @@ export function renderModal(cardItemId) {
     }
   });
 
-closeArrow()
+  closeArrow();
 
   function closeArrow() {
-  const closeButton = document.querySelector(".back-to-top")
-  if (closeButton) {
-    closeButton.style = "display: none"
+    const closeButton = document.querySelector('.back-to-top');
+    if (closeButton) {
+      closeButton.style = 'display: none';
+    }
   }
-}
 }

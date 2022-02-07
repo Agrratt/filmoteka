@@ -10,8 +10,8 @@ import { stopSpinner } from '../main/preloader';
 
 import Pagination from 'tui-pagination';
 
-// ================== add spinner ============   
-  startSpinner() 
+// ================== add spinner ============
+startSpinner();
 // ========Pagination====== //
 
 let pagination = new Pagination(refs.tuiContainer, {
@@ -38,7 +38,7 @@ export function getGenres(arrayId) {
 }
 
 function renderGallery(movies) {
-  stopSpinner()
+  stopSpinner();
   return movies
     .map(({ id, poster_path, title, release_date, genre_ids }) => {
       const poster = poster_path
@@ -47,7 +47,7 @@ function renderGallery(movies) {
       const releaseYear = release_date ? release_date.split('-')[0] : 'Unknown';
       const checkGenres = genre_ids ? getGenres(genre_ids) : 'Unknown';
       return `
-      <li class='list_film_item' id=${id}>
+      <li class='list_film_item' ><a href="" class='list_film_link link' id=${id}>
         <img class="list_film_image" style = "border-radius: 5px" src=${poster} alt='Обложка фильма' loading='lazy' />
         <div class='info'>
             <p class='info-title'>
@@ -56,7 +56,7 @@ function renderGallery(movies) {
             <p class='info-date'>
               <span>${checkGenres} | ${releaseYear}</span>
             </p>
-        </div>
+        </div></a>
       </li>
       `;
     })
@@ -64,15 +64,11 @@ function renderGallery(movies) {
 }
 
 fetchFavoritesMovies(page).then(data => {
-
-  
-
   refs.tuiContainer.classList.remove('visually-hidden');
   refs.upcomingMovies.classList.remove('visually-hidden');
   refs.gallery.insertAdjacentHTML('beforeend', renderGallery(data.results));
-  stopSpinner()
+  stopSpinner();
   pagination.reset(data.total_results);
-  
 });
 
 pagination.on('afterMove', eventPagination);
