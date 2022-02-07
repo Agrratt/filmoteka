@@ -140,11 +140,9 @@
 }
 
 .team__info {
-  margin-top: 15px;
-
   @media screen and (max-width: 767px) {
-    margin-right: -35px;
-    margin-left: -35px;
+    margin-right: -25px;
+    margin-left: -25px;
   }
 }
 
@@ -238,15 +236,16 @@
 .scene {
   margin-left: auto;
   margin-right: auto;
+  margin-top: 15px;
 
   @media screen and (max-width: 767px) {
-    width: 90px;
-    height: 110px;
+    width: 100px;
+    height: 120px;
   }
 
   @media screen and (min-width: 768px) {
-    width: 110px;
-    height: 130px;
+    width: 120px;
+    height: 140px;
   }
 }
 
