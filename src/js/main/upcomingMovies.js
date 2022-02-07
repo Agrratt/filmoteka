@@ -2,7 +2,7 @@ import fetchUpcomingMovies from '../api/fetchUpcomingMovies';
 import  htmlMarkupFilmsSerchHelper  from '../main/upcomingMovieMarkup';
 import refs from '../allRefs/refs';
 import arrayGenres from './arrayGenres';
-import { getGenres } from '../main/renderMain';
+// import { getGenres } from '../main/renderMain';
 import { renderModal } from '../more_info/more_info';
 import { addTrailerPlayer } from '../main/showMovieTrailer';
 // import {tns} from './src/tiny-slider.js';
@@ -33,6 +33,20 @@ const slider = tns({
 // ================== add listeners ============
 refs.upcomingMovies.addEventListener('click', onMovieCard)
 
+
+function getGenres(arrayId) {
+  const arr = [];
+  for (const value of arrayGenres) {
+    if (arrayId.includes(value.id)) {
+      arr.push(value.name);
+    }
+  }
+  if (arrayId.length > 1) {
+    arr.splice(1, arr.length ); 
+  }
+
+  return arr.join(', ');
+}
 
 fetchUpcomingMovies().then(r => {
     const movies = r.results.slice(0, 8);
