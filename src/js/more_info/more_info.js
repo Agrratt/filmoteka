@@ -42,16 +42,20 @@ const secondModalBtn = document.querySelector(".second__modal__btn");
 
 secondModBlockEl.addEventListener('click', (e) => {
   const secondModalItem = e.target.parentNode;
+
+   if (!e.target.parentNode.classList.contains("similar__item")) {
+      return
+  } 
+
   clearModal();
   player.stopVideo();
     refs.imageGallery.innerHTML = " ";
     clearSecondModal()
     secondModBlockEl.classList.add("second__modal--hidden");
-  secondModalBtn.removeEventListener("click", onSecondModalBtn);
-  
-  renderModal(secondModalItem.id);
-  addTrailerPlayer(secondModalItem.id);
-  
+    secondModalBtn.removeEventListener("click", onSecondModalBtn);
+    renderModal(secondModalItem.id);
+    addTrailerPlayer(secondModalItem.id);
+      
 })
 
  function onSecondModalBtn() {
