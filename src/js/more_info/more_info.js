@@ -5,7 +5,6 @@ import { player } from '../main/showMovieTrailer';
 import fetchDetailsMovieImages from '../api/fetchDetailsImages';
 import SimpleLightbox from 'simplelightbox';
 import fetchSimilarMovie from '../api/fetchSimilarMovie'
-import { tns } from 'tiny-slider';
 // Дополнительный импорт стилей
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
@@ -439,27 +438,10 @@ export function renderModal(cardItemId) {
     const closeButton = document.querySelector('.back-to-top');
     if (closeButton) {
       closeButton.style = 'display: none';
-    }
+    
   }
   }
 
-  const slider = tns({
-    container: '.my-slider',
-    items: 8,
-    responsive: {
-      640: {
-        edgePadding: 20,
-        gutter: 20,
-        items: 5
-      },
-      700: {
-        gutter: 30
-      },
-      900: {
-        items: 3
-      }
-    }
-  });
 
   function htmlSimilarMovie(id, poster) {
   return`

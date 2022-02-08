@@ -4,8 +4,8 @@ const API_KEY = '30b880cb8af36a78b014f41021bfb163';
 async function fetchSimilarMovie(id) {
   try {
     const response = await fetch(`${BASE_URL}/movie/${id}/similar?api_key=${API_KEY}`);
-    const movies = response.json();
-    return movies;
+    const moviesSimilar = response.json();
+    return moviesSimilar;
   } catch (error) {
     console.log(error);
   }
