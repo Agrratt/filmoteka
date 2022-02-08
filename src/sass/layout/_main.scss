@@ -24,6 +24,11 @@
   border-radius: 5px;
   height: 398px;
   width: 100%;
+  .list_film_link:hover &,
+  .list_film_link:focus & {
+    box-shadow: 0 1px 4px rgba(255, 107, 1, 1), -23px 0 20px -23px rgba(255, 107, 1, 0.8),
+      23px 0 20px -23px rgba(255, 107, 1, 0.8), 0 0 40px rgba(255, 107, 1, 0.1) inset;
+  }
 }
 
 .list_film_item {
