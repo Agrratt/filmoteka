@@ -45,8 +45,8 @@ function renderGalleryLibrary(movies) {
         : 'https://db4films.com/assets/img/cover.jpg';
       const releaseYear = release_date ? release_date.split('-')[0] : 'Unknown';
       return `
-      <li class='list_film_item' id=${id}>
-        <img class="list_film_image" style = "border-radius: 5px" src=${poster} alt='Обложка фильма' loading='lazy' />
+      <li class='list_film_item' ><a href="" class='list_film_link link' id=${id}>
+        <img class="list_film_image" src=${poster} alt='Обложка фильма' loading='lazy' />
         <div class='info'>
             <p class='info-title'>
               <b>${title}</b>
@@ -55,7 +55,7 @@ function renderGalleryLibrary(movies) {
               <span>${checkGenres} | ${releaseYear}</span>
               <span class="info-average">${vote_average}</span>
             </p>
-        </div>
+        </div></a>
       </li>
       `;
     })
