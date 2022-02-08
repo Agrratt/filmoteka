@@ -1,5 +1,5 @@
 import fetchFavoritesMovies from '../api/fetchFavoritesMovies';
-
+import renderMarkupHome from '../header/renderMarkupHome';
 import refs from '../allRefs/refs';
 
 import arrayGenres from './arrayGenres';
@@ -47,7 +47,7 @@ function renderGallery(movies) {
       const releaseYear = release_date ? release_date.split('-')[0] : 'Unknown';
       const checkGenres = genre_ids ? getGenres(genre_ids) : 'Unknown';
       return `
-      <li class='list_film_item' ><a href="" class='list_film_link link' id=${id}>
+      <li class='list_film_item' id=${id}><a href="" class='list_film_link link' id=${id}>
         <img class="list_film_image" src=${poster} alt='Обложка фильма' loading='lazy' />
         <div class='info'>
             <p class='info-title'>
@@ -77,6 +77,7 @@ function eventPagination(event) {
   fetchFavoritesMovies(event.page).then(data => {
     resetRenderGallery();
     refs.gallery.insertAdjacentHTML('beforeend', renderGallery(data.results));
+    refs.home.addEventListener('click', renderMarkupHome, { once: true });
   });
 }
 
