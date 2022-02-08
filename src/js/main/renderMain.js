@@ -48,7 +48,7 @@ function renderGallery(movies) {
       const checkGenres = genre_ids ? getGenres(genre_ids) : 'Unknown';
       return `
       <li class='list_film_item' ><a href="" class='list_film_link link' id=${id}>
-        <img class="list_film_image" style = "border-radius: 5px" src=${poster} alt='Обложка фильма' loading='lazy' />
+        <img class="list_film_image" src=${poster} alt='Обложка фильма' loading='lazy' />
         <div class='info'>
             <p class='info-title'>
               <b>${title}</b>

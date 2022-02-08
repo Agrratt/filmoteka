@@ -36,6 +36,7 @@ function clearModal() {
 
 function onCardClick(e) {
   e.preventDefault();
+
   const cardItem = e.target.parentNode;
   const cardItemId = cardItem.id;
 
@@ -43,6 +44,7 @@ function onCardClick(e) {
   if (!cardItem.classList.contains('list_film_link')) {
     return;
   }
+
   // stoper ----------------------------
   renderModal(cardItemId);
   addTrailerPlayer(cardItemId);
