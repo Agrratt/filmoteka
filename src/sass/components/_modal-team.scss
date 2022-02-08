@@ -26,7 +26,6 @@
   position: relative;
   display: inline-block;
   height: 100vh;
-  margin: 15px;
   border-radius: 4px;
   background: lavender;
   overflow-y: auto;
@@ -49,7 +48,7 @@
 
   @media screen and (min-width: 1024px) {
     width: 1200px;
-    height: 400px;
+    height: 380px;
     padding-left: 45px;
     padding-right: 45px;
   }
@@ -57,34 +56,33 @@
 
 .modal-btn-close {
   position: absolute;
-  border: none;
-  top: 15px;
-  right: 15px;
-  width: 20px;
-  height: 20px;
-  fill: grey;
+  top: 10px;
+  right: 10px;
+  width: 25px;
+  height: 25px;
+  background-color: rgb(83, 83, 83);
   box-sizing: border-box;
-  border-radius: 4px;
+  border-radius: 50%;
+  border: 2px var(--accent-color) solid;
+  color: var(--main-bg-color);
   cursor: pointer;
-  transition: fill var(--timing-function);
+  transition: background-color var(--timing-function);
 
   &:focus,
   &:hover {
-    fill: var(--accent-color);
+    background-color: white;
+    color: var(--accent-color);
+    border: 2px var(--primary-text-color) solid;
   }
 
   @media screen and (min-width: 768px) {
-    top: 20px;
+    top: 15px;
     right: 15px;
-    width: 20px;
-    height: 20px;
   }
 
   @media screen and (min-width: 1024px) {
     top: 25px;
-    right: 20px;
-    width: 25px;
-    height: 25px;
+    right: 25px;
   }
 }
 
@@ -94,11 +92,10 @@
   justify-content: center;
   font-weight: bold;
   font-size: 20px;
-  color: black;
-  padding-top: 15px;
+  margin: 30px;
 }
 
-.title__our {
+.title__super {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -108,7 +105,7 @@
   color: var(--main-bg-color);
 }
 
-.title__team {
+.title__dev {
   display: flex;
   width: 100px;
   height: 40px;
@@ -119,9 +116,8 @@
   color: var(--main-bg-color);
 }
 
-.our__team {
+.team-super__dev {
   list-style: none;
-  margin-top: 30px;
 
   @media screen and (min-width: 320px) {
     display: grid;
@@ -140,11 +136,9 @@
 }
 
 .team__info {
-  margin-top: 15px;
-
   @media screen and (max-width: 767px) {
-    margin-right: -35px;
-    margin-left: -35px;
+    margin-right: -25px;
+    margin-left: -25px;
   }
 }
 
@@ -158,7 +152,7 @@
 }
 
 .team__name {
-  margin-top: 15px;
+  margin-top: 25px;
   font-style: normal;
   font-weight: bold;
 
@@ -240,13 +234,13 @@
   margin-right: auto;
 
   @media screen and (max-width: 767px) {
-    width: 90px;
-    height: 110px;
+    width: 100px;
+    height: 120px;
   }
 
   @media screen and (min-width: 768px) {
-    width: 110px;
-    height: 130px;
+    width: 120px;
+    height: 140px;
   }
 }
 
@@ -269,6 +263,7 @@
   background-repeat: no-repeat;
   background-position-x: center;
   background-size: cover;
+  top: 15px;
 }
 
 .front_1 {

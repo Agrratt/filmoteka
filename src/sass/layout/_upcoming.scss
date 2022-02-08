@@ -1,10 +1,22 @@
+.upcoming-title {
+  color: #052f57;
+  font-size: 16px;
+  @media screen and (max-width: 767px) {
+    display: none;
+  }
+}
 .upcoming__list {
   padding: 15px 5px 10px 5px;
   display: flex;
   justify-content: center;
-  background-color: orange;
-  margin-bottom: 15px;
-  @media screen and (min-width: 768px) and (max-width: 1024px) {
+  background-color: rgb(0 0 0 / 15%);
+
+  margin-bottom: 20px;
+  @media screen and (min-width: 1023px) {
+    max-width: 882px;
+  }
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
+    height: 140px;
     max-width: 740px;
   }
   @media screen and (max-width: 767px) {
@@ -13,9 +25,15 @@
 }
 
 .upcoming___image {
+  border-radius: 2px;
   margin-bottom: 5px;
   @media screen and (min-width: 768px) and (max-width: 1024px) {
     width: 65px;
+    height: 97px;
+  }
+  @media screen and (min-width: 1023px) {
+    width: 100px;
+    height: 148px;
   }
 }
 
@@ -24,31 +42,51 @@
 }
 
 .upcoming__item {
-  margin-bottom: 10px;
+  transition-property: transform;
+  // transition-duration: 350ms;
+  // transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  // transition-delay: 0ms;
+  // transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
   @media screen and (min-width: 768px) and (max-width: 1024px) {
     width: 65px;
+  }
+  @media screen and (min-width: 1023px) {
+    width: 100px;
   }
 }
 
 .upcoming__info {
   width: 100px;
-  @media screen and (min-width: 768px) and (max-width: 1024px) {
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
     width: 65px;
   }
 }
 
 .upcoming__info-title {
-  font-size: 12px;
-  margin-bottom: 5px;
+  display: none;
+  color: #052f57;
+  background-color: #052f5741;
+  border-radius: 5px;
+  font-size: 15px;
+  // stroke: 2px black;
+  margin-bottom: 3px;
+  text-align: center;
 }
 
 .upcoming__info-date {
-  display: block;
+  display: none;
   font-size: 12px;
 }
 
 .upcoming__info-genre {
+  font-size: 12px;
+  font-weight: 500;
+  color: #052f57;
   display: block;
+  text-align: center;
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    font-size: 12px;
+  }
 }
 
 .upcoming__info-vote-year {
@@ -67,11 +105,101 @@
   color: white;
   background-color: var(--accent-color);
 }
+.upcoming__info-year {
+  background-color: #052f5741;
+}
 
 .upcoming__item:hover,
 .upcoming__item:focus {
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06),
+    1px 4px 6px rgba(0, 0, 0, 0.16);
   transform: translateY(-10px);
-  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
   //   transform: translateX(10px);
   cursor: pointer;
+}
+
+.upcoming__item:hover .upcoming__info-title,
+.upcoming__item:focus .upcoming__info-title {
+  display: block;
+  // -webkit-text-stroke-width: 0.05px;
+  // -webkit-text-stroke-color: rgb(1, 2, 15);
+  color: aliceblue;
+  transform: translateY(-160px);
+  // margin-bottom: -30px;
+  padding-bottom: 5px;
+}
+
+.upcoming__item:hover .upcoming__info-date,
+.upcoming__item:focus .upcoming__info-date {
+  display: block;
+  text-align: center;
+  color: aliceblue;
+  transform: translateY(-130px);
+  margin-bottom: -45px;
+  padding-bottom: 5px;
+}
+
+.upcoming__item:hover .upcoming__info-genre,
+.upcoming__item:focus .upcoming__info-genre {
+  display: none;
+}
+
+.upcoming__item:hover .upcoming__info,
+.upcoming__item:focus .upcoming__info {
+  max-height: fit-content;
+  padding-bottom: -70px;
+}
+
+.upcoming__item:hover .upcoming___image,
+.upcoming__item:focus .upcoming___image {
+  margin-bottom: -10px;
+  transform: scale(145%);
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .upcoming__item:hover .upcoming__info-title,
+  .upcoming__item:focus .upcoming__info-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // -webkit-text-stroke-width: 0.05px;
+    // -webkit-text-stroke-color: rgb(1, 2, 15);
+    color: aliceblue;
+    font-size: 13px;
+    transform: translateY(-120px);
+    // margin-bottom: -30px;
+    padding-bottom: 0px;
+  }
+
+  .upcoming__item:hover .upcoming__info-date,
+  .upcoming__item:focus .upcoming__info-date {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: aliceblue;
+    transform: translateY(-120px);
+    margin-bottom: -45px;
+    padding-bottom: -25px;
+  }
+
+  .upcoming__item:hover .upcoming__info-genre,
+  .upcoming__item:focus .upcoming__info-genre {
+    display: none;
+  }
+
+  .upcoming__item:hover .upcoming__info,
+  .upcoming__item:focus .upcoming__info {
+    padding-bottom: -30px;
+  }
+
+  .upcoming__item:hover .upcoming___image,
+  .upcoming__item:focus .upcoming___image {
+    margin-bottom: -10px;
+    transform: scale(170%);
+  }
+
+  .upcoming__item:hover .upcoming__info-year,
+  .upcoming__item:focus .upcoming__info-year {
+    padding-top: 5px;
+  }
 }
