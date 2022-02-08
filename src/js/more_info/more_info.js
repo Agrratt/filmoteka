@@ -4,6 +4,8 @@ import { addTrailerPlayer } from '../main/showMovieTrailer';
 import { player } from '../main/showMovieTrailer';
 import fetchDetailsMovieImages from '../api/fetchDetailsImages';
 import SimpleLightbox from 'simplelightbox';
+import fetchSimilarMovie from '../api/fetchSimilarMovie'
+import { tns } from 'tiny-slider';
 // Дополнительный импорт стилей
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
@@ -24,6 +26,7 @@ refs.gallery.addEventListener('click', onCardClick);
 refs.btnWatchedModal.addEventListener('click', onSetWatched);
 refs.btnQueueModal.addEventListener('click', onSetQueue);
 
+
 function clearModal() {
   refs.detailImg.src = '';
   refs.movieTitle.textContent = '';
@@ -33,6 +36,33 @@ function clearModal() {
   refs.originalTitle.textContent = '';
   refs.overview.textContent = '';
 }
+
+ 
+const secondModBlockEl = document.querySelector(".second__modal");
+const secondModalBtn = document.querySelector(".second__modal__btn");
+
+secondModBlockEl.addEventListener('click', (e) => {
+  const secondModalItem = e.target.parentNode;
+  clearModal();
+  player.stopVideo();
+    refs.imageGallery.innerHTML = " ";
+    clearSecondModal()
+    secondModBlockEl.classList.add("second__modal--hidden");
+  secondModalBtn.removeEventListener("click", onSecondModalBtn);
+  
+  renderModal(secondModalItem.id);
+  addTrailerPlayer(secondModalItem.id);
+  
+})
+
+ function onSecondModalBtn() {
+   secondModBlockEl.classList.toggle("second__modal--hidden");
+   refs.modal.scrollTo(0, 1200);
+  }
+
+  function clearSecondModal() {
+    secondModBlockEl.innerHTML = "";
+  }
 
 function onCardClick(e) {
   e.preventDefault();
@@ -45,9 +75,15 @@ function onCardClick(e) {
     return;
   }
 
+
+  // stoper ----------------------------
+
+
   // stoper ----------------------------
   renderModal(cardItemId);
   addTrailerPlayer(cardItemId);
+
+  
 
   refs.backdrop.classList.remove('modal-is-hidden');
 
@@ -56,7 +92,14 @@ function onCardClick(e) {
     refs.body.classList.remove('body__fixed');
     clearModal();
     player.stopVideo();
+
+    refs.imageGallery.innerHTML = " ";
+    clearSecondModal()
+    secondModBlockEl.classList.add("second__modal--hidden");
+    secondModalBtn.removeEventListener("click", onSecondModalBtn);
+
     refs.imageGallery.innerHTML = ' ';
+
   });
 
   refs.backdrop.addEventListener('click', event => {
@@ -65,7 +108,14 @@ function onCardClick(e) {
       refs.body.classList.remove('body__fixed');
       clearModal();
       player.stopVideo();
+
+      refs.imageGallery.innerHTML = " ";
+      clearSecondModal()
+      secondModBlockEl.classList.add("second__modal--hidden");
+      secondModalBtn.removeEventListener("click", onSecondModalBtn);
+
       refs.imageGallery.innerHTML = ' ';
+
     }
   });
   refs.body.classList.add('body__fixed');
@@ -184,6 +234,17 @@ function onSetQueue(e) {
 
 export function renderModal(cardItemId) {
   // modal events ----------------------------
+
+  refs.modal.scrollTo(0, 0)
+
+  const screenWidth = window.screen.width;
+  const iframeEl = document.querySelector("iframe");
+
+  if (!window.screen.width > 1024) {
+       iframeEl.width = "auto";
+  }
+
+   iframeEl.width = 700;
   // Backdrop unhide
   refs.backdrop.classList.remove('modal-is-hidden');
   // baackdrop hide
@@ -195,6 +256,9 @@ export function renderModal(cardItemId) {
       clearModal();
       removeListerer();
       player.stopVideo();
+      clearSecondModal()
+      secondModalBtn.removeEventListener("click", onSecondModalBtn);
+      secondModBlockEl.classList.add("second__modal--hidden");
 
       if (
         refs.btnWatched.classList.contains('button__active') &&
@@ -377,4 +441,50 @@ export function renderModal(cardItemId) {
       closeButton.style = 'display: none';
     }
   }
+  }
+
+  const slider = tns({
+    container: '.my-slider',
+    items: 8,
+    responsive: {
+      640: {
+        edgePadding: 20,
+        gutter: 20,
+        items: 5
+      },
+      700: {
+        gutter: 30
+      },
+      900: {
+        items: 3
+      }
+    }
+  });
+
+  function htmlSimilarMovie(id, poster) {
+  return`
+    <div class='similar__item' id=${id}>
+        <img class="similar___image tns-item tns-slide-active" style = "border-radius: 5px" src=${poster} alt='Обложка фильма' loading='lazy' width="100px" height="148px" />
+    </div>`
+    };
+
+    function renderSimilarMovies(movies) {
+      return movies.map(({ id, poster_path }) => {
+        const poster = poster_path
+        ? `https://image.tmdb.org/t/p/w500${poster_path}`
+          : 'https://upload.wikimedia.org/wikipedia/commons/c/c2/No_image_poster.png';    
+    return htmlSimilarMovie(id, poster)    
+    })
+    .join('');  
 }
+
+
+  fetchSimilarMovie(cardItemId).then(result => {   
+    const moviesSimilar = result.results.slice(0, 7);
+    secondModBlockEl.insertAdjacentHTML('beforeend', renderSimilarMovies(moviesSimilar));  
+  })
+
+  secondModalBtn.addEventListener("click", onSecondModalBtn);
+}
+
+

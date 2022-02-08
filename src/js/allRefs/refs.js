@@ -32,6 +32,7 @@ const refs = {
   buttonBlock: document.querySelector('.detail__buttons_block'),
   imageGallery: document.querySelector('.detail__image__gallery'),
   upcomingMovies: document.querySelector('.upcoming__list'),
+  modal: document.querySelector(".modal"),
   upcomingTitle:document.querySelector('.upcoming-title'),
 };
 export default refs;
