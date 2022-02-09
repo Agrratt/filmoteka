@@ -256,6 +256,7 @@ export function renderModal(cardItemId) {
       clearSecondModal();
       secondModalBtn.removeEventListener('click', onSecondModalBtn);
       secondModBlockEl.classList.add('second__modal--hidden');
+      refs.imageGallery.innerHTML = ' ';
 
       if (
         refs.btnWatched.classList.contains('button__active') &&
