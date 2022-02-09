@@ -55,14 +55,18 @@ function getGenres(arrayId) {
 fetchUpcomingMovies().then(r => {
   const movies = r.results;
   // console.log(movies);
-  let sortMovies = []
+  let sortMovies = [];
   movies.map(movie => {
-    if (movie.backdrop_path === null || movie.poster_path === null || movie.genre_ids.length === 0) {
-      return
+    if (
+      movie.backdrop_path === null ||
+      movie.poster_path === null ||
+      movie.genre_ids.length === 0
+    ) {
+      return;
     } else {
-      sortMovies.push(movie)
+      sortMovies.push(movie);
     }
-  })
+  });
   // console.log(sortMovies);
   refs.upcomingMovies.insertAdjacentHTML('beforeend', renderUpconingMovies(sortMovies));
   $('.upcoming__list').slick({
@@ -77,6 +81,7 @@ fetchUpcomingMovies().then(r => {
     slidesPerRow: 1,
     swipe: true,
     swipeToSlide: true,
+    accessibility: false,
   });
 });
 
@@ -113,8 +118,8 @@ function onMovieCard(e) {
   }
   // console.log(e.target.nodeName);
   // console.log(e);
-  const cardItemId = e.target.id;
-  
+  const cardItemId = e.target.dataset.id;
+
   // console.log(cardItemId);
   renderModal(cardItemId);
   addTrailerPlayer(cardItemId);
