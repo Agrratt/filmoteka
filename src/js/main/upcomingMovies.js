@@ -54,8 +54,17 @@ function getGenres(arrayId) {
 
 fetchUpcomingMovies().then(r => {
   const movies = r.results;
-  console.log(movies);
-  refs.upcomingMovies.insertAdjacentHTML('beforeend', renderUpconingMovies(movies));
+  // console.log(movies);
+  let sortMovies = []
+  movies.map(movie => {
+    if (movie.backdrop_path === null || movie.poster_path === null || movie.genre_ids.length === 0) {
+      return
+    } else {
+      sortMovies.push(movie)
+    }
+  })
+  // console.log(sortMovies);
+  refs.upcomingMovies.insertAdjacentHTML('beforeend', renderUpconingMovies(sortMovies));
   $('.upcoming__list').slick({
     slidesToShow: 8,
     slidesToScroll: 1,
