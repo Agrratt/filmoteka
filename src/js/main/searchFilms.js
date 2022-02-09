@@ -15,9 +15,8 @@ import { eventPagination } from '../main/renderMain';
 import { page } from '../main/renderMain';
 import { renderModal } from '../more_info/more_info';
 import { addTrailerPlayer } from '../main/showMovieTrailer';
-import {player} from '../main/showMovieTrailer';
-
-
+import { player } from '../main/showMovieTrailer';
+import renderMarkupHome from '../header/renderMarkupHome';
 // ================== db imports ==================
 import getWatchesFilms from '../db/getWatchesFilms';
 import getQueuesFilms from '../db/getQueuesFilms';
@@ -124,6 +123,7 @@ function onInput(e) {
 // ==================  search submit ==================
 function onSubmit(e) {
   e.preventDefault();
+  refs.home.addEventListener('click', renderMarkupHome, { once: true });
   refs.tuiContainer.classList.remove('visually-hidden');
   pagination.off('afterMove', eventPagination);
   const searchValue = e.currentTarget.elements[0].value.trim();
@@ -149,6 +149,7 @@ function onSubmit(e) {
       });
     }
   });
+  e.currentTarget.reset();
 }
 
 // ================== make modal refs ==================
@@ -188,62 +189,59 @@ function onSearchLine(e) {
   }
 
   renderModal(cardItemId);
-  addTrailerPlayer(cardItemId)
+  addTrailerPlayer(cardItemId);
 
-getWatchesFilms().then(dataDb => {
-  if (dataDb) {
-    const keys = Object.keys(dataDb);
-    for (const key of keys) {
-      if (dataDb[key].id === Number(cardItemId)) {
-        modalRefs.spanWatched.textContent = 'REMOVE';
-        modalRefs.spanWatchedAdd.textContent = 'FROM';
-        modalRefs.btnWatchedModal.classList.add('detail__button--active');
-        modalRefs.btnWatchedModal.classList.remove('detail__button--disable');
-        return;
+  getWatchesFilms().then(dataDb => {
+    if (dataDb) {
+      const keys = Object.keys(dataDb);
+      for (const key of keys) {
+        if (dataDb[key].id === Number(cardItemId)) {
+          modalRefs.spanWatched.textContent = 'REMOVE';
+          modalRefs.spanWatchedAdd.textContent = 'FROM';
+          modalRefs.btnWatchedModal.classList.add('detail__button--active');
+          modalRefs.btnWatchedModal.classList.remove('detail__button--disable');
+          return;
+        }
       }
+      modalRefs.spanWatched.textContent = 'ADD';
+      modalRefs.spanWatchedAdd.textContent = 'TO';
+      modalRefs.btnWatchedModal.classList.remove('detail__button--active');
+      modalRefs.btnWatchedModal.classList.add('detail__button--disable');
+    } else {
+      modalRefs.spanWatched.textContent = 'ADD';
+      modalRefs.spanWatchedAdd.textContent = 'TO';
+      modalRefs.btnWatchedModal.classList.remove('detail__button--active');
+      modalRefs.btnWatchedModal.classList.add('detail__button--disable');
     }
-    modalRefs.spanWatched.textContent = 'ADD';
-    modalRefs.spanWatchedAdd.textContent = 'TO';
-    modalRefs.btnWatchedModal.classList.remove('detail__button--active');
-    modalRefs.btnWatchedModal.classList.add('detail__button--disable');
-  } else {
-    modalRefs.spanWatched.textContent = 'ADD';
-    modalRefs.spanWatchedAdd.textContent = 'TO';
-    modalRefs.btnWatchedModal.classList.remove('detail__button--active');
-    modalRefs.btnWatchedModal.classList.add('detail__button--disable');
-  }
-});
-getQueuesFilms().then(dataDb => {
-  if (dataDb) {
-    const keys = Object.keys(dataDb);
-    for (const key of keys) {
-      if (dataDb[key].id === Number(cardItemId)) {
-        modalRefs.spanQueue.textContent = 'REMOVE';
-        modalRefs.spanQueueAdd.textContent = 'FROM';
-        modalRefs.btnQueueModal.classList.add('detail__button--active');
-        modalRefs.btnQueueModal.classList.remove('detail__button--disable');
-        return;
+  });
+  getQueuesFilms().then(dataDb => {
+    if (dataDb) {
+      const keys = Object.keys(dataDb);
+      for (const key of keys) {
+        if (dataDb[key].id === Number(cardItemId)) {
+          modalRefs.spanQueue.textContent = 'REMOVE';
+          modalRefs.spanQueueAdd.textContent = 'FROM';
+          modalRefs.btnQueueModal.classList.add('detail__button--active');
+          modalRefs.btnQueueModal.classList.remove('detail__button--disable');
+          return;
+        }
       }
+      modalRefs.spanQueue.textContent = 'ADD';
+      modalRefs.spanQueueAdd.textContent = 'TO';
+      modalRefs.btnQueueModal.classList.remove('detail__button--active');
+      modalRefs.btnQueueModal.classList.add('detail__button--disable');
+    } else {
+      modalRefs.spanQueue.textContent = 'ADD';
+      modalRefs.spanQueueAdd.textContent = 'TO';
+      modalRefs.btnQueueModal.classList.remove('detail__button--active');
+      modalRefs.btnQueueModal.classList.add('detail__button--disable');
     }
-    modalRefs.spanQueue.textContent = 'ADD';
-    modalRefs.spanQueueAdd.textContent = 'TO';
-    modalRefs.btnQueueModal.classList.remove('detail__button--active');
-    modalRefs.btnQueueModal.classList.add('detail__button--disable');
-  } else {
-    modalRefs.spanQueue.textContent = 'ADD';
-    modalRefs.spanQueueAdd.textContent = 'TO';
-    modalRefs.btnQueueModal.classList.remove('detail__button--active');
-    modalRefs.btnQueueModal.classList.add('detail__button--disable');
-  }
-});
+  });
 }
-
-
 
 // modalRefs.gallary.addEventListener('click', onCardClick);
 // modalRefs.btnWatched.addEventListener('click', onSetWatched);
 // modalRefs.btnQueue.addEventListener('click', onSetQueue);
-
 
 //   modalRefs.backdrop.classList.remove('is-hidden');
 
@@ -326,7 +324,6 @@ getQueuesFilms().then(dataDb => {
 //     }
 //   });
 // }
-
 
 // function onSetWatched(e) {
 //     if (!e.currentTarget.classList.contains('watched')) {
