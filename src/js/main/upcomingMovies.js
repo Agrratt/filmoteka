@@ -82,6 +82,7 @@ fetchUpcomingMovies().then(r => {
     swipe: true,
     swipeToSlide: true,
     accessibility: false,
+    draggable: false,
   });
 });
 
