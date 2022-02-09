@@ -71,6 +71,12 @@ fetchUpcomingMovies().then(r => {
     autoplay: true,
     autoplaySpeed: 2000,
     arrows: false,
+    centerMode: true,
+    centerPadding: '15px',
+    edgeFriction: 0.6,
+    slidesPerRow: 1,
+    swipe: true,
+    swipeToSlide: true,
   });
 });
 
@@ -102,8 +108,13 @@ function renderUpconingMovies(movies) {
 }
 
 function onMovieCard(e) {
+  if (e.target.nodeName === 'DIV') {
+    return;
+  }
+  // console.log(e.target.nodeName);
   // console.log(e);
   const cardItemId = e.target.id;
+  
   // console.log(cardItemId);
   renderModal(cardItemId);
   addTrailerPlayer(cardItemId);
