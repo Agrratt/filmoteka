@@ -24,8 +24,18 @@ import {
 refs.gallery.addEventListener('click', onCardClick);
 refs.btnWatchedModal.addEventListener('click', onSetWatched);
 refs.btnQueueModal.addEventListener('click', onSetQueue);
+refs.secondModalBtn.addEventListener('click', onSecondModalBtn);
+refs.secondModBlockEl.addEventListener('click', secondModalClickItem);
 
-function clearModal() {
+
+function onSecondModalBtn() {
+  refs.secondModBlockEl.classList.toggle('second__modal--hidden');
+  refs.modal.scrollTo(0, 1200);
+}
+
+// cLEAR MODAL -------------------------------- CLEAR MODAL
+
+  function clearModal() {
   refs.detailImg.src = '';
   refs.movieTitle.textContent = '';
   refs.vote_average.textContent = '';
@@ -33,36 +43,31 @@ function clearModal() {
   refs.popularity.textContent = '';
   refs.originalTitle.textContent = '';
   refs.overview.textContent = '';
-}
-
-const secondModBlockEl = document.querySelector('.second__modal');
-const secondModalBtn = document.querySelector('.second__modal__btn');
-
-secondModBlockEl.addEventListener('click', e => {
-  const secondModalItem = e.target.parentNode;
-
-  if (!e.target.parentNode.classList.contains('similar__item')) {
-    return;
-  }
-
-  clearModal();
-  player.stopVideo();
   refs.imageGallery.innerHTML = ' ';
-  clearSecondModal();
-  secondModBlockEl.classList.add('second__modal--hidden');
-  secondModalBtn.removeEventListener('click', onSecondModalBtn);
-  renderModal(secondModalItem.id);
-  addTrailerPlayer(secondModalItem.id);
-});
+  refs.secondModBlockEl.innerHTML = '';
 
-function onSecondModalBtn() {
-  secondModBlockEl.classList.toggle('second__modal--hidden');
-  refs.modal.scrollTo(0, 1200);
+  clearGallery()
+    
+  refs.secondModBlockEl.classList.add('second__modal--hidden');
 }
 
-function clearSecondModal() {
-  secondModBlockEl.innerHTML = '';
+// cLEAR MODAL -------------------------------- CLEAR MODAL
+
+// CLEAR GALLARY -------------------------------- CLEAR GALLARY
+
+function clearGallery() {
+  refs.imageGallery.innerHTML = ' ';
 }
+
+// CLEAR GALLARY -------------------------------- CLEAR GALLARY
+
+// SECOND MODAL -------------------------------- SECOND MODAL -------------------------------- SECOND MODAL
+
+
+// SECOND MODAL -------------------------------- SECOND MODAL -------------------------------- SECOND MODAL
+
+
+// CARD CLICK -------------------------------- CARD CLICK -------------------------------- CARD CLICK
 
 function onCardClick(e) {
   e.preventDefault();
@@ -70,7 +75,6 @@ function onCardClick(e) {
   const cardItem = e.target.parentNode;
   const cardItemId = cardItem.id;
 
-  // stoper ----------------------------
   if (
     !cardItem.classList.contains('list_film_link') &&
     !cardItem.classList.contains('list_film_item')
@@ -78,45 +82,17 @@ function onCardClick(e) {
     return;
   }
 
-  // stoper ----------------------------
-
-  // stoper ----------------------------
   renderModal(cardItemId);
   addTrailerPlayer(cardItemId);
 
   refs.backdrop.classList.remove('modal-is-hidden');
 
-  refs.closeBtn.addEventListener('click', () => {
-    refs.backdrop.classList.add('modal-is-hidden');
-    refs.body.classList.remove('body__fixed');
-    clearModal();
-    player.stopVideo();
-
-    refs.imageGallery.innerHTML = ' ';
-    clearSecondModal();
-    secondModBlockEl.classList.add('second__modal--hidden');
-    secondModalBtn.removeEventListener('click', onSecondModalBtn);
-
-    refs.imageGallery.innerHTML = ' ';
-  });
-
-  refs.backdrop.addEventListener('click', event => {
-    if (event.target.classList.contains('backdrop')) {
-      refs.backdrop.classList.add('modal-is-hidden');
-      refs.body.classList.remove('body__fixed');
-      clearModal();
-      player.stopVideo();
-
-      refs.imageGallery.innerHTML = ' ';
-      clearSecondModal();
-      secondModBlockEl.classList.add('second__modal--hidden');
-      secondModalBtn.removeEventListener('click', onSecondModalBtn);
-
-      refs.imageGallery.innerHTML = ' ';
-    }
-  });
   refs.body.classList.add('body__fixed');
 }
+
+// CARD CLICK -------------------------------- CARD CLICK -------------------------------- CARD CLICK
+
+// FIRE BASE FUNCTIONS -------------------------------- FIRE BASE FUNCTIONS
 
 function onSetWatched(e) {
   if (!e.currentTarget.classList.contains('watched')) {
@@ -229,61 +205,16 @@ function onSetQueue(e) {
   });
 }
 
-export function renderModal(cardItemId) {
-  // modal events ----------------------------
+// FIRE BASE FUNCTIONS -------------------------------- FIRE BASE FUNCTIONS
 
-  refs.modal.scrollTo(0, 0);
-
-  const screenWidth = window.screen.width;
-  const iframeEl = document.querySelector('iframe');
-
-  if (!window.screen.width > 1024) {
-    iframeEl.width = 'auto';
-  }
-
-  iframeEl.width = 700;
-  // Backdrop unhide
-  refs.backdrop.classList.remove('modal-is-hidden');
-  // baackdrop hide
-
-  function onEscapeBtn(event) {
-    if (event.key === 'Escape') {
-      refs.backdrop.classList.add('modal-is-hidden');
-      refs.body.classList.remove('body__fixed');
-      clearModal();
-      removeListerer();
-      player.stopVideo();
-      clearSecondModal();
-      secondModalBtn.removeEventListener('click', onSecondModalBtn);
-      secondModBlockEl.classList.add('second__modal--hidden');
-      refs.imageGallery.innerHTML = ' ';
-
-      if (
-        refs.btnWatched.classList.contains('button__active') &&
-        !refs.home.classList.contains('active')
-      ) {
-        updateWatchedAfterClosingMore_info();
-      } else if (
-        refs.btnQueue.classList.contains('button__active') &&
-        !refs.home.classList.contains('active')
-      ) {
-        updateQueueAfterClosingMore_info();
-      }
-    }
-  }
-
-  function removeListerer() {
-    document.removeEventListener('keydown', onEscapeBtn);
-    refs.closeBtn.removeEventListener('click', onCloseBtn);
-    refs.backdrop.removeEventListener('click', onCloseBackdrop);
-  }
+// CLOSE BUTTON -------------------------------- CLOSE BUTTON
 
   function onCloseBtn() {
     refs.backdrop.classList.add('modal-is-hidden');
     refs.body.classList.remove('body__fixed');
+
     clearModal();
     removeListerer();
-
     player.stopVideo();
 
     if (
@@ -298,17 +229,21 @@ export function renderModal(cardItemId) {
       updateQueueAfterClosingMore_info();
     }
   }
-
+  
   refs.closeBtn.addEventListener('click', onCloseBtn);
+
+  // CLOSE BUTTON -------------------------------- CLOSE BUTTON
+
+  // CLOSE BACKDROP -------------------------------- CLOSE BACDROP
 
   function onCloseBackdrop(event) {
     if (event.target.classList.contains('backdrop')) {
+
       refs.backdrop.classList.add('modal-is-hidden');
       refs.body.classList.remove('body__fixed');
+
       clearModal();
-
       removeListerer();
-
       player.stopVideo();
 
       if (
@@ -327,9 +262,84 @@ export function renderModal(cardItemId) {
 
   refs.backdrop.addEventListener('click', onCloseBackdrop);
 
-  document.addEventListener('keydown', onEscapeBtn);
+  // CLOSE BACKDROP -------------------------------- CLOSE BACDROP
+  
+  // CLOSE ESCAPE -------------------------------- CLOSE ESCAPE
 
-  // Images ---------
+   function onEscapeBtn(event) {
+    if (event.key === 'Escape') {
+      refs.backdrop.classList.add('modal-is-hidden');
+      refs.body.classList.remove('body__fixed');
+
+      clearModal();
+      player.stopVideo();
+      removeListerer();
+
+      refs.secondModBlockEl.classList.add('second__modal--hidden');
+
+      if (
+        refs.btnWatched.classList.contains('button__active') &&
+        !refs.home.classList.contains('active')
+      ) {
+        updateWatchedAfterClosingMore_info();
+      } else if (
+        refs.btnQueue.classList.contains('button__active') &&
+        !refs.home.classList.contains('active')
+      ) {
+        updateQueueAfterClosingMore_info();
+      }
+    }
+  }
+
+
+// CLOSE ESCAPE -------------------------------- CLOSE ESCAPE
+
+// REMOVE LISTENERS -------------------------------- REMOVE LISTENERS
+
+function removeListerer() {
+    document.removeEventListener('keydown', onEscapeBtn);
+}
+  
+// REMOVE LISTENERS -------------------------------- REMOVE LISTENERS
+
+// SECOND MODAL CLICK ITEM -------------------------------- SECOND MODAL CLICK ITEM
+
+function secondModalClickItem(e) {
+  clearModal()
+
+  const secondModalItem = e.target.parentNode;
+  if (!e.target.parentNode.classList.contains('similar__item')) {
+    return;
+  }
+
+  player.stopVideo();
+  
+  renderModal(secondModalItem.id);
+  addTrailerPlayer(secondModalItem.id);
+}
+
+// RENDER FUNCTION -------------------------------- RENDER FUNCTION -------------------------------- RENDER FUNCTION
+
+export function renderModal(cardItemId) {
+
+  document.addEventListener('keydown', onEscapeBtn);
+  
+  refs.modal.scrollTo(0, 0);
+
+  const iframeEl = document.querySelector('iframe');
+
+  if (!window.screen.width > 1024) {
+    iframeEl.width = 'auto';
+  }
+
+  iframeEl.width = 700;
+
+  // Backdrop unhide
+  refs.backdrop.classList.remove('modal-is-hidden');
+  // baackdrop hide
+
+
+  // IMAGES -------------------------------- IMAGES
 
   fetchDetailsMovieImages(cardItemId).then(result => {
     if (result.backdrops.length > 1) {
@@ -382,17 +392,8 @@ export function renderModal(cardItemId) {
     refs.genres.textContent = genres.join(', ');
   });
 
-  function clearModal() {
-    refs.detailImg.src = '';
-    refs.movieTitle.textContent = '';
-    refs.vote_average.textContent = '';
-    refs.vote_count.textContent = '';
-    refs.popularity.textContent = '';
-    refs.originalTitle.textContent = '';
-    refs.overview.textContent = '';
-  }
+// FIRE BASE FUNCTIONS -------------------------------- FIRE BASE FUNCTIONS
 
-  // Buttons ---------------------------------
   getWatchesFilms().then(dataDb => {
     if (dataDb) {
       const keys = Object.keys(dataDb);
@@ -440,6 +441,8 @@ export function renderModal(cardItemId) {
     }
   });
 
+// FIRE BASE FUNCTIONS -------------------------------- FIRE BASE FUNCTIONS
+  
   closeArrow();
 
   function closeArrow() {
@@ -469,8 +472,6 @@ export function renderModal(cardItemId) {
 
   fetchSimilarMovie(cardItemId).then(result => {
     const moviesSimilar = result.results.slice(0, 7);
-    secondModBlockEl.insertAdjacentHTML('beforeend', renderSimilarMovies(moviesSimilar));
+    refs.secondModBlockEl.insertAdjacentHTML('beforeend', renderSimilarMovies(moviesSimilar));
   });
-
-  secondModalBtn.addEventListener('click', onSecondModalBtn);
 }

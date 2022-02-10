@@ -33,6 +33,8 @@ const refs = {
   imageGallery: document.querySelector('.detail__image__gallery'),
   upcomingMovies: document.querySelector('.upcoming__list'),
   modal: document.querySelector(".modal"),
-  upcomingTitle:document.querySelector('.upcoming-title'),
+  upcomingTitle: document.querySelector('.upcoming-title'),
+  secondModBlockEl: document.querySelector('.second__modal'),
+  secondModalBtn: document.querySelector('.second__modal__btn'),
 };
 export default refs;
