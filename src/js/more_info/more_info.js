@@ -305,14 +305,13 @@ function removeListerer() {
 // SECOND MODAL CLICK ITEM -------------------------------- SECOND MODAL CLICK ITEM
 
 function secondModalClickItem(e) {
-  clearModal()
-
   const secondModalItem = e.target.parentNode;
   if (!e.target.parentNode.classList.contains('similar__item')) {
     return;
   }
 
   player.stopVideo();
+  clearModal()
   
   renderModal(secondModalItem.id);
   addTrailerPlayer(secondModalItem.id);
